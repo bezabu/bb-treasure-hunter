@@ -2,21 +2,25 @@ let canvas = document.getElementById("game-area");
 let ctx = canvas.getContext("2d");
 let CanvasWidth = canvas.width = 800;
 let CanvasHeight = canvas.height = 450;
-
+let xScreenOffset = 0;
+let yScreenOffset = 0;
 //texting canvas
+/*
 ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 ctx.fillStyle = "#ffffff";
 ctx.fillRect(CanvasWidth * 0.1, CanvasHeight * 0.1, CanvasWidth * 0.8, CanvasHeight * 0.8);
 ctx.fillStyle = "#000000";
 ctx.fillRect(CanvasWidth * 0.2, CanvasHeight * 0.2, CanvasWidth * 0.6, CanvasHeight * 0.6);
-
+*/
 
 // set terrain map variables
 let maxHeight = 20;
 let rows = 11;
 let columns = 11;
+let tileWidth = 32;
+let tileHeight = tileWidth / 2;
 
-//create arrays for storing object coordinates
+//create arrays for storing terrain height and feature coordinates
 let heightMap = [];
 let featureMap = [];
 
@@ -43,14 +47,14 @@ for (let n = 0; n < 10; n++) {
             //one in 4 chance to make a tree
             featureMap[n][m] = 1;
             //enter the object in the drawobject list
-            
-            console.log(`New tree, ${entry} at ${n},${m}`);
+
+            //console.log(`New tree, ${entry} at ${n},${m}`);
         } else {
             if (myGetRandomInt(4) > 3) {
                 featureMap[n][m] = 2;
                 //enter the object in the drawobject list
-                
-                console.log(`New rock, ${entry} at ${n},${m}`);
+
+                //console.log(`New rock, ${entry} at ${n},${m}`);
                 //one in 5 chance to make a rock
             }
         }
@@ -77,4 +81,30 @@ function inverseIsoY(x, y, tileWidth, tileHeight) {
     halfTileHeight = tileHeight / 2;
     let mapY = (y / halfTileHeight - (x / halfTileWidth)) / 2;
     return mapY;
+}
+//returns a random integer between 0 and maxNum
+function myGetRandomInt(maxNum) {
+    let randomInt = Math.round(Math.random() * maxNum);
+    console.log(`random int: ${randomInt}`);
+    return randomInt;
+}
+
+//draw terain
+let heightOffSet = "";
+let heightOffSetNextX = "";
+let heightOffSetNextXY = "";
+for (let n = 1; n < 10; n++) {
+    for (let m = 1; m < 10; m++) {
+        heightOffSet = heightMap[n][m];
+        heightOffSetNextX = heightMap[n + 1][m];
+        heightOffSetNextXY = heightMap[n + 1][m + 1];
+        getIsoX(n, m, tileWidth, tileWidth / 2);
+        getIsoY(n, m, tileWidth, tileWidth / 2);
+        ctx.beginPath();
+        ctx.moveTo(getIsoX(n, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n, m, tileWidth, tileWidth / 2) - heightOffSet + yScreenOffset);
+        ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileWidth / 2) - heightOffSetNextX + yScreenOffset);
+        ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileWidth / 2) - heightOffSetNextXY + yScreenOffset);
+        //ctx.lineTo((n * tileWidth) + tileWidth, (m * tileWidth) + tileWidth);
+        ctx.stroke();
+    }
 }
