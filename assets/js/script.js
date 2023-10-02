@@ -134,9 +134,20 @@ function drawTerrain() {
         }
     }
 }
+//clears the canvas ready for next frame
+function clearCanvas() {
+    ctx.clearRect(0, 0, CanvasWidth, CanvasHeight);
+}
+function drawBackground() {
+    ctx.fillStyle = "#448A43";
+    ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
+}
+
 
 
 function gameLoop() {
+    clearCanvas();
+    drawBackground();
     drawTerrain();
 }
 
