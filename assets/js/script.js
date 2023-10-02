@@ -1,18 +1,15 @@
+//initiate canvas
 let canvas = document.getElementById("game-area");
 let ctx = canvas.getContext("2d");
 let CanvasWidth = canvas.width = 800;
 let CanvasHeight = canvas.height = 450;
+//set view area
 let xScreenOffset = 0;
 let yScreenOffset = 0;
-//texting canvas
-/*
-ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
-ctx.fillStyle = "#ffffff";
-ctx.fillRect(CanvasWidth * 0.1, CanvasHeight * 0.1, CanvasWidth * 0.8, CanvasHeight * 0.8);
-ctx.fillStyle = "#000000";
-ctx.fillRect(CanvasWidth * 0.2, CanvasHeight * 0.2, CanvasWidth * 0.6, CanvasHeight * 0.6);
-*/
-
+// identify hot/cold message
+let hotMessage = document.getElementById("hunt-message");
+let huntMessages = ["Red-Hot!", "Boiling", "Hot", "Warmer", "Warm", "Lukewarm", "Cold", "Very Cold", "Freezing"];
+hotMessage.innerHTML = huntMessages[6];
 //load images
 let playerLoad = 0;
 let imgPlayer = new Image(); // Create new img element
