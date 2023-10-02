@@ -37,6 +37,11 @@ let mousePosition = {
     x: 0,
     y: 0
 };
+//variables storing key presses
+let leftKey = 0;
+let rightKey = 0;
+let upKey = 0;
+let downKey = 0;
 
 // set terrain map variables
 let mapSize = 30;
@@ -198,30 +203,56 @@ function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
 }
 //move player
 function playerMove(player, eventKey) {
-    if (eventKey === "ArrowLeft") {
+    if (leftKey) {
         player.playerX -= moveAmount;
         player.playerY += moveAmount;
         xScreenOffset += moveAmount * tileWidth * 2;
-        console.log(`${eventKey}, new X: ${player.playerX}.`);
+        //console.log(`${eventKey}, new X: ${player.playerX}.`);
     }
-    if (eventKey === "ArrowRight") {
+    if (rightKey) {
         player.playerX += moveAmount;
         player.playerY -= moveAmount;
         xScreenOffset -= moveAmount * tileWidth * 2;
-        console.log(`${eventKey}, new X: ${player.playerX}.`);
+        //console.log(`${eventKey}, new X: ${player.playerX}.`);
     }
-    if (eventKey === "ArrowUp") {
+    if (upKey) {
         player.playerX -= moveAmount;
         player.playerY -= moveAmount;
         yScreenOffset += moveAmount * tileWidth;
-        console.log(`${eventKey}, new Y: ${player.playerY}.`);
+        //console.log(`${eventKey}, new Y: ${player.playerY}.`);
     }
-    if (eventKey === "ArrowDown") {
+    if (downKey) {
         player.playerX += moveAmount;
         player.playerY += moveAmount;
         yScreenOffset -= moveAmount * tileWidth;
-        console.log(`${eventKey}, new Y: ${player.playerY}.`);
+        //console.log(`${eventKey}, new Y: ${player.playerY}.`);
     }
+    /*
+        if (eventKey === "ArrowLeft") {
+            player.playerX -= moveAmount;
+            player.playerY += moveAmount;
+            xScreenOffset += moveAmount * tileWidth * 2;
+            console.log(`${eventKey}, new X: ${player.playerX}.`);
+        }
+        if (eventKey === "ArrowRight") {
+            player.playerX += moveAmount;
+            player.playerY -= moveAmount;
+            xScreenOffset -= moveAmount * tileWidth * 2;
+            console.log(`${eventKey}, new X: ${player.playerX}.`);
+        }
+        if (eventKey === "ArrowUp") {
+            player.playerX -= moveAmount;
+            player.playerY -= moveAmount;
+            yScreenOffset += moveAmount * tileWidth;
+            console.log(`${eventKey}, new Y: ${player.playerY}.`);
+        }
+        if (eventKey === "ArrowDown") {
+            player.playerX += moveAmount;
+            player.playerY += moveAmount;
+            yScreenOffset -= moveAmount * tileWidth;
+            console.log(`${eventKey}, new Y: ${player.playerY}.`);
+        }
+        */
 }
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
@@ -296,6 +327,7 @@ function playerDraw(drawObject, terrain) {
 
 function gameLoop() {
     clearCanvas();
+    playerMove(player);
     drawBackground();
     drawTerrain();
     updatePlayerDrawObject();
@@ -310,7 +342,18 @@ setInterval(gameLoop, 40);
 //key downs
 document.addEventListener('keydown', (event) => {
     //key down
-    playerMove(player, event.key);
+    //playerMove(player, event.key);
+    if (event.key == "ArrowLeft") leftKey = 1;
+    if (event.key == "ArrowRight") rightKey = 1;
+    if (event.key == "ArrowUp") upKey = 1;
+    if (event.key == "ArrowDown") downKey = 1;
+});
+document.addEventListener('keyup', (event) => {
+    //key up
+    if (event.key == "ArrowLeft") leftKey = 0;
+    if (event.key == "ArrowRight") rightKey = 0;
+    if (event.key == "ArrowUp") upKey = 0;
+    if (event.key == "ArrowDown") downKey = 0;
 });
 document.addEventListener("mousedown", (evt) => {
     //get mouse position
