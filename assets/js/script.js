@@ -199,6 +199,11 @@ function myGetRandomInt(maxNum) {
     //console.log(`random int: ${randomInt}`);
     return randomInt;
 }
+//get the distance between two points
+function myGetDistance(x1, y1, x2, y2) {
+    let myDistance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    return myDistance;
+}
 //returns the mean average of 8 inputs
 function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
     let myMean = Math.floor((n1, n2, n3, n4, n5, n6, n7, n8) / 8);
