@@ -55,7 +55,7 @@ let tileHeight = tileWidth / 2;
 let player = {
     playerId: 1,
     playerX: Math.ceil(columns / 2) + 1,
-    playerY: 2,
+    playerY: 4,
     playerOx: 22,
     playerOy: 45
 };
@@ -201,58 +201,49 @@ function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
     let myMean = Math.floor((n1, n2, n3, n4, n5, n6, n7, n8) / 8);
     return myMean;
 }
+//collision check
+function colCheck(x, y) {
+    if (featureMap[Math.floor(x + 0.5)][Math.floor(y + 0.5)] == 2 || featureMap[Math.floor(x + 0.5)][Math.floor(y + 0.5)] == 3) {
+        //if (x > Math.floor(y) && x < Math.floor(y) + 1 && y > checkY && y < checkY + 1) {
+        return true;
+        // }
+    }
+
+}
+
+
 //move player
 function playerMove(player, eventKey) {
     if (leftKey) {
-        player.playerX -= moveAmount;
-        player.playerY += moveAmount;
-        xScreenOffset += moveAmount * tileWidth * 2;
-        //console.log(`${eventKey}, new X: ${player.playerX}.`);
-    }
-    if (rightKey) {
-        player.playerX += moveAmount;
-        player.playerY -= moveAmount;
-        xScreenOffset -= moveAmount * tileWidth * 2;
-        //console.log(`${eventKey}, new X: ${player.playerX}.`);
-    }
-    if (upKey) {
-        player.playerX -= moveAmount;
-        player.playerY -= moveAmount;
-        yScreenOffset += moveAmount * tileWidth;
-        //console.log(`${eventKey}, new Y: ${player.playerY}.`);
-    }
-    if (downKey) {
-        player.playerX += moveAmount;
-        player.playerY += moveAmount;
-        yScreenOffset -= moveAmount * tileWidth;
-        //console.log(`${eventKey}, new Y: ${player.playerY}.`);
-    }
-    /*
-        if (eventKey === "ArrowLeft") {
+        if (!colCheck(player.playerX - moveAmount, player.playerY + moveAmount)) {
             player.playerX -= moveAmount;
             player.playerY += moveAmount;
             xScreenOffset += moveAmount * tileWidth * 2;
-            console.log(`${eventKey}, new X: ${player.playerX}.`);
         }
-        if (eventKey === "ArrowRight") {
+    }
+    if (rightKey) {
+        if (!colCheck(player.playerX + moveAmount, player.playerY - moveAmount)) {
             player.playerX += moveAmount;
             player.playerY -= moveAmount;
             xScreenOffset -= moveAmount * tileWidth * 2;
-            console.log(`${eventKey}, new X: ${player.playerX}.`);
         }
-        if (eventKey === "ArrowUp") {
+
+    }
+    if (upKey) {
+        if (!colCheck(player.playerX - moveAmount, player.playerY - moveAmount)) {
             player.playerX -= moveAmount;
             player.playerY -= moveAmount;
             yScreenOffset += moveAmount * tileWidth;
-            console.log(`${eventKey}, new Y: ${player.playerY}.`);
         }
-        if (eventKey === "ArrowDown") {
+
+    }
+    if (downKey) {
+        if (!colCheck(player.playerX + moveAmount, player.playerY + moveAmount)) {
             player.playerX += moveAmount;
             player.playerY += moveAmount;
             yScreenOffset -= moveAmount * tileWidth;
-            console.log(`${eventKey}, new Y: ${player.playerY}.`);
         }
-        */
+    }
 }
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
