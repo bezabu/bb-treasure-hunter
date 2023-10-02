@@ -13,7 +13,7 @@ hintMessage.innerHTML = hints[6];
 //load images
 let playerLoad = 0;
 let imgPlayer = new Image(); // Create new img element
-imgPlayer.src = "../assets/images/tree02_placeholder.png"; // Set source path
+imgPlayer.src = "../assets/images/player_placeholder01.png"; // Set source path
 imgPlayer.onload = () => {
     //tree image is loaded
     playerLoad = 1;
@@ -56,8 +56,9 @@ let player = {
     playerId: 1,
     playerX: Math.ceil(columns / 2) + 1,
     playerY: 4,
-    playerOx: 22,
-    playerOy: 45
+    playerOx: 32,
+    playerOy: 53,
+    animation: 0
 };
 let moveAmount = 0.05;
 
@@ -204,14 +205,10 @@ function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
 //collision check
 function colCheck(x, y) {
     if (featureMap[Math.floor(x + 0.5)][Math.floor(y + 0.5)] == 2 || featureMap[Math.floor(x + 0.5)][Math.floor(y + 0.5)] == 3) {
-        //if (x > Math.floor(y) && x < Math.floor(y) + 1 && y > checkY && y < checkY + 1) {
+        //return true of the intended destination is inside a tile with an obsticle
         return true;
-        // }
     }
-
 }
-
-
 //move player
 function playerMove(player, eventKey) {
     if (leftKey) {
@@ -227,7 +224,6 @@ function playerMove(player, eventKey) {
             player.playerY -= moveAmount;
             xScreenOffset -= moveAmount * tileWidth * 2;
         }
-
     }
     if (upKey) {
         if (!colCheck(player.playerX - moveAmount, player.playerY - moveAmount)) {
@@ -235,7 +231,6 @@ function playerMove(player, eventKey) {
             player.playerY -= moveAmount;
             yScreenOffset += moveAmount * tileWidth;
         }
-
     }
     if (downKey) {
         if (!colCheck(player.playerX + moveAmount, player.playerY + moveAmount)) {
@@ -249,13 +244,25 @@ function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
     playerDrawObject.x = player.playerX;
     playerDrawObject.y = player.playerY;
+    if (upKey) player.animation = 1;
+    if (rightKey) player.animation = 3;
+    if (downKey) player.animation = 5;
+    if (leftKey) player.animation = 7;
+    if (leftKey && upKey) player.animation = 0;
+    if (rightKey && upKey) player.animation = 2;
+    if (rightKey && downKey) player.animation = 4;
+    if (leftKey && downKey) player.animation = 6;
 }
 function drawImages() {
     for (let i = 0; i < drawList.length; i++) {
         //cycle through drawobjects
         //call the drawimage
-
-        drawThis(drawList[i].type, drawList[i].x, drawList[i].y, drawList[i].xo, drawList[i].yo);
+        if (drawList[i].type == imgPlayer) {
+            //special code for animating the player
+            drawPlayer(drawList[i].type, drawList[i].x, drawList[i].y, drawList[i].xo, drawList[i].yo);
+        } else {
+            drawThis(drawList[i].type, drawList[i].x, drawList[i].y, drawList[i].xo, drawList[i].yo);
+        }
         //console.log(`draw ${i}: ${drawList[i].y}`);
     }
 }
@@ -268,6 +275,12 @@ function sortImages() {
 function drawThis(imageToDraw, x, y, originX, originY) {
     ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight));
     //console.log(`draw ${imageToDraw} at ${x},${y}`);
+}
+//draw the player
+function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
+    let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
+    let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight);
+    ctx.drawImage(imageToDraw, 0, player.animation * 64, 64, 64, drawX, drawY, 64, 64);
 }
 //draw terain
 function drawTerrain() {
@@ -301,21 +314,15 @@ function drawBackground() {
     ctx.fillStyle = "#448A43";
     ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 }
-//draw player
-function playerDraw(drawObject, terrain) {
-    const canvas = document.getElementById("game-area");
-    const ctx = canvas.getContext("2d");
-    let yOffset = 0;
-    yOffset = terrain[Math.floor(drawObject.playerX / tileWidth)][Math.floor(drawObject.playerY / tileWidth)];
-    if (canvas.getContext) {
-        ctx.fillStyle = "#ff00ff";
-        ctx.fillRect(getIsoX(drawObject.playerX, drawObject.playerY, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(drawObject.playerX, drawObject.playerY, tileWidth, tileWidth / 2) - yOffset + yScreenOffset, 50, 50);
-        //ctx.fillRect(drawObject.playerX, drawObject.playerY - yOffset, 50, 50);
-        console.log(`draw player at ${drawObject.playerX}, ${drawObject.playerY}`);
-    }
+//get the mouse coordinates
+function logMouse(e) {
+    //console.log(`mouse position: ${e.clientX},${e.clientY}`);
+    let rect = canvas.getBoundingClientRect();
+    mousePosition.x = Math.floor(e.clientX - rect.left);
+    mousePosition.y = Math.floor(e.clientY - rect.top);
+    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
 }
-
-
+//main game loop
 function gameLoop() {
     clearCanvas();
     playerMove(player);
@@ -324,9 +331,8 @@ function gameLoop() {
     updatePlayerDrawObject();
     sortImages();
     drawImages();
-    //playerDraw(player, heightMap);
 }
-
+//run gameLoop 25 times per second (every 40 milliseconds)
 setInterval(gameLoop, 40);
 
 //event listeners
@@ -351,10 +357,4 @@ document.addEventListener("mousedown", (evt) => {
 });
 document.addEventListener("mousemove", logMouse);
 
-function logMouse(e) {
-    //console.log(`mouse position: ${e.clientX},${e.clientY}`);
-    let rect = canvas.getBoundingClientRect();
-    mousePosition.x = Math.floor(e.clientX - rect.left);
-    mousePosition.y = Math.floor(e.clientY - rect.top);
-    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
-}
+
