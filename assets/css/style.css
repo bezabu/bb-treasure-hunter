@@ -8,7 +8,7 @@ body {
     background-color: #46546A;
 }
 
-#header {
+header {
     margin-top: 20px;
     text-align: center;
 }
@@ -48,3 +48,5 @@ body {
 
 /* small phones */
 @media screen and (max-width: 320px) {}
+
+/* below 200px width, canvas is cut off on right side*/
