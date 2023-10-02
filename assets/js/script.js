@@ -86,11 +86,12 @@ let playerDrawObject = new DrawObject(imgPlayer, player.playerX, player.playerY,
 drawList.push(playerDrawObject);
 
 //generate terrain height map & feature map
+let mapMargin = 3;
 for (let n = 0; n < rows - 1; n++) {
     for (let m = 0; m < columns - 1; m++) {
         heightMap[n][m] = Math.floor(Math.random() * maxHeight);
         //console.log(`Cell ${n},${m} height value ${terrain[n][m]}`);
-        if (myGetRandomInt(3) > 2) {
+        if (myGetRandomInt(3) > 2 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
             //one in 4 chance to make a tree
             featureMap[n][m] = 1;
             //enter the object in the drawobject list
@@ -99,7 +100,7 @@ for (let n = 0; n < rows - 1; n++) {
             console.log(`New tree, ${entry} at ${n},${m}`);
             //console.log(`New tree, ${entry} at ${n},${m}`);
         } else {
-            if (myGetRandomInt(4) > 3) {
+            if (myGetRandomInt(4) > 3 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
                 featureMap[n][m] = 2;
                 //enter the object in the drawobject list
 
@@ -220,7 +221,7 @@ function sortImages() {
 }
 //draw an image
 function drawThis(imageToDraw, x, y, originX, originY) {
-    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY);
+    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight));
     //console.log(`draw ${imageToDraw} at ${x},${y}`);
 }
 //draw terain
