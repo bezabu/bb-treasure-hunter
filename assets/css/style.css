@@ -25,32 +25,26 @@ body {
 
 /* media queries */
 /* Laptops, desktops */
-@media screen and (max-width: 1920px) {
-    
-}
+@media screen and (max-width: 1920px) {}
 
 /* Small screens, laptops */
-@media screen and (max-width: 1200px) {
-    
-}
+@media screen and (max-width: 1200px) {}
 
 /* small screens, laptops */
-@media screen and (max-width: 1024px) {
-    
-}
+@media screen and (max-width: 1024px) {}
 
 /* landscape phones, tablets */
 @media screen and (max-width: 768px) {
-   
+    #game-area {
+        left: 0px;
+        top: 10%;
+        transform: none;
+    }
 }
 
 
 /* phones */
-@media screen and (max-width: 480px) {
-    
-}
+@media screen and (max-width: 480px) {}
 
 /* small phones */
-@media screen and (max-width: 320px) {
-   
-}
+@media screen and (max-width: 320px) {}
