@@ -19,7 +19,7 @@ let player = {
     playerX: 5,
     playerY: 1
 };
-
+let moveAmount = 0.2;
 
 //object for storing the cursor position
 let mousePosition = {
@@ -128,7 +128,7 @@ function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
     return myMean;
 }
 //move player
-function playerMove(player, eventKey, moveAmount) {
+function playerMove(player, eventKey) {
     if (eventKey === "ArrowLeft") {
         player.playerX -= moveAmount;
         player.playerY += moveAmount;
@@ -198,6 +198,7 @@ setInterval(gameLoop, 40);
 //key downs
 document.addEventListener('keydown', (event) => {
     //key down
+    playerMove(player, event.key);
 });
 document.addEventListener("mousedown", (evt) => {
     //get mouse position
