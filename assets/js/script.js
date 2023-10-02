@@ -67,7 +67,17 @@ let smoothMap = [];
 //create the draw list
 let drawList = [];
 
-// creating two-dimensional arrays for height, trees and rocks
+// creating two-dimensional arrays for height, movement, trees and rocks
+/*
+heightmap has a simply height value to add after isometric conversion
+featuremap assigns an integer based on what the tile contains:
+0   nothing
+1   a tree
+2   a rock
+3   water tile
+smoothmap is a spare array to contain the smoothed out version of the
+heightmap during the process
+*/
 for (let i = 0; i < rows; i++) {
     heightMap[i] = [];
     featureMap[i] = [];
@@ -119,7 +129,7 @@ for (let n = 0; n < rows - 1; n++) {
     }
 }
 
-//smooth heightmap
+//get average height of surrounding tiles and store in smoothmap
 let avgHeight = 0;
 for (let n = 1; n < rows - 2; n++) {
     for (let m = 1; m < columns - 2; m++) {
@@ -135,13 +145,21 @@ for (let n = 1; n < rows - 2; n++) {
 
     }
 }
+//replace heightmap with the smooth version
 for (let n = 1; n < rows - 1; n++) {
     for (let m = 1; m < columns - 1; m++) {
         heightMap[n][m] = smoothMap[n][m];
-
     }
 }
-
+//set edge tiles to 0 height and mark them as water
+for (let n = 1; n < rows; n++) {
+    for (let m = 1; m < columns; m++) {
+        if (n == 1 || m == 1 || n == rows - 1 || m == columns - 1) {
+            heightMap[n][m] = 0;
+            featureMap[n][m] = 3;
+        }
+    }
+}
 sortImages();
 
 //functions
