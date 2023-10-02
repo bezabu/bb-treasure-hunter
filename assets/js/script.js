@@ -13,6 +13,12 @@ ctx.fillStyle = "#000000";
 ctx.fillRect(CanvasWidth * 0.2, CanvasHeight * 0.2, CanvasWidth * 0.6, CanvasHeight * 0.6);
 */
 
+//object for storing the cursor position
+let mousePosition = {
+    x: 0,
+    y: 0
+};
+
 // set terrain map variables
 let maxHeight = 30;
 let rows = 21;
@@ -152,3 +158,19 @@ function gameLoop() {
 }
 
 setInterval(gameLoop, 40);
+
+//event listeners
+//key downs
+document.addEventListener('keydown', (event) => {
+    //key down
+});
+document.addEventListener("mousedown", (evt) => {
+    //get mouse position
+});
+document.addEventListener("mousemove", (logMouse) => {
+    //get the mouse position within the canvas
+    let rect = canvas.getBoundingClientRect();
+    mousePosition.x = Math.floor(e.clientX - rect.left);
+    mousePosition.y = Math.floor(e.clientY - rect.top);
+});
+
