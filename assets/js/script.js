@@ -57,3 +57,24 @@ for (let n = 0; n < 10; n++) {
     }
 }
 
+//Isometric conversion functions
+function getIsoX(x, y, tileWidth, tileHeight) {
+    let isoX = ((x - y) * tileWidth);
+    return isoX;
+}
+function getIsoY(x, y, tileWidth, tileHeight) {
+    let isoY = ((x + y) * tileHeight);
+    return isoY;
+}
+function inverseIsoX(x, y, tileWidth, tileHeight) {
+    halfTileWidth = tileWidth / 2;
+    halfTileHeight = tileHeight / 2;
+    let mapX = (x / halfTileWidth + (y / halfTileHeight)) / 2;
+    return mapX;
+}
+function inverseIsoY(x, y, tileWidth, tileHeight) {
+    halfTileWidth = tileWidth / 2;
+    halfTileHeight = tileHeight / 2;
+    let mapY = (y / halfTileHeight - (x / halfTileWidth)) / 2;
+    return mapY;
+}
