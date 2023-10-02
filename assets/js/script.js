@@ -13,6 +13,14 @@ ctx.fillStyle = "#000000";
 ctx.fillRect(CanvasWidth * 0.2, CanvasHeight * 0.2, CanvasWidth * 0.6, CanvasHeight * 0.6);
 */
 
+//player object
+let player = {
+    playerId: 1,
+    playerX: 5,
+    playerY: 1
+};
+
+
 //object for storing the cursor position
 let mousePosition = {
     x: 0,
@@ -86,7 +94,7 @@ for (let n = 1; n < rows - 1; n++) {
 
     }
 }
-
+//functions
 //Isometric conversion functions
 function getIsoX(x, y, tileWidth, tileHeight) {
     let isoX = ((x - y) * tileWidth);
@@ -118,6 +126,33 @@ function myGetRandomInt(maxNum) {
 function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
     let myMean = Math.floor((n1, n2, n3, n4, n5, n6, n7, n8) / 8);
     return myMean;
+}
+//move player
+function playerMove(player, eventKey, moveAmount) {
+    if (eventKey === "ArrowLeft") {
+        player.playerX -= moveAmount;
+        player.playerY += moveAmount;
+        xScreenOffset += tileWidth;
+        console.log(`${eventKey}, new X: ${player.playerX}.`);
+    }
+    if (eventKey === "ArrowRight") {
+        player.playerX += moveAmount;
+        player.playerY -= moveAmount;
+        xScreenOffset -= tileWidth;
+        console.log(`${eventKey}, new X: ${player.playerX}.`);
+    }
+    if (eventKey === "ArrowUp") {
+        player.playerX -= moveAmount;
+        player.playerY -= moveAmount;
+        yScreenOffset += tileWidth / 2;
+        console.log(`${eventKey}, new Y: ${player.playerY}.`);
+    }
+    if (eventKey === "ArrowDown") {
+        player.playerX += moveAmount;
+        player.playerY += moveAmount;
+        yScreenOffset -= tileWidth / 2;
+        console.log(`${eventKey}, new Y: ${player.playerY}.`);
+    }
 }
 //draw terain
 function drawTerrain() {
