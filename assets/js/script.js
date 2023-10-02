@@ -42,6 +42,7 @@ let leftKey = 0;
 let rightKey = 0;
 let upKey = 0;
 let downKey = 0;
+let keyPressed = 0;
 
 // set terrain map variables
 let mapSize = 30;
@@ -60,6 +61,7 @@ let player = {
     playerOy: 53,
     animation: 0
 };
+let playerAnimateCount = 0;
 let moveAmount = 0.05;
 
 //create arrays for storing terrain height and feature coordinates
@@ -239,6 +241,7 @@ function playerMove(player, eventKey) {
             yScreenOffset -= moveAmount * tileWidth;
         }
     }
+    if (!downKey && !upKey && !leftKey && !rightKey) keyPressed = 0;
 }
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
@@ -252,6 +255,8 @@ function updatePlayerDrawObject() {
     if (rightKey && upKey) player.animation = 2;
     if (rightKey && downKey) player.animation = 4;
     if (leftKey && downKey) player.animation = 6;
+    playerAnimateCount += 0.5;
+    if (playerAnimateCount > 7) playerAnimateCount = 0;
 }
 function drawImages() {
     for (let i = 0; i < drawList.length; i++) {
@@ -280,7 +285,7 @@ function drawThis(imageToDraw, x, y, originX, originY) {
 function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
     let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
     let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight);
-    ctx.drawImage(imageToDraw, 0, player.animation * 64, 64, 64, drawX, drawY, 64, 64);
+    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64, (player.animation + (keyPressed * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
 }
 //draw terain
 function drawTerrain() {
@@ -344,13 +349,22 @@ document.addEventListener('keydown', (event) => {
     if (event.key == "ArrowRight") rightKey = 1;
     if (event.key == "ArrowUp") upKey = 1;
     if (event.key == "ArrowDown") downKey = 1;
+    keyPressed = 1;
 });
 document.addEventListener('keyup', (event) => {
     //key up
-    if (event.key == "ArrowLeft") leftKey = 0;
-    if (event.key == "ArrowRight") rightKey = 0;
-    if (event.key == "ArrowUp") upKey = 0;
-    if (event.key == "ArrowDown") downKey = 0;
+    if (event.key == "ArrowLeft") {
+        leftKey = 0;
+    }
+    if (event.key == "ArrowRight") {
+        rightKey = 0;
+    }
+    if (event.key == "ArrowUp") {
+        upKey = 0;
+    }
+    if (event.key == "ArrowDown") {
+        downKey = 0;
+    }
 });
 document.addEventListener("mousedown", (evt) => {
     //get mouse position
