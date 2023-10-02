@@ -7,9 +7,9 @@ let CanvasHeight = canvas.height = 450;
 let xScreenOffset = 0;
 let yScreenOffset = 0;
 // identify hot/cold message
-let hotMessage = document.getElementById("hunt-message");
-let huntMessages = ["Red-Hot!", "Boiling", "Hot", "Warmer", "Warm", "Lukewarm", "Cold", "Very Cold", "Freezing"];
-hotMessage.innerHTML = huntMessages[6];
+let hintMessage = document.getElementById("hint-message");
+let hints = ["Red-Hot!", "Boiling", "Hot", "Warmer", "Warm", "Lukewarm", "Cold", "Very Cold", "Freezing"];
+hintMessage.innerHTML = hints[6];
 //load images
 let playerLoad = 0;
 let imgPlayer = new Image(); // Create new img element

@@ -13,6 +13,14 @@ header {
     text-align: center;
 }
 
+#hint-message {
+    text-align: center;
+}
+
+.hints {
+    margin: none 50px;
+}
+
 #game-area {
     position: absolute;
     top: 50%;
