@@ -29,6 +29,31 @@ for (let i = 0; i < rows; i++) {
     featureMap[i] = [];
     for (let j = 0; j < columns; j++) {
         heightMap[i][j] = j;
-        featureMap[i][j] = j;
+        featureMap[i][j] = 0;
     }
 }
+
+
+//generate terrain height map & feature map
+for (let n = 0; n < 10; n++) {
+    for (let m = 0; m < 10; m++) {
+        heightMap[n][m] = Math.floor(Math.random() * maxHeight);
+        //console.log(`Cell ${n},${m} height value ${terrain[n][m]}`);
+        if (myGetRandomInt(3) > 2) {
+            //one in 4 chance to make a tree
+            featureMap[n][m] = 1;
+            //enter the object in the drawobject list
+            
+            console.log(`New tree, ${entry} at ${n},${m}`);
+        } else {
+            if (myGetRandomInt(4) > 3) {
+                featureMap[n][m] = 2;
+                //enter the object in the drawobject list
+                
+                console.log(`New rock, ${entry} at ${n},${m}`);
+                //one in 5 chance to make a rock
+            }
+        }
+    }
+}
+
