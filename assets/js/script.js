@@ -231,6 +231,29 @@ function myGetDistance(x1, y1, x2, y2) {
     let myDistance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     return myDistance;
 }
+//get the angle between two points
+function getAngleDeg(x1, y1, x2, y2) {
+    // angle in degrees
+    let angleDeg = Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI;
+    return angleDeg;
+}
+
+function getAngleDeg2(x1, y1, x2, y2) {
+    let angle = (anchor, point) => Math.atan2(anchor.y - point.y, anchor.x - point.x) * 180 / Math.PI + 180;
+    let a = {
+        x: x1,
+        y: y1
+    };
+    let p = {
+        x: x2,
+        y: y2
+    };
+    angle(a, p); // 225
+    // angle in degrees, from example, same data
+    angleDeg = Math.atan2(a.y - p.y, a.x - p.x) * 180 / Math.PI; // 45
+    return angleDeg;
+}
+
 //returns the mean average of 8 inputs
 function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
     let myMean = Math.floor((n1, n2, n3, n4, n5, n6, n7, n8) / 8);
@@ -275,8 +298,26 @@ function playerMove(player, eventKey) {
     }
     if (!downKey && !upKey && !leftKey && !rightKey) keyPressed = 0;
 }
+//get the mouse coordinates
+function logMouse(e) {
+    //console.log(`mouse position: ${e.clientX},${e.clientY}`);
+    let rect = canvas.getBoundingClientRect();
+    mousePosition.x = Math.floor(e.clientX - rect.left);
+    mousePosition.y = Math.floor(e.clientY - rect.top);
+    //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
+}
 function mouseMove() {
+    console.log(getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
 
+    let anchor = {
+        x: player.playerX,
+        y: player.playerY
+    };
+    let point = {
+        x: inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight),
+        y: inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)
+    };
+    console.log(getAngleDeg2(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
 }
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
@@ -375,15 +416,9 @@ function drawBackground() {
     ctx.fillStyle = "#448A43";
     ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 }
-//get the mouse coordinates
-function logMouse(e) {
-    //console.log(`mouse position: ${e.clientX},${e.clientY}`);
-    let rect = canvas.getBoundingClientRect();
-    mousePosition.x = Math.floor(e.clientX - rect.left);
-    mousePosition.y = Math.floor(e.clientY - rect.top);
-    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
-}
+
 //main game loop
+let gameTimer = 0;
 function gameLoop() {
     clearCanvas();
     playerMove(player);
@@ -393,6 +428,7 @@ function gameLoop() {
     updatePlayerDrawObject();
     sortImages();
     drawImages();
+    gameTimer++;
 }
 //run gameLoop 25 times per second (every 40 milliseconds)
 setInterval(gameLoop, 40);
@@ -423,19 +459,23 @@ document.addEventListener('keyup', (event) => {
         downKey = 0;
     }
 });
+document.addEventListener("mousemove", logMouse);
+
 document.addEventListener("mousedown", (evt) => {
     //get mouse position and use it
     //mouseMove();
+    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
 });
 document.addEventListener("pointerdown", (evt) => {
     //console.log("mouse click");
     //get mouse position
     //draw something there
+    logMouse(evt);
     console.log(`mobile touch at ${mousePosition.x},${mousePosition.y}`);
+    mouseMove();
     //let entry = new DrawObject(imgSeal, Math.round(mousePosition.x / 50), Math.round(mousePosition.y / 50));
     //drawList.push(entry);
 });
-document.addEventListener("mousemove", logMouse);
 
 document.addEventListener("DOMContentLoaded", function () {
     let buttons = document.getElementsByTagName('button');
