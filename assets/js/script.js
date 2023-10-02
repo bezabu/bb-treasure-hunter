@@ -13,13 +13,21 @@ ctx.fillStyle = "#000000";
 ctx.fillRect(CanvasWidth * 0.2, CanvasHeight * 0.2, CanvasWidth * 0.6, CanvasHeight * 0.6);
 */
 
-//player object
-let player = {
-    playerId: 1,
-    playerX: 5,
-    playerY: 1
+//load images
+let playerLoad = 0;
+let imgPlayer = new Image(); // Create new img element
+imgPlayer.src = "../assets/images/tree02_placeholder.png"; // Set source path
+imgPlayer.onload = () => {
+    //tree image is loaded
+    playerLoad = 1;
 };
-let moveAmount = 0.2;
+let treeLoad = 0;
+let imgTree = new Image(); // Create new img element
+imgTree.src = "../assets/images/tree02_placeholder.png"; // Set source path
+imgTree.onload = () => {
+    //tree image is loaded
+    treeLoad = 1;
+};
 
 //object for storing the cursor position
 let mousePosition = {
@@ -28,11 +36,22 @@ let mousePosition = {
 };
 
 // set terrain map variables
+let mapSize = 30;
 let maxHeight = 30;
-let rows = 21;
-let columns = 21;
+let rows = mapSize + 1;
+let columns = mapSize + 1;
 let tileWidth = 32;
 let tileHeight = tileWidth / 2;
+
+//player object
+let player = {
+    playerId: 1,
+    playerX: Math.ceil(columns / 2) + 1,
+    playerY: 2,
+    playerOx: 22,
+    playerOy: 45
+};
+let moveAmount = 0.05;
 
 //create arrays for storing terrain height and feature coordinates
 let heightMap = [];
@@ -54,6 +73,17 @@ for (let i = 0; i < rows; i++) {
     }
 }
 
+//create the draw list object type
+function DrawObject(newType, newX, newY, newOx, newOy) {
+    this.type = newType;
+    this.x = newX;
+    this.y = newY;
+    this.xo = newOx;
+    this.yo = newOy;
+}
+//create an object for the player in the drawlist
+let playerDrawObject = new DrawObject(imgPlayer, player.playerX, player.playerY, player.playerOx, player.playerOy);
+drawList.push(playerDrawObject);
 
 //generate terrain height map & feature map
 for (let n = 0; n < rows - 1; n++) {
@@ -64,7 +94,9 @@ for (let n = 0; n < rows - 1; n++) {
             //one in 4 chance to make a tree
             featureMap[n][m] = 1;
             //enter the object in the drawobject list
-
+            let entry = new DrawObject(imgTree, n, m, 22, 45);
+            drawList.push(entry);
+            console.log(`New tree, ${entry} at ${n},${m}`);
             //console.log(`New tree, ${entry} at ${n},${m}`);
         } else {
             if (myGetRandomInt(4) > 3) {
@@ -79,11 +111,17 @@ for (let n = 0; n < rows - 1; n++) {
 }
 
 //smooth heightmap
-
 let avgHeight = 0;
 for (let n = 1; n < rows - 2; n++) {
     for (let m = 1; m < columns - 2; m++) {
-        avgHeight = myGetMean(heightMap[n - 1][m - 1], heightMap[n][m - 1], heightMap[n + 1][m - 1], heightMap[n - 1][m], heightMap[n + 1][m], heightMap[n - 1][m + 1], heightMap[n][m + 1], heightMap[n + 1][m + 1]);
+        avgHeight = myGetMean(heightMap[n - 1][m - 1],
+            heightMap[n][m - 1],
+            heightMap[n + 1][m - 1],
+            heightMap[n - 1][m],
+            heightMap[n + 1][m],
+            heightMap[n - 1][m + 1],
+            heightMap[n][m + 1],
+            heightMap[n + 1][m + 1]);
         smoothMap[n][m] = avgHeight;
 
     }
@@ -94,22 +132,29 @@ for (let n = 1; n < rows - 1; n++) {
 
     }
 }
+
+sortImages();
+
 //functions
 //Isometric conversion functions
+//get isometric x coordinate
 function getIsoX(x, y, tileWidth, tileHeight) {
     let isoX = ((x - y) * tileWidth);
     return isoX;
 }
+//get isometric y coordinate
 function getIsoY(x, y, tileWidth, tileHeight) {
     let isoY = ((x + y) * tileHeight);
     return isoY;
 }
+//get original x coordinate from isometric coordinates
 function inverseIsoX(x, y, tileWidth, tileHeight) {
     halfTileWidth = tileWidth / 2;
     halfTileHeight = tileHeight / 2;
     let mapX = (x / halfTileWidth + (y / halfTileHeight)) / 2;
     return mapX;
 }
+//get original y coordinate from isometric coordinates
 function inverseIsoY(x, y, tileWidth, tileHeight) {
     halfTileWidth = tileWidth / 2;
     halfTileHeight = tileHeight / 2;
@@ -132,27 +177,50 @@ function playerMove(player, eventKey) {
     if (eventKey === "ArrowLeft") {
         player.playerX -= moveAmount;
         player.playerY += moveAmount;
-        xScreenOffset += tileWidth;
+        xScreenOffset += moveAmount * tileWidth * 2;
         console.log(`${eventKey}, new X: ${player.playerX}.`);
     }
     if (eventKey === "ArrowRight") {
         player.playerX += moveAmount;
         player.playerY -= moveAmount;
-        xScreenOffset -= tileWidth;
+        xScreenOffset -= moveAmount * tileWidth * 2;
         console.log(`${eventKey}, new X: ${player.playerX}.`);
     }
     if (eventKey === "ArrowUp") {
         player.playerX -= moveAmount;
         player.playerY -= moveAmount;
-        yScreenOffset += tileWidth / 2;
+        yScreenOffset += moveAmount * tileWidth;
         console.log(`${eventKey}, new Y: ${player.playerY}.`);
     }
     if (eventKey === "ArrowDown") {
         player.playerX += moveAmount;
         player.playerY += moveAmount;
-        yScreenOffset -= tileWidth / 2;
+        yScreenOffset -= moveAmount * tileWidth;
         console.log(`${eventKey}, new Y: ${player.playerY}.`);
     }
+}
+function updatePlayerDrawObject() {
+    //update the position of the player in the player draw object
+    playerDrawObject.x = player.playerX;
+    playerDrawObject.y = player.playerY;
+}
+function drawImages() {
+    for (let i = 0; i < drawList.length; i++) {
+        //cycle through drawobjects
+        //call the drawimage
+
+        drawThis(drawList[i].type, drawList[i].x, drawList[i].y, drawList[i].xo, drawList[i].yo);
+        //console.log(`draw ${i}: ${drawList[i].y}`);
+    }
+}
+function sortImages() {
+    drawList.sort(function (a, b) { return a.y - b.y; });
+
+}
+//draw an image
+function drawThis(imageToDraw, x, y, originX, originY) {
+    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY);
+    //console.log(`draw ${imageToDraw} at ${x},${y}`);
 }
 //draw terain
 function drawTerrain() {
@@ -164,14 +232,17 @@ function drawTerrain() {
             heightOffSet = heightMap[n][m];
             heightOffSetNextX = heightMap[n + 1][m];
             heightOffSetNextXY = heightMap[n + 1][m + 1];
-            getIsoX(n, m, tileWidth, tileWidth / 2);
-            getIsoY(n, m, tileWidth, tileWidth / 2);
+            isox = getIsoX(n, m, tileWidth, tileHeight);
+            isoy = getIsoY(n, m, tileWidth, tileHeight);
+            //if (getIsoX(n, m, tileWidth, tileHeight) > 0 && getIsoY(n, m, tileWidth, tileHeight) > 0 && getIsoX(n + 1, m + 1, tileWidth, tileHeight) < CanvasWidth && getIsoY(n + 1, m + 1, tileWidth, tileHeight) < CanvasHeight) {
             ctx.beginPath();
-            ctx.moveTo(getIsoX(n, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n, m, tileWidth, tileWidth / 2) - heightOffSet + yScreenOffset);
-            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileWidth / 2) - heightOffSetNextX + yScreenOffset);
-            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileWidth / 2) - heightOffSetNextXY + yScreenOffset);
+            ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m, tileWidth, tileHeight) - heightOffSet + yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX + yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) - heightOffSetNextXY + yScreenOffset);
             //ctx.lineTo((n * tileWidth) + tileWidth, (m * tileWidth) + tileWidth);
             ctx.stroke();
+            //}
+
         }
     }
 }
@@ -183,13 +254,29 @@ function drawBackground() {
     ctx.fillStyle = "#448A43";
     ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 }
-
+//draw player
+function playerDraw(drawObject, terrain) {
+    const canvas = document.getElementById("game-area");
+    const ctx = canvas.getContext("2d");
+    let yOffset = 0;
+    yOffset = terrain[Math.floor(drawObject.playerX / tileWidth)][Math.floor(drawObject.playerY / tileWidth)];
+    if (canvas.getContext) {
+        ctx.fillStyle = "#ff00ff";
+        ctx.fillRect(getIsoX(drawObject.playerX, drawObject.playerY, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(drawObject.playerX, drawObject.playerY, tileWidth, tileWidth / 2) - yOffset + yScreenOffset, 50, 50);
+        //ctx.fillRect(drawObject.playerX, drawObject.playerY - yOffset, 50, 50);
+        console.log(`draw player at ${drawObject.playerX}, ${drawObject.playerY}`);
+    }
+}
 
 
 function gameLoop() {
     clearCanvas();
     drawBackground();
     drawTerrain();
+    updatePlayerDrawObject();
+    sortImages();
+    drawImages();
+    //playerDraw(player, heightMap);
 }
 
 setInterval(gameLoop, 40);
