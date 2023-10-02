@@ -213,9 +213,10 @@ function drawImages() {
         //console.log(`draw ${i}: ${drawList[i].y}`);
     }
 }
+//sort images
 function sortImages() {
-    drawList.sort(function (a, b) { return a.y - b.y; });
-
+    drawList.sort(function (a, b) { return getIsoY(a.x, a.y, tileWidth, tileHeight) - getIsoY(b.x, b.y, tileWidth, tileHeight); });
+    //getIsoY(a.x,a.y,tileWidth,tileHeight)
 }
 //draw an image
 function drawThis(imageToDraw, x, y, originX, originY) {
