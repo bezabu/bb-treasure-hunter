@@ -171,6 +171,7 @@ for (let n = 1; n < rows; n++) {
     }
 }
 //distribute treasures
+let treasureList = [];
 for (i = treasureCount; i > 0; i--) {
     let treasureAssigned = 0;
     while (treasureAssigned == 0) {
@@ -179,11 +180,18 @@ for (i = treasureCount; i > 0; i--) {
         let thisY = Math.floor(myGetRandomInt(columns - 8) + 4);
         if (featureMap[thisX][thisY] == 0) {
             featureMap[thisX][thisY] = 4;
+            let thisTreasure = {
+                id: i,
+                x: thisX,
+                y: thisY
+            };
+            treasureList.push(thisTreasure);
             console.log(`treasure hidden at ${thisX},${thisY}`);
             treasureAssigned = 1;
         }
     }
 }
+console.log(treasureList);
 sortImages();
 
 //functions
