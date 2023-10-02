@@ -114,21 +114,30 @@ function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
     return myMean;
 }
 //draw terain
-let heightOffSet = "";
-let heightOffSetNextX = "";
-let heightOffSetNextXY = "";
-for (let n = 1; n < rows - 1; n++) {
-    for (let m = 1; m < columns - 1; m++) {
-        heightOffSet = heightMap[n][m];
-        heightOffSetNextX = heightMap[n + 1][m];
-        heightOffSetNextXY = heightMap[n + 1][m + 1];
-        getIsoX(n, m, tileWidth, tileWidth / 2);
-        getIsoY(n, m, tileWidth, tileWidth / 2);
-        ctx.beginPath();
-        ctx.moveTo(getIsoX(n, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n, m, tileWidth, tileWidth / 2) - heightOffSet + yScreenOffset);
-        ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileWidth / 2) - heightOffSetNextX + yScreenOffset);
-        ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileWidth / 2) - heightOffSetNextXY + yScreenOffset);
-        //ctx.lineTo((n * tileWidth) + tileWidth, (m * tileWidth) + tileWidth);
-        ctx.stroke();
+function drawTerrain() {
+    let heightOffSet = "";
+    let heightOffSetNextX = "";
+    let heightOffSetNextXY = "";
+    for (let n = 1; n < rows - 1; n++) {
+        for (let m = 1; m < columns - 1; m++) {
+            heightOffSet = heightMap[n][m];
+            heightOffSetNextX = heightMap[n + 1][m];
+            heightOffSetNextXY = heightMap[n + 1][m + 1];
+            getIsoX(n, m, tileWidth, tileWidth / 2);
+            getIsoY(n, m, tileWidth, tileWidth / 2);
+            ctx.beginPath();
+            ctx.moveTo(getIsoX(n, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n, m, tileWidth, tileWidth / 2) - heightOffSet + yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileWidth / 2) - heightOffSetNextX + yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileWidth / 2) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileWidth / 2) - heightOffSetNextXY + yScreenOffset);
+            //ctx.lineTo((n * tileWidth) + tileWidth, (m * tileWidth) + tileWidth);
+            ctx.stroke();
+        }
     }
 }
+
+
+function gameLoop() {
+    drawTerrain();
+}
+
+setInterval(gameLoop, 40);
