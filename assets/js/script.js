@@ -425,4 +425,20 @@ document.addEventListener("mousedown", (evt) => {
 });
 document.addEventListener("mousemove", logMouse);
 
+document.addEventListener("DOMContentLoaded", function () {
+    let buttons = document.getElementsByTagName('button');
 
+    for (let button of buttons) {
+        button.addEventListener("click", function () {
+            if (this.getAttribute("data-type") === "reset-game") {
+                //reload the page
+                window.location.reload();
+                return false;
+            } else {
+
+            }
+        });
+    }
+
+
+});

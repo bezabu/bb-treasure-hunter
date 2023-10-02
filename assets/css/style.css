@@ -30,6 +30,12 @@ header {
     height: 450px;
 }
 
+#reset-button {
+    margin: auto;
+    width: 300;
+    height: 150;
+
+}
 
 /* media queries */
 /* Laptops, desktops */
