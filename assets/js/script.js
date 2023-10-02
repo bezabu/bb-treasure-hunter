@@ -51,8 +51,7 @@ let rows = mapSize + 1;
 let columns = mapSize + 1;
 let tileWidth = 32;
 let tileHeight = tileWidth / 2;
-let treasureCount = 1;
-let treasureAssigned = 0;
+let treasureCount = 2;
 
 //player object
 let player = {
@@ -82,6 +81,7 @@ featuremap assigns an integer based on what the tile contains:
 1   a tree
 2   a rock
 3   water tile
+4   treasure location
 smoothmap is a spare array to contain the smoothed out version of the
 heightmap during the process
 */
@@ -120,7 +120,7 @@ for (let n = 0; n < rows - 1; n++) {
             //enter the object in the drawobject list
             let entry = new DrawObject(imgTree, n, m, 22, 45);
             drawList.push(entry);
-            console.log(`New tree, ${entry} at ${n},${m}`);
+            //console.log(`New tree, ${entry} at ${n},${m}`);
             //console.log(`New tree, ${entry} at ${n},${m}`);
         } else {
             if (myGetRandomInt(4) > 3 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
@@ -128,7 +128,7 @@ for (let n = 0; n < rows - 1; n++) {
                 //enter the object in the drawobject list
                 let entry = new DrawObject(imgRock, n, m, 25, 35);
                 drawList.push(entry);
-                console.log(`New rock, ${entry} at ${n},${m}`);
+                //console.log(`New rock, ${entry} at ${n},${m}`);
                 //console.log(`New rock, ${entry} at ${n},${m}`);
                 //one in 5 chance to make a rock
             }
@@ -136,17 +136,7 @@ for (let n = 0; n < rows - 1; n++) {
     }
 }
 
-//distribute treasures
 
-//while (treasureAssigned = 0) 
-{
-    let thisX = Math.floor(myGetRandomInt(rows - 8) + 4);
-    let thisY = Math.floor(myGetRandomInt(columns - 8) + 4);
-    if (featureMap[thisX][thisY] = 0) {
-        console.log(`treasure hidden at ${thisX},${thisY}`);
-        treasureAssigned = 1;
-    }
-}
 
 
 //get average height of surrounding tiles and store in smoothmap
@@ -177,6 +167,20 @@ for (let n = 1; n < rows; n++) {
         if (n == 1 || m == 1 || n == rows - 1 || m == columns - 1) {
             heightMap[n][m] = 0;
             featureMap[n][m] = 3;
+        }
+    }
+}
+//distribute treasures
+for (i = treasureCount; i > 0; i--) {
+    let treasureAssigned = 0;
+    while (treasureAssigned == 0) {
+        console.log('Assigning treasure...');
+        let thisX = Math.floor(myGetRandomInt(rows - 8) + 4);
+        let thisY = Math.floor(myGetRandomInt(columns - 8) + 4);
+        if (featureMap[thisX][thisY] == 0) {
+            featureMap[thisX][thisY] = 4;
+            console.log(`treasure hidden at ${thisX},${thisY}`);
+            treasureAssigned = 1;
         }
     }
 }
