@@ -14,15 +14,16 @@ ctx.fillRect(CanvasWidth * 0.2, CanvasHeight * 0.2, CanvasWidth * 0.6, CanvasHei
 */
 
 // set terrain map variables
-let maxHeight = 20;
-let rows = 11;
-let columns = 11;
+let maxHeight = 30;
+let rows = 21;
+let columns = 21;
 let tileWidth = 32;
 let tileHeight = tileWidth / 2;
 
 //create arrays for storing terrain height and feature coordinates
 let heightMap = [];
 let featureMap = [];
+let smoothMap = [];
 
 //create the draw list
 let drawList = [];
@@ -31,16 +32,18 @@ let drawList = [];
 for (let i = 0; i < rows; i++) {
     heightMap[i] = [];
     featureMap[i] = [];
+    smoothMap[i] = [];
     for (let j = 0; j < columns; j++) {
         heightMap[i][j] = j;
         featureMap[i][j] = 0;
+        smoothMap[i][j] = 0;
     }
 }
 
 
 //generate terrain height map & feature map
-for (let n = 0; n < 10; n++) {
-    for (let m = 0; m < 10; m++) {
+for (let n = 0; n < rows - 1; n++) {
+    for (let m = 0; m < columns - 1; m++) {
         heightMap[n][m] = Math.floor(Math.random() * maxHeight);
         //console.log(`Cell ${n},${m} height value ${terrain[n][m]}`);
         if (myGetRandomInt(3) > 2) {
@@ -58,6 +61,23 @@ for (let n = 0; n < 10; n++) {
                 //one in 5 chance to make a rock
             }
         }
+    }
+}
+
+//smooth heightmap
+
+let avgHeight = 0;
+for (let n = 1; n < rows - 2; n++) {
+    for (let m = 1; m < columns - 2; m++) {
+        avgHeight = myGetMean(heightMap[n - 1][m - 1], heightMap[n][m - 1], heightMap[n + 1][m - 1], heightMap[n - 1][m], heightMap[n + 1][m], heightMap[n - 1][m + 1], heightMap[n][m + 1], heightMap[n + 1][m + 1]);
+        smoothMap[n][m] = avgHeight;
+
+    }
+}
+for (let n = 1; n < rows - 1; n++) {
+    for (let m = 1; m < columns - 1; m++) {
+        heightMap[n][m] = smoothMap[n][m];
+
     }
 }
 
@@ -88,13 +108,17 @@ function myGetRandomInt(maxNum) {
     console.log(`random int: ${randomInt}`);
     return randomInt;
 }
-
+//returns the mean average of 8 inputs
+function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
+    let myMean = Math.floor((n1, n2, n3, n4, n5, n6, n7, n8) / 8);
+    return myMean;
+}
 //draw terain
 let heightOffSet = "";
 let heightOffSetNextX = "";
 let heightOffSetNextXY = "";
-for (let n = 1; n < 10; n++) {
-    for (let m = 1; m < 10; m++) {
+for (let n = 1; n < rows - 1; n++) {
+    for (let m = 1; m < columns - 1; m++) {
         heightOffSet = heightMap[n][m];
         heightOffSetNextX = heightMap[n + 1][m];
         heightOffSetNextXY = heightMap[n + 1][m + 1];
