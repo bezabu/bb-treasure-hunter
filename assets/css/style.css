@@ -3,8 +3,14 @@
     padding: 0;
     border: none;
 }
+
 body {
     background-color: #46546A;
+}
+
+#header {
+    margin-top: 20px;
+    text-align: center;
 }
 
 #game-area {
@@ -14,4 +20,37 @@ body {
     transform: translate(-50%, -50%);
     width: 800px;
     height: 450px;
+}
+
+
+/* media queries */
+/* Laptops, desktops */
+@media screen and (max-width: 1920px) {
+    
+}
+
+/* Small screens, laptops */
+@media screen and (max-width: 1200px) {
+    
+}
+
+/* small screens, laptops */
+@media screen and (max-width: 1024px) {
+    
+}
+
+/* landscape phones, tablets */
+@media screen and (max-width: 768px) {
+   
+}
+
+
+/* phones */
+@media screen and (max-width: 480px) {
+    
+}
+
+/* small phones */
+@media screen and (max-width: 320px) {
+   
 }
