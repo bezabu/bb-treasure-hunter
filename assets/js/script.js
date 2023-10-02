@@ -51,6 +51,8 @@ let rows = mapSize + 1;
 let columns = mapSize + 1;
 let tileWidth = 32;
 let tileHeight = tileWidth / 2;
+let treasureCount = 1;
+let treasureAssigned = 0;
 
 //player object
 let player = {
@@ -133,6 +135,19 @@ for (let n = 0; n < rows - 1; n++) {
         }
     }
 }
+
+//distribute treasures
+
+//while (treasureAssigned = 0) 
+{
+    let thisX = Math.floor(myGetRandomInt(rows - 8) + 4);
+    let thisY = Math.floor(myGetRandomInt(columns - 8) + 4);
+    if (featureMap[thisX][thisY] = 0) {
+        console.log(`treasure hidden at ${thisX},${thisY}`);
+        treasureAssigned = 1;
+    }
+}
+
 
 //get average height of surrounding tiles and store in smoothmap
 let avgHeight = 0;
@@ -263,9 +278,13 @@ function updatePlayerDrawObject() {
     playerAnimateCount += 0.5;
     if (playerAnimateCount > 7) playerAnimateCount = 0;
 }
+//check distance to nearest treasure
+function checkHint() {
+    //check distance
+}
+//cycle through drawlist
 function drawImages() {
     for (let i = 0; i < drawList.length; i++) {
-        //cycle through drawobjects
         //call the drawimage
         if (drawList[i].type == imgPlayer) {
             //special code for animating the player
