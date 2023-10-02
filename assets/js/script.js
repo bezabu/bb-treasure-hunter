@@ -111,7 +111,7 @@ function inverseIsoY(x, y, tileWidth, tileHeight) {
 //returns a random integer between 0 and maxNum
 function myGetRandomInt(maxNum) {
     let randomInt = Math.round(Math.random() * maxNum);
-    console.log(`random int: ${randomInt}`);
+    //console.log(`random int: ${randomInt}`);
     return randomInt;
 }
 //returns the mean average of 8 inputs
@@ -167,10 +167,12 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener("mousedown", (evt) => {
     //get mouse position
 });
-document.addEventListener("mousemove", (logMouse) => {
-    //get the mouse position within the canvas
+document.addEventListener("mousemove", logMouse);
+
+function logMouse(e) {
+    //console.log(`mouse position: ${e.clientX},${e.clientY}`);
     let rect = canvas.getBoundingClientRect();
     mousePosition.x = Math.floor(e.clientX - rect.left);
     mousePosition.y = Math.floor(e.clientY - rect.top);
-});
-
+    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
+}
