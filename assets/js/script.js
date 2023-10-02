@@ -28,7 +28,13 @@ imgTree.onload = () => {
     //tree image is loaded
     treeLoad = 1;
 };
-
+let rockLoad = 0;
+let imgRock = new Image(); // Create new img element
+imgRock.src = "../assets/images/rock_placeholder2.png"; // Set source path
+imgRock.onload = () => {
+    //rock image is loaded
+    rockLoad = 1;
+};
 //object for storing the cursor position
 let mousePosition = {
     x: 0,
@@ -103,7 +109,9 @@ for (let n = 0; n < rows - 1; n++) {
             if (myGetRandomInt(4) > 3 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
                 featureMap[n][m] = 2;
                 //enter the object in the drawobject list
-
+                let entry = new DrawObject(imgRock, n, m, 25, 35);
+                drawList.push(entry);
+                console.log(`New rock, ${entry} at ${n},${m}`);
                 //console.log(`New rock, ${entry} at ${n},${m}`);
                 //one in 5 chance to make a rock
             }
