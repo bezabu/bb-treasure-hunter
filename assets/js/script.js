@@ -275,6 +275,9 @@ function playerMove(player, eventKey) {
     }
     if (!downKey && !upKey && !leftKey && !rightKey) keyPressed = 0;
 }
+function mouseMove() {
+
+}
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
     playerDrawObject.x = player.playerX;
@@ -308,8 +311,8 @@ function checkHint() {
         hintMessage.innerHTML = hints[Math.floor(shortestDist / 2)];
         //console.log(hints.length);
     } else hintMessage.innerHTML = hints[hints.length - 1];
-    console.log(hints[Math.floor(shortestDist / 2)]);
-    console.log(hints[hints.length - 1]);
+    //console.log(hints[Math.floor(shortestDist / 2)]);
+    //console.log(hints[hints.length - 1]);
 }
 //cycle through drawlist
 function drawImages() {
@@ -421,7 +424,16 @@ document.addEventListener('keyup', (event) => {
     }
 });
 document.addEventListener("mousedown", (evt) => {
+    //get mouse position and use it
+    //mouseMove();
+});
+document.addEventListener("pointerdown", (evt) => {
+    //console.log("mouse click");
     //get mouse position
+    //draw something there
+    console.log(`mobile touch at ${mousePosition.x},${mousePosition.y}`);
+    //let entry = new DrawObject(imgSeal, Math.round(mousePosition.x / 50), Math.round(mousePosition.y / 50));
+    //drawList.push(entry);
 });
 document.addEventListener("mousemove", logMouse);
 
