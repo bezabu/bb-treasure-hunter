@@ -8,7 +8,7 @@ let xScreenOffset = 0;
 let yScreenOffset = 0;
 // identify hot/cold message
 let hintMessage = document.getElementById("hint-message");
-let hints = ["Red-Hot!", "Boiling", "Hot", "Warmer", "Warm", "Lukewarm", "Cold", "Very Cold", "Freezing"];
+let hints = ["Red-Hot!", "Boiling", "Hot", "Warm", "Warm", "Lukewarm", "Lukewarm", "Cold", "Cold", "Cold", "Very Cold", "Very Cold", "Extremely Cold", "Freezing", "Absolute Zero"];
 hintMessage.innerHTML = hints[6];
 //load images
 let playerLoad = 0;
@@ -51,7 +51,7 @@ let rows = mapSize + 1;
 let columns = mapSize + 1;
 let tileWidth = 32;
 let tileHeight = tileWidth / 2;
-let treasureCount = 2;
+let treasureCount = 1;
 
 //player object
 let player = {
@@ -293,6 +293,23 @@ function updatePlayerDrawObject() {
 //check distance to nearest treasure
 function checkHint() {
     //check distance
+    //find closest treasure
+    let dist = "";
+    let shortestDist = 999999;
+    for (index in treasureList) {
+        dist = myGetDistance(player.playerX, player.playerY, treasureList[index].x, treasureList[index].y);
+        //console.log(`distance to treasure ${treasureList[index].id}, ${dist}`);
+        if (dist < shortestDist) {
+            shortestDist = dist;
+            nearestTreasure = treasureList[index].id;
+        }
+    }
+    if (Math.floor(shortestDist / 2) <= hints.length - 1) {
+        hintMessage.innerHTML = hints[Math.floor(shortestDist / 2)];
+        //console.log(hints.length);
+    } else hintMessage.innerHTML = hints[hints.length - 1];
+    console.log(hints[Math.floor(shortestDist / 2)]);
+    console.log(hints[hints.length - 1]);
 }
 //cycle through drawlist
 function drawImages() {
@@ -367,6 +384,7 @@ function logMouse(e) {
 function gameLoop() {
     clearCanvas();
     playerMove(player);
+    checkHint();
     drawBackground();
     drawTerrain();
     updatePlayerDrawObject();
