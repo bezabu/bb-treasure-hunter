@@ -224,16 +224,16 @@ function inverseIsoY(x, y, tileWidth, tileHeight) {
 */
 //get original x coordinate from isometric coordinates
 function inverseIsoX(x, y, tileWidth, tileHeight) {
-    halfTileWidth = tileWidth / 2;
-    halfTileHeight = tileHeight / 2;
-    let mapX = (x / tileWidth + y / tileHeight);
+    x = x - xScreenOffset;
+    y = y - yScreenOffset;
+    let mapX = (x / (tileWidth * 2) + y / (tileHeight * 2)) - 0.5;
     return mapX;
 }
 //get original y coordinate from isometric coordinates
 function inverseIsoY(x, y, tileWidth, tileHeight) {
-    halfTileWidth = tileWidth / 2;
-    halfTileHeight = tileHeight / 2;
-    let mapY = (y / tileHeight - x / tileWidth);
+    x = x - xScreenOffset;
+    y = y - yScreenOffset;
+    let mapY = (y / (tileHeight * 2) - x / (tileWidth * 2)) - 0.5;
     return mapY;
 }
 //returns a random integer between 0 and maxNum
@@ -331,7 +331,7 @@ function logMouse(e) {
 }
 function mouseMove() {
     //console.log(getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
-    console.log(`x:${(inverseIsoX(mousePosition.x - xScreenOffset, mousePosition.y - yScreenOffset, tileWidth * 2, tileHeight * 2)) - 0.5},${inverseIsoY(mousePosition.x - xScreenOffset, mousePosition.y - yScreenOffset, tileWidth * 2, tileHeight * 2) - 0.5}`);
+    console.log(`x:${(inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight))},${inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)}`);
     console.log(`player: ${player.playerX},${player.playerY}`);
     let anchor = {
         x: player.playerX,
