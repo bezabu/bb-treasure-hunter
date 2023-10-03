@@ -50,7 +50,7 @@ let maxHeight = 30;
 let rows = mapSize + 1;
 let columns = mapSize + 1;
 let tileWidth = 32;
-let tileHeight = tileWidth / 2;
+let tileHeight = Math.floor(tileWidth / 2);
 let treasureCount = 1;
 
 //player object
@@ -198,19 +198,20 @@ sortImages();
 //Isometric conversion functions
 //get isometric x coordinate
 function getIsoX(x, y, tileWidth, tileHeight) {
-    let isoX = ((x - y) * tileWidth);
+    let isoX = ((x - y) * (tileWidth));
     return isoX;
 }
 //get isometric y coordinate
 function getIsoY(x, y, tileWidth, tileHeight) {
-    let isoY = ((x + y) * tileHeight);
+    let isoY = ((x + y) * (tileHeight));
     return isoY;
 }
+/*
 //get original x coordinate from isometric coordinates
 function inverseIsoX(x, y, tileWidth, tileHeight) {
     halfTileWidth = tileWidth / 2;
     halfTileHeight = tileHeight / 2;
-    let mapX = (x / halfTileWidth + (y / halfTileHeight)) / 2;
+    let mapX = (x / halfTileWidth + y / halfTileHeight) / 2;
     return mapX;
 }
 //get original y coordinate from isometric coordinates
@@ -218,6 +219,21 @@ function inverseIsoY(x, y, tileWidth, tileHeight) {
     halfTileWidth = tileWidth / 2;
     halfTileHeight = tileHeight / 2;
     let mapY = (y / halfTileHeight - (x / halfTileWidth)) / 2;
+    return mapY;
+}
+*/
+//get original x coordinate from isometric coordinates
+function inverseIsoX(x, y, tileWidth, tileHeight) {
+    halfTileWidth = tileWidth / 2;
+    halfTileHeight = tileHeight / 2;
+    let mapX = (x / tileWidth + y / tileHeight);
+    return mapX;
+}
+//get original y coordinate from isometric coordinates
+function inverseIsoY(x, y, tileWidth, tileHeight) {
+    halfTileWidth = tileWidth / 2;
+    halfTileHeight = tileHeight / 2;
+    let mapY = (y / tileHeight - x / tileWidth);
     return mapY;
 }
 //returns a random integer between 0 and maxNum
@@ -237,23 +253,28 @@ function getAngleDeg(x1, y1, x2, y2) {
     let angleDeg = Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI;
     return angleDeg;
 }
+function getAngleDeg2(originX, originY, targetX, targetY) {
+    var dx = originX - targetX;
+    var dy = originY - targetY;
 
-function getAngleDeg2(x1, y1, x2, y2) {
-    let angle = (anchor, point) => Math.atan2(anchor.y - point.y, anchor.x - point.x) * 180 / Math.PI + 180;
-    let a = {
-        x: x1,
-        y: y1
-    };
-    let p = {
-        x: x2,
-        y: y2
-    };
-    angle(a, p); // 225
-    // angle in degrees, from example, same data
-    angleDeg = Math.atan2(a.y - p.y, a.x - p.x) * 180 / Math.PI; // 45
-    return angleDeg;
+    // var theta = Math.atan2(dy, dx);  // [0, Ⲡ] then [-Ⲡ, 0]; clockwise; 0° = west
+    // theta *= 180 / Math.PI;          // [0, 180] then [-180, 0]; clockwise; 0° = west
+    // if (theta < 0) theta += 360;     // [0, 360]; clockwise; 0° = west
+
+    // var theta = Math.atan2(-dy, dx); // [0, Ⲡ] then [-Ⲡ, 0]; anticlockwise; 0° = west
+    // theta *= 180 / Math.PI;          // [0, 180] then [-180, 0]; anticlockwise; 0° = west
+    // if (theta < 0) theta += 360;     // [0, 360]; anticlockwise; 0° = west
+
+    // var theta = Math.atan2(dy, -dx); // [0, Ⲡ] then [-Ⲡ, 0]; anticlockwise; 0° = east
+    // theta *= 180 / Math.PI;          // [0, 180] then [-180, 0]; anticlockwise; 0° = east
+    // if (theta < 0) theta += 360;     // [0, 360]; anticlockwise; 0° = east
+
+    var theta = Math.atan2(-dy, -dx); // [0, Ⲡ] then [-Ⲡ, 0]; clockwise; 0° = east
+    theta *= 180 / Math.PI;           // [0, 180] then [-180, 0]; clockwise; 0° = east
+    if (theta < 0) theta += 360;      // [0, 360]; clockwise; 0° = east
+
+    return theta;
 }
-
 //returns the mean average of 8 inputs
 function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
     let myMean = Math.floor((n1, n2, n3, n4, n5, n6, n7, n8) / 8);
@@ -305,10 +326,13 @@ function logMouse(e) {
     mousePosition.x = Math.floor(e.clientX - rect.left);
     mousePosition.y = Math.floor(e.clientY - rect.top);
     //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
+    //console.log(getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
+
 }
 function mouseMove() {
-    console.log(getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
-
+    //console.log(getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
+    console.log(`x:${(inverseIsoX(mousePosition.x - xScreenOffset, mousePosition.y - yScreenOffset, tileWidth * 2, tileHeight * 2)) - 0.5},${inverseIsoY(mousePosition.x - xScreenOffset, mousePosition.y - yScreenOffset, tileWidth * 2, tileHeight * 2) - 0.5}`);
+    console.log(`player: ${player.playerX},${player.playerY}`);
     let anchor = {
         x: player.playerX,
         y: player.playerY
@@ -317,7 +341,8 @@ function mouseMove() {
         x: inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight),
         y: inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)
     };
-    console.log(getAngleDeg2(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
+    //console.log(getAngleDeg2(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
+
 }
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
@@ -464,7 +489,7 @@ document.addEventListener("mousemove", logMouse);
 document.addEventListener("mousedown", (evt) => {
     //get mouse position and use it
     //mouseMove();
-    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
+    //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
 });
 document.addEventListener("pointerdown", (evt) => {
     //console.log("mouse click");
