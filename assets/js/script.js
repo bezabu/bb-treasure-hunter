@@ -250,30 +250,8 @@ function myGetDistance(x1, y1, x2, y2) {
 //get the angle between two points
 function getAngleDeg(x1, y1, x2, y2) {
     // angle in degrees
-    let angleDeg = Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI;
+    let angleDeg = (Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI) + 180;
     return angleDeg;
-}
-function getAngleDeg2(originX, originY, targetX, targetY) {
-    var dx = originX - targetX;
-    var dy = originY - targetY;
-
-    // var theta = Math.atan2(dy, dx);  // [0, Ⲡ] then [-Ⲡ, 0]; clockwise; 0° = west
-    // theta *= 180 / Math.PI;          // [0, 180] then [-180, 0]; clockwise; 0° = west
-    // if (theta < 0) theta += 360;     // [0, 360]; clockwise; 0° = west
-
-    // var theta = Math.atan2(-dy, dx); // [0, Ⲡ] then [-Ⲡ, 0]; anticlockwise; 0° = west
-    // theta *= 180 / Math.PI;          // [0, 180] then [-180, 0]; anticlockwise; 0° = west
-    // if (theta < 0) theta += 360;     // [0, 360]; anticlockwise; 0° = west
-
-    // var theta = Math.atan2(dy, -dx); // [0, Ⲡ] then [-Ⲡ, 0]; anticlockwise; 0° = east
-    // theta *= 180 / Math.PI;          // [0, 180] then [-180, 0]; anticlockwise; 0° = east
-    // if (theta < 0) theta += 360;     // [0, 360]; anticlockwise; 0° = east
-
-    var theta = Math.atan2(-dy, -dx); // [0, Ⲡ] then [-Ⲡ, 0]; clockwise; 0° = east
-    theta *= 180 / Math.PI;           // [0, 180] then [-180, 0]; clockwise; 0° = east
-    if (theta < 0) theta += 360;      // [0, 360]; clockwise; 0° = east
-
-    return theta;
 }
 //returns the mean average of 8 inputs
 function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
@@ -330,18 +308,27 @@ function logMouse(e) {
 
 }
 function mouseMove() {
-    //console.log(getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
+    let moveAngle = (getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
     console.log(`x:${(inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight))},${inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)}`);
     console.log(`player: ${player.playerX},${player.playerY}`);
-    let anchor = {
-        x: player.playerX,
-        y: player.playerY
-    };
-    let point = {
-        x: inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight),
-        y: inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)
-    };
-    //console.log(getAngleDeg2(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
+    if (moveAngle <= 22 || moveAngle > 337) {
+        //move upright
+    } else if (moveAngle > 22 && moveAngle <= 67) {
+        //move up
+    } else if (moveAngle > 67 && moveAngle <= 112) {
+        //move upleft
+    } else if (moveAngle > 112 && moveAngle <= 157) {
+        //move left
+    } else if (moveAngle > 157 && moveAngle <= 202) {
+        //move downleft
+    } else if (moveAngle > 202 && moveAngle <= 247) {
+        //move down
+    } else if (moveAngle > 247 && moveAngle <= 292) {
+        //move downright
+    } else if (moveAngle > 292 && moveAngle <= 337) {
+        //move right
+    }
+
 
 }
 function updatePlayerDrawObject() {
