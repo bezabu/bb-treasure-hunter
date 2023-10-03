@@ -44,6 +44,12 @@ let upKey = 0;
 let downKey = 0;
 let keyPressed = 0;
 let touch = 0;
+let moving = {
+    up: 0,
+    down: 0,
+    left: 0,
+    right: 0
+};
 // set terrain map variables
 let mapSize = 30;
 let maxHeight = 30;
@@ -283,6 +289,7 @@ function playerMove(player, eventKey) {
 }
 function moveLeft() {
     if (!colCheck(player.playerX - moveAmount, player.playerY + moveAmount)) {
+        moving.left = 1;
         player.playerX -= moveAmount;
         player.playerY += moveAmount;
         xScreenOffset += moveAmount * tileWidth * 2;
@@ -290,6 +297,7 @@ function moveLeft() {
 }
 function moveRight() {
     if (!colCheck(player.playerX + moveAmount, player.playerY - moveAmount)) {
+        moving.right = 1;
         player.playerX += moveAmount;
         player.playerY -= moveAmount;
         xScreenOffset -= moveAmount * tileWidth * 2;
@@ -297,6 +305,7 @@ function moveRight() {
 }
 function moveUp() {
     if (!colCheck(player.playerX - moveAmount, player.playerY - moveAmount)) {
+        moving.up = 1;
         player.playerX -= moveAmount;
         player.playerY -= moveAmount;
         yScreenOffset += moveAmount * tileWidth;
@@ -304,6 +313,7 @@ function moveUp() {
 }
 function moveDown() {
     if (!colCheck(player.playerX + moveAmount, player.playerY + moveAmount)) {
+        moving.down = 1;
         player.playerX += moveAmount;
         player.playerY += moveAmount;
         yScreenOffset -= moveAmount * tileWidth;
@@ -322,42 +332,19 @@ function mouseMove() {
     let moveAngle = (getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
     //console.log(`x:${(inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight))},${inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)}`);
     //console.log(`player: ${player.playerX},${player.playerY}`);
-    if (moveAngle <= 22 || moveAngle > 337) {
-        //move upright
-        console.log("move north east");
-        moveUp();
-        moveRight();
-    } else if (moveAngle > 22 && moveAngle <= 67) {
+    if (moveAngle <= 112 || moveAngle > 337) {
         //move up
         moveUp();
-        console.log("move north");
-    } else if (moveAngle > 67 && moveAngle <= 112) {
-        //move upleft
-        moveUp();
-        moveLeft();
-        console.log("move north west");
-    } else if (moveAngle > 112 && moveAngle <= 157) {
-        //move left
-        moveLeft();
-        console.log("move west");
-    } else if (moveAngle > 157 && moveAngle <= 202) {
-        //move downleft
-        moveLeft();
-        moveDown();
-        console.log("move south west");
-    } else if (moveAngle > 202 && moveAngle <= 247) {
+    } else if (moveAngle > 157 && moveAngle <= 292) {
         //move down
         moveDown();
-        console.log("move south");
-    } else if (moveAngle > 247 && moveAngle <= 292) {
-        //move downright
-        moveRight();
-        moveDown();
-        console.log("move south east");
-    } else if (moveAngle > 292 && moveAngle <= 337) {
+    }
+    if (moveAngle > 67 && moveAngle <= 202) {
+        //left
+        moveLeft();
+    } else if (moveAngle > 247 || moveAngle <= 22) {
         //move right
         moveRight();
-        console.log("move east");
     }
 }
 function updatePlayerDrawObject() {
@@ -463,6 +450,9 @@ let gameTimer = 0;
 function gameLoop() {
     clearCanvas();
     if (touch == 1) mouseMove();
+    if (touch == 0 && keyPressed == 0) {
+        moving.up = 0;
+    }
     playerMove(player);
     checkHint();
     drawBackground();
