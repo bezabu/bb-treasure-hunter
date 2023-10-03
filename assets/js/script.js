@@ -517,6 +517,14 @@ document.addEventListener("pointerdown", (evt) => {
     console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
     touch = 1;
 });
+document.addEventListener("pointerup", (evt) => {
+    //console.log("mouse click");
+    //get mouse position
+
+    //logMouse(evt);
+    //console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
+    touch = 0;
+});
 document.addEventListener("touchstart", (evt) => {
 
     //logMouse(evt);
