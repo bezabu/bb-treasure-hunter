@@ -43,7 +43,7 @@ let rightKey = 0;
 let upKey = 0;
 let downKey = 0;
 let keyPressed = 0;
-
+let touch = 0;
 // set terrain map variables
 let mapSize = 30;
 let maxHeight = 30;
@@ -317,12 +317,11 @@ function logMouse(e) {
     mousePosition.y = Math.floor(e.clientY - rect.top);
     //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
     //console.log(getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
-
 }
 function mouseMove() {
     let moveAngle = (getAngleDeg(player.playerX, player.playerY, inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight), inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
-    console.log(`x:${(inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight))},${inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)}`);
-    console.log(`player: ${player.playerX},${player.playerY}`);
+    //console.log(`x:${(inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight))},${inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)}`);
+    //console.log(`player: ${player.playerX},${player.playerY}`);
     if (moveAngle <= 22 || moveAngle > 337) {
         //move upright
         console.log("move north east");
@@ -360,8 +359,6 @@ function mouseMove() {
         moveRight();
         console.log("move east");
     }
-
-
 }
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
@@ -465,6 +462,7 @@ function drawBackground() {
 let gameTimer = 0;
 function gameLoop() {
     clearCanvas();
+    if (touch == 1) mouseMove();
     playerMove(player);
     checkHint();
     drawBackground();
@@ -473,6 +471,7 @@ function gameLoop() {
     sortImages();
     drawImages();
     gameTimer++;
+    console.log(touch);
 }
 //run gameLoop 25 times per second (every 40 milliseconds)
 setInterval(gameLoop, 40);
@@ -513,12 +512,30 @@ document.addEventListener("mousedown", (evt) => {
 document.addEventListener("pointerdown", (evt) => {
     //console.log("mouse click");
     //get mouse position
-    //draw something there
+
     logMouse(evt);
-    console.log(`mobile touch at ${mousePosition.x},${mousePosition.y}`);
-    mouseMove();
-    //let entry = new DrawObject(imgSeal, Math.round(mousePosition.x / 50), Math.round(mousePosition.y / 50));
-    //drawList.push(entry);
+    console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
+    touch = 1;
+});
+document.addEventListener("touchstart", (evt) => {
+
+    //logMouse(evt);
+    //console.log(`mobile touch 2 at ${mousePosition.x},${mousePosition.y}`);
+    touch = 1;
+});
+document.addEventListener("touchmove", (touch) => {
+
+    logMouse(touch);
+    console.log(`mobile touch 3 at ${mousePosition.x},${mousePosition.y}`);
+    //touch = 1;
+
+});
+document.addEventListener("touchend", (evt) => {
+
+    //logMouse(evt);
+    //console.log(`mobile touch at ${mousePosition.x},${mousePosition.y}`);
+    touch = 0;
+
 });
 
 document.addEventListener("DOMContentLoaded", function () {
