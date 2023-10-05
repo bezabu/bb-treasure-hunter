@@ -9,7 +9,7 @@ let yScreenOffset = 0;
 // identify hot/cold message
 let hintMessage = document.getElementById("hint-message");
 let hints = ["Red-Hot!", "Boiling", "Hot", "Warm", "Warm", "Lukewarm", "Lukewarm", "Cold", "Cold", "Cold", "Very Cold", "Very Cold", "Extremely Cold", "Freezing", "Absolute Zero"];
-let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537', '#E8C369', '#E5DEAF'];
+let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537', '#E8C369', '#E5DEAF', '#AFB6E5', '#4183E8', '#047EF9', '#73D1E1', '#99E4E7', '#BAEAE8', '#E6F5F5', '#ffffff'];
 hintMessage.innerHTML = hints[6];
 //load images
 let playerLoad = 0;
@@ -35,7 +35,7 @@ imgRock.onload = () => {
 };
 let holeLoad = 0;
 let imgHole = new Image(); // Create new img element
-imgHole.src = "../assets/images/hole_placeholder1.png"; // Set source path
+imgHole.src = "https://bezabu.github.io/bb-treasure-hunter/assets/images/hole_placeholder1.png"; // Set source path
 imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;
