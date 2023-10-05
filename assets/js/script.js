@@ -7,6 +7,7 @@ let CanvasHeight = canvas.height = 450;
 //set view area
 let xScreenOffset = 0; //added to all draw functions to simulate a 'camera'
 let yScreenOffset = 0;
+let gameState = 0; //wether or not to check for player input
 // get hint area in HTML and set hot/cold hint messages/colours
 let hintMessage = document.getElementById("hint-message");
 let hints = ["Red-Hot!", "Boiling", "Hot", "Warm", "Warm", "Lukewarm", "Lukewarm", "Cold", "Cold", "Cold", "Very Cold", "Very Cold", "Extremely Cold", "Freezing", "Absolute Zero"];
@@ -525,6 +526,7 @@ function winCondition() {
     let timer = Math.round(gameTimer / 40, 2);
     winMessage.children[3].textContent = timer.toString() + " seconds!";
     winMessage.style.zIndex = 4;
+    gameState = 0;
 }
 //main game loop
 let gameTimer = 0;
@@ -534,7 +536,7 @@ function gameLoop() {
     if (touch == 0 && keyPressed == 0) {
         moving.up = 0;
     }
-    playerMove(player);
+    if (gameState) playerMove(player);
     checkHint();
     drawBackground();
     drawTerrain();
@@ -652,6 +654,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let startMessage = document.getElementById('start-message');
             startMessage.style.zIndex = 0;
             started = 1;
+            gameState = 1;
             setInterval(gameLoop, 40);
         }
     });
