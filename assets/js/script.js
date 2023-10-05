@@ -35,7 +35,7 @@ imgRock.onload = () => {
 };
 let holeLoad = 0;
 let imgHole = new Image(); // Create new img element
-imgHole.src = "https://bezabu.github.io/bb-treasure-hunter/assets/images/hole_placeholder1.png"; // Set source path
+imgHole.src = "../assets/images/hole_placeholder1.png"; // Set source path
 imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;
@@ -458,7 +458,7 @@ function sortImages() {
 function drawThis(imageToDraw, x, y, originX, originY) {
     ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight));
     //console.log(`draw ${imageToDraw} at ${x},${y}`);
-    if (imageToDraw = imgHole) console.log("drawing a hole!");
+    //if (imageToDraw = imgHole) console.log("drawing a hole!");
 }
 //draw the player
 function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
@@ -510,7 +510,7 @@ function drawTerrain() {
             //}
             if (featureMap[n][m] == 5) {
                 //draw a dug up hole
-                drawThis(imgHole, n, m, -25, -25);
+                drawThis(imgHole, n, m, 25, 25);
                 //console.log("draw hole");
             }
         }
