@@ -1,3 +1,4 @@
+/*jshint esversion: 7 */
 //initiate canvas
 let canvas = document.getElementById("game-area");
 let ctx = canvas.getContext("2d");
@@ -367,10 +368,10 @@ function dig(x, y) {
             featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5;
             //remove treasure from treasurelist
             let rightTreasure = "";
-            for (index in treasureList) {
-                if (treasureList[index].x == Math.round(x, 0) &&
-                    treasureList[index].y == Math.round(y, 0)) {
-                    rightTreasure = index;
+            for (i = 0; i < treasureList.length; i++) {
+                if (treasureList[i].x == Math.round(x, 0) &&
+                    treasureList[i].y == Math.round(y, 0)) {
+                    rightTreasure = i;
                 }
             }
             treasureList.splice(rightTreasure, 1);
@@ -395,7 +396,8 @@ function dig(x, y) {
     console.log(featureMap[Math.floor(x)][Math.floor(y)]);
 
 
-};
+}
+
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
     playerDrawObject.x = player.playerX;
@@ -417,14 +419,28 @@ function checkHint() {
     //find closest treasure
     let dist = "";
     let shortestDist = 999999;
-    for (index in treasureList) {
-        dist = myGetDistance(player.playerX, player.playerY, treasureList[index].x, treasureList[index].y);
+    //if (treasureList[index] !== undefined) {
+    for (i = 0; i < treasureList.length; i++) {
+        dist = myGetDistance(player.playerX, player.playerY, treasureList[i].x, treasureList[i].y);
         //console.log(`distance to treasure ${treasureList[index].id}, ${dist}`);
         if (dist < shortestDist) {
             shortestDist = dist;
-            nearestTreasure = treasureList[index].id;
+            nearestTreasure = treasureList[i].id;
         }
     }
+    //}
+    /*
+    if (treasureList[index] !== undefined) {
+        for (index in treasureList) {
+            dist = myGetDistance(player.playerX, player.playerY, treasureList[index].x, treasureList[index].y);
+            //console.log(`distance to treasure ${treasureList[index].id}, ${dist}`);
+            if (dist < shortestDist) {
+                shortestDist = dist;
+                nearestTreasure = treasureList[index].id;
+            }
+        }
+    }
+    */
     if (Math.floor(shortestDist / 2) <= hints.length - 1) {
         hintMessage.innerHTML = hints[Math.floor(shortestDist / 2)];
         hintMessage.parentNode.style.backgroundColor = hintColors[Math.floor(shortestDist / 2)];
