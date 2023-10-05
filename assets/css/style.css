@@ -15,7 +15,6 @@ header {
 
 #hint-message {
     text-align: center;
-
 }
 
 .hints {
@@ -24,6 +23,7 @@ header {
     width: 200px;
     left: 50%;
     transform: translate(-50%, 0);
+    border-radius: 5px;
 }
 
 #game-area {
@@ -45,6 +45,7 @@ header {
     width: 300;
     height: 150;
     background-color: red;
+    border-radius: 10px;
 }
 
 #dig-button {
@@ -56,6 +57,29 @@ header {
     width: 300;
     height: 150;
     background-color: red;
+    border-radius: 10px;
+}
+
+#start-message {
+    display: inline-block;
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    border-radius: 10px;
+    background-color: aqua;
+    text-align: center;
+}
+
+#start-button {
+    position: relative;
+
+
+    transform: translate(-50%, 0);
+    margin: auto;
 }
 
 .treasure-span {
@@ -68,6 +92,7 @@ header {
     height: 15px;
     background-color: yellow;
     z-index: 0;
+    border-radius: 10px;
 }
 
 #prize-1 {
