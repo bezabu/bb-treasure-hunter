@@ -33,6 +33,13 @@ imgRock.onload = () => {
     //rock image is loaded
     rockLoad = 1;
 };
+let holeLoad = 0;
+let imgHole = new Image(); // Create new img element
+imgHole.src = "https://bezabu.github.io/bb-treasure-hunter/assets/images/hole_placeholder1.png"; // Set source path
+imgHole.onload = () => {
+    //rock image is loaded
+    holeLoad = 1;
+};
 //object for storing the cursor position
 let mousePosition = {
     x: 0,
@@ -43,6 +50,7 @@ let leftKey = 0;
 let rightKey = 0;
 let upKey = 0;
 let downKey = 0;
+let spaceKey = 0;
 let keyPressed = 0;
 let touch = 0;
 let moving = {
@@ -363,6 +371,16 @@ function mouseMove() {
         moveRight();
     }
 }
+function dig(x,y) {
+    if (featureMap[Math.floor(x)][Math.floor(y)] == 4){
+        //dig up the treasure
+        //increment the score
+        //remove treasure from treasurelist
+        //ad a hole sprite to tile
+    } else if (featureMap[Math.floor(x)][Math.floor(y)] == 0){
+        //add a hole sprite to tile
+    }
+};
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
     playerDrawObject.x = player.playerX;
@@ -438,8 +456,8 @@ function drawTerrain() {
     let heightOffSetNextX = "";
     let heightOffSetNextXY = "";
     let heightOffSetNextY = "";
-    for (let n = 1; n < rows - 1; n++) {
-        for (let m = 1; m < columns - 1; m++) {
+    for (let n = 2; n < rows - 1; n++) {
+        for (let m = 2; m < columns - 1; m++) {
             heightOffSet = heightMap[n][m];
             heightOffSetNextX = heightMap[n + 1][m];
             heightOffSetNextXY = heightMap[n + 1][m + 1];
@@ -518,6 +536,7 @@ document.addEventListener('keydown', (event) => {
     if (event.key == "ArrowRight") rightKey = 1;
     if (event.key == "ArrowUp") upKey = 1;
     if (event.key == "ArrowDown") downKey = 1;
+    if (event.key == "Space") spaceKey = 1;
     keyPressed = 1;
 });
 document.addEventListener('keyup', (event) => {
@@ -533,6 +552,9 @@ document.addEventListener('keyup', (event) => {
     }
     if (event.key == "ArrowDown") {
         downKey = 0;
+    }
+    if (event.key == "Space") {
+        spaceKey = 0;
     }
 });
 document.addEventListener("mousemove", logMouse);
