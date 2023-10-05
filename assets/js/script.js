@@ -13,6 +13,7 @@ let hintMessage = document.getElementById("hint-message");
 let hints = ["Red-Hot!", "Boiling", "Hot", "Warm", "Warm", "Lukewarm", "Lukewarm", "Cold", "Cold", "Cold", "Very Cold", "Very Cold", "Extremely Cold", "Freezing", "Absolute Zero"];
 let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537', '#E8C369', '#E5DEAF', '#AFB6E5', '#4183E8', '#047EF9', '#73D1E1', '#99E4E7', '#BAEAE8', '#E6F5F5', '#ffffff'];
 hintMessage.innerHTML = hints[6];
+
 //load images
 let playerLoad = 0;
 let imgPlayer = new Image(); // Create new img element
@@ -42,12 +43,12 @@ imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;
 };
-//object for storing the cursor position
+
+//object for storing the cursor position and key presses
 let mousePosition = {
     x: 0,
     y: 0
 };
-//variables storing key press states
 let leftKey = 0;
 let rightKey = 0;
 let upKey = 0;
@@ -532,11 +533,13 @@ function winCondition() {
 let gameTimer = 0;
 function gameLoop() {
     clearCanvas();
-    if (touch == 1) mouseMove();
-    if (touch == 0 && keyPressed == 0) {
-        moving.up = 0;
+    if (gameState) {
+        if (touch == 1) mouseMove();
+        if (touch == 0 && keyPressed == 0) {
+            moving.up = 0;
+        }
+        playerMove(player);
     }
-    if (gameState) playerMove(player);
     checkHint();
     drawBackground();
     drawTerrain();
