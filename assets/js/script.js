@@ -332,6 +332,12 @@ function logMouse(e) {
     mousePosition.x = Math.floor(e.clientX - rect.left);
     mousePosition.y = Math.floor(e.clientY - rect.top);
 }
+function mouseConvertX(mouseX, mouseY) {
+    return inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight);
+}
+function mouseConvertY(mouseX, mouseY) {
+    return inverseIsoY(mousePosition.y, mousePosition.y, tileWidth, tileHeight);
+}
 function mouseMove() {
     let moveAngle = (getAngleDeg(player.playerX, player.playerY,
         inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight),
@@ -423,7 +429,31 @@ function checkHint() {
         hintMessage.parentNode.style.backgroundColor = hintColors[hintColors.length - 1];
     }
 }
-
+//pathfinding
+function FrontierCell(newX, newY, distStart) {
+    this.x = newX;
+    this.y = newY;
+    this.neighbors = [];
+    this.distToStart = distStart;
+}
+function pathFind(sx, sy, fx, fy) {
+    //find neighbours of cell
+    let frontier = [];
+    let sx2 = Math.round(sx);
+    let sy2 = Math.round(sy);
+    let fx2 = Math.round(fx);
+    let fy2 = Math.round(fy);
+    for (let n = sx2 - 1; n <= sx2 + 1; n++) {
+        for (let m = sy2 - 1; m <= sy2 + 1; m++) {
+            //
+            if ((n != sx2 && m == sy2) || (n == sx2 && m != sy2) || (n != sx2 && m != sy2)) {
+                let newFrontier = new FrontierCell(n, m, 1);
+                frontier.push(newFrontier);
+            }
+        }
+    }
+    console.log(frontier);
+}
 //drawing functions
 function updatePlayerDrawObject() {
     /* update the position of the player in the player draw object and which 
@@ -588,7 +618,8 @@ document.addEventListener('keyup', (event) => {
         not required*/
     }
     if (event.key == "1") {
-        winCondition();
+        //winCondition();
+        pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
     }
 });
 document.addEventListener("mousemove", logMouse); //record cursor position
