@@ -393,6 +393,7 @@ function dig(x, y) {
             break;
         }
     }
+    if (treasureFound == 3) winCondition();
 }
 
 //check distance to nearest treasure
@@ -521,7 +522,8 @@ function drawBackground() {
 }
 function winCondition() {
     let winMessage = document.getElementById("win-message");
-    winMessage.children[4].innerHTML = Math.round(gameTimer / 100, 2);
+    let timer = Math.round(gameTimer / 40, 2);
+    winMessage.children[3].textContent = timer.toString() + " seconds!";
     winMessage.style.zIndex = 4;
 }
 //main game loop
@@ -579,6 +581,9 @@ document.addEventListener('keyup', (event) => {
         dig(player.playerX, player.playerY);
         spaceKey = 0; /* only listen for space bar key up as constant input is 
         not required*/
+    }
+    if (event.key == "1") {
+        winCondition();
     }
 });
 document.addEventListener("mousemove", logMouse); //record cursor position
