@@ -68,7 +68,7 @@ let columns = mapSize + 1;
 let tileWidth = 32;
 let tileHeight = Math.floor(tileWidth / 2);
 let treasureCount = 3;
-
+let nearestTreasure = "";
 //player object
 let player = {
     playerId: 1,
@@ -204,7 +204,7 @@ for (let n = 1; n < rows; n++) {
 }
 //distribute treasures
 let treasureList = [];
-for (i = 0; i < treasureCount; i++) {
+for (let i = 0; i < treasureCount; i++) {
     let treasureAssigned = 0;
     while (treasureAssigned == 0) {
         console.log('Assigning treasure...');
@@ -368,7 +368,7 @@ function dig(x, y) {
             featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5;
             //remove treasure from treasurelist
             let rightTreasure = "";
-            for (i = 0; i < treasureList.length; i++) {
+            for (let i = 0; i < treasureList.length; i++) {
                 if (treasureList[i].x == Math.round(x, 0) &&
                     treasureList[i].y == Math.round(y, 0)) {
                     rightTreasure = i;
@@ -420,7 +420,7 @@ function checkHint() {
     let dist = "";
     let shortestDist = 999999;
     //if (treasureList[index] !== undefined) {
-    for (i = 0; i < treasureList.length; i++) {
+    for (let i = 0; i < treasureList.length; i++) {
         dist = myGetDistance(player.playerX, player.playerY, treasureList[i].x, treasureList[i].y);
         //console.log(`distance to treasure ${treasureList[index].id}, ${dist}`);
         if (dist < shortestDist) {
@@ -494,8 +494,8 @@ function drawTerrain() {
             heightOffSetNextX = heightMap[n + 1][m];
             heightOffSetNextXY = heightMap[n + 1][m + 1];
             heightOffSetNextY = heightMap[n][m + 1];
-            isox = getIsoX(n, m, tileWidth, tileHeight);
-            isoy = getIsoY(n, m, tileWidth, tileHeight);
+            //isox = getIsoX(n, m, tileWidth, tileHeight);
+            //isoy = getIsoY(n, m, tileWidth, tileHeight);
             //if (getIsoX(n, m, tileWidth, tileHeight) > 0 && getIsoY(n, m, tileWidth, tileHeight) > 0 && getIsoX(n + 1, m + 1, tileWidth, tileHeight) < CanvasWidth && getIsoY(n + 1, m + 1, tileWidth, tileHeight) < CanvasHei{ght) {
             //draw tile
             if (featureMap[n][m] == 3) {
