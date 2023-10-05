@@ -99,6 +99,7 @@ featuremap assigns an integer based on what the tile contains:
 2   a rock
 3   water tile
 4   treasure location
+5   dug up hole
 smoothmap is a spare array to contain the smoothed out version of the
 heightmap during the process
 */
@@ -202,7 +203,7 @@ for (let n = 1; n < rows; n++) {
 }
 //distribute treasures
 let treasureList = [];
-for (i = treasureCount; i > 0; i--) {
+for (i = 0; i < treasureCount; i++) {
     let treasureAssigned = 0;
     while (treasureAssigned == 0) {
         console.log('Assigning treasure...');
@@ -236,22 +237,6 @@ function getIsoY(x, y, tileWidth, tileHeight) {
     let isoY = ((x + y) * (tileHeight));
     return isoY;
 }
-/*
-//get original x coordinate from isometric coordinates
-function inverseIsoX(x, y, tileWidth, tileHeight) {
-    halfTileWidth = tileWidth / 2;
-    halfTileHeight = tileHeight / 2;
-    let mapX = (x / halfTileWidth + y / halfTileHeight) / 2;
-    return mapX;
-}
-//get original y coordinate from isometric coordinates
-function inverseIsoY(x, y, tileWidth, tileHeight) {
-    halfTileWidth = tileWidth / 2;
-    halfTileHeight = tileHeight / 2;
-    let mapY = (y / halfTileHeight - (x / halfTileWidth)) / 2;
-    return mapY;
-}
-*/
 //get original x coordinate from isometric coordinates
 function inverseIsoX(x, y, tileWidth, tileHeight) {
     x = x - xScreenOffset;
@@ -309,6 +294,9 @@ function playerMove(player, eventKey) {
     if (downKey) {
         moveDown();
     }
+    //if (spaceKey) {
+    //    dig(player.playerX, player.playerY);
+    //}
     if (!downKey && !upKey && !leftKey && !rightKey) keyPressed = 0;
 }
 function moveLeft() {
@@ -371,15 +359,42 @@ function mouseMove() {
         moveRight();
     }
 }
-function dig(x,y) {
-    if (featureMap[Math.floor(x)][Math.floor(y)] == 4){
-        //dig up the treasure
-        //increment the score
-        //remove treasure from treasurelist
-        //ad a hole sprite to tile
-    } else if (featureMap[Math.floor(x)][Math.floor(y)] == 0){
-        //add a hole sprite to tile
+function dig(x, y) {
+    console.log(`digging at ${Math.round(x, 0)},${Math.round(y, 0)}...`);
+    switch (featureMap[Math.round(x, 0)][Math.round(y, 0)]) {
+        case 4: {
+            console.log("Found treasure!");
+            featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5;
+            //remove treasure from treasurelist
+            let rightTreasure = "";
+            for (index in treasureList) {
+                if (treasureList[index].x == Math.round(x, 0) &&
+                    treasureList[index].y == Math.round(y, 0)) {
+                    rightTreasure = index;
+                }
+            }
+            treasureList.splice(rightTreasure, 1);
+            break;
+        }
+        case 0: {
+            console.log("No treasure!");
+            featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5;
+            break;
+        }
+        case 5: {
+            console.log("Already dug here!");
+            break;
+        }
+        case 1:
+        case 2: {
+            console.log("Cannot dig here!");
+            break;
+        }
     }
+
+    console.log(featureMap[Math.floor(x)][Math.floor(y)]);
+
+
 };
 function updatePlayerDrawObject() {
     //update the position of the player in the player draw object
@@ -443,6 +458,7 @@ function sortImages() {
 function drawThis(imageToDraw, x, y, originX, originY) {
     ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight));
     //console.log(`draw ${imageToDraw} at ${x},${y}`);
+    if (imageToDraw = imgHole) console.log("drawing a hole!");
 }
 //draw the player
 function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
@@ -492,6 +508,11 @@ function drawTerrain() {
             //ctx.lineTo((n * tileWidth) + tileWidth, (m * tileWidth) + tileWidth);
             ctx.stroke();
             //}
+            if (featureMap[n][m] == 5) {
+                //draw a dug up hole
+                drawThis(imgHole, n, m, -25, -25);
+                //console.log("draw hole");
+            }
         }
 
     }
@@ -522,7 +543,7 @@ function gameLoop() {
     sortImages();
     drawImages();
     gameTimer++;
-    console.log(touch);
+    //console.log(touch);
 }
 //run gameLoop 25 times per second (every 40 milliseconds)
 setInterval(gameLoop, 40);
@@ -536,7 +557,7 @@ document.addEventListener('keydown', (event) => {
     if (event.key == "ArrowRight") rightKey = 1;
     if (event.key == "ArrowUp") upKey = 1;
     if (event.key == "ArrowDown") downKey = 1;
-    if (event.key == "Space") spaceKey = 1;
+    //if (event.key == " ") spaceKey = 1;
     keyPressed = 1;
 });
 document.addEventListener('keyup', (event) => {
@@ -553,7 +574,8 @@ document.addEventListener('keyup', (event) => {
     if (event.key == "ArrowDown") {
         downKey = 0;
     }
-    if (event.key == "Space") {
+    if (event.key == " ") {
+        dig(player.playerX, player.playerY);
         spaceKey = 0;
     }
 });
@@ -569,7 +591,8 @@ document.addEventListener("pointerdown", (evt) => {
     //get mouse position
 
     logMouse(evt);
-    console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
+    //
+    //console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
     touch = 1;
 });
 document.addEventListener("pointerup", (evt) => {
@@ -589,7 +612,8 @@ document.addEventListener("touchstart", (evt) => {
 document.addEventListener("touchmove", (touch) => {
 
     logMouse(touch);
-    console.log(`mobile touch 3 at ${mousePosition.x},${mousePosition.y}`);
+    //
+    //console.log(`mobile touch 3 at ${mousePosition.x},${mousePosition.y}`);
     //touch = 1;
 
 });
