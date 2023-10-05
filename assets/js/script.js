@@ -60,6 +60,7 @@ let moving = {
     left: 0,
     right: 0
 };
+let started = 0; //set to 1 once game has started
 // set terrain generation variables
 let mapSize = 40;
 let maxHeight = 30;
@@ -537,7 +538,13 @@ function gameLoop() {
     gameTimer++; //record the duration of the game
 }
 //run gameLoop 25 times per second (every 40 milliseconds)
-setInterval(gameLoop, 40);
+//setInterval(gameLoop, 40);
+//draw everything once before starting the game to give a backdrop
+clearCanvas();
+drawBackground();
+drawTerrain();
+updatePlayerDrawObject();
+drawImages();
 
 //event listeners
 //key downs
@@ -628,5 +635,15 @@ document.addEventListener("DOMContentLoaded", function () {
     digButton.addEventListener("click", function () {
         //dig
         dig(player.playerX, player.playerY);
+    });
+    let startButton = document.getElementById('start-button');
+    startButton.addEventListener("click", function () {
+        /*start the game once we've determined it has not already started */
+        if (!started) {
+            let startMessage = document.getElementById('start-message');
+            startMessage.style.zIndex = 0;
+            started = 1;
+            setInterval(gameLoop, 40);
+        }
     });
 });
