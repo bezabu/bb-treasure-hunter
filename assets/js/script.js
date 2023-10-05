@@ -583,7 +583,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let resetButton = document.getElementById('reset-button');
 
 
-    resetButton.addEventListener("onclick", function () {
+    resetButton.addEventListener("click", function () {
 
         //reload the page
         window.location.reload();
