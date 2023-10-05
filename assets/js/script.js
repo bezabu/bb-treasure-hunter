@@ -51,13 +51,13 @@ let moving = {
     right: 0
 };
 // set terrain map variables
-let mapSize = 30;
+let mapSize = 40;
 let maxHeight = 30;
 let rows = mapSize + 1;
 let columns = mapSize + 1;
 let tileWidth = 32;
 let tileHeight = Math.floor(tileWidth / 2);
-let treasureCount = 1;
+let treasureCount = 3;
 
 //player object
 let player = {
@@ -70,6 +70,8 @@ let player = {
 };
 let playerAnimateCount = 0;
 let moveAmount = 0.05;
+xScreenOffset = -200;
+yScreenOffset = -200;
 
 //create arrays for storing terrain height and feature coordinates
 let heightMap = [];
@@ -96,7 +98,7 @@ for (let i = 0; i < rows; i++) {
     featureMap[i] = [];
     smoothMap[i] = [];
     for (let j = 0; j < columns; j++) {
-        heightMap[i][j] = j;
+        heightMap[i][j] = 0;
         featureMap[i][j] = 0;
         smoothMap[i][j] = 0;
     }
@@ -120,23 +122,25 @@ for (let n = 0; n < rows - 1; n++) {
     for (let m = 0; m < columns - 1; m++) {
         heightMap[n][m] = Math.floor(Math.random() * maxHeight);
         //console.log(`Cell ${n},${m} height value ${terrain[n][m]}`);
-        if (myGetRandomInt(3) > 2 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
-            //one in 4 chance to make a tree
-            featureMap[n][m] = 1;
-            //enter the object in the drawobject list
-            let entry = new DrawObject(imgTree, n, m, 22, 45);
-            drawList.push(entry);
-            //console.log(`New tree, ${entry} at ${n},${m}`);
-            //console.log(`New tree, ${entry} at ${n},${m}`);
-        } else {
-            if (myGetRandomInt(4) > 3 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
-                featureMap[n][m] = 2;
+        if (n != player.playerX && m != player.playerY) {
+            if (myGetRandomInt(3) > 2 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
+                //one in 4 chance to make a tree
+                featureMap[n][m] = 1;
                 //enter the object in the drawobject list
-                let entry = new DrawObject(imgRock, n, m, 25, 35);
+                let entry = new DrawObject(imgTree, n, m, 22, 45);
                 drawList.push(entry);
-                //console.log(`New rock, ${entry} at ${n},${m}`);
-                //console.log(`New rock, ${entry} at ${n},${m}`);
-                //one in 5 chance to make a rock
+                //console.log(`New tree, ${entry} at ${n},${m}`);
+                //console.log(`New tree, ${entry} at ${n},${m}`);
+            } else {
+                if (myGetRandomInt(4) > 3 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
+                    featureMap[n][m] = 2;
+                    //enter the object in the drawobject list
+                    let entry = new DrawObject(imgRock, n, m, 25, 35);
+                    drawList.push(entry);
+                    //console.log(`New rock, ${entry} at ${n},${m}`);
+                    //console.log(`New rock, ${entry} at ${n},${m}`);
+                    //one in 5 chance to make a rock
+                }
             }
         }
     }
@@ -537,19 +541,17 @@ document.addEventListener("touchend", (evt) => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    let buttons = document.getElementsByTagName('button');
+    let resetButton = document.getElementsById('reset-button');
 
-    for (let button of buttons) {
-        button.addEventListener("click", function () {
-            if (this.getAttribute("data-type") === "reset-game") {
-                //reload the page
-                window.location.reload();
-                return false;
-            } else {
 
-            }
-        });
-    }
+    resetButton.addEventListener("onclick", function () {
+
+        //reload the page
+        window.location.reload();
+        return false;
+
+    });
+
 
 
 });
