@@ -74,6 +74,20 @@ header {
     text-align: center;
 }
 
+#win-message {
+    display: inline-block;
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    border-radius: 10px;
+    background-color: aqua;
+    text-align: center;
+}
+
 #start-button {
     position: relative;
 

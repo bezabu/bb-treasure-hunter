@@ -519,7 +519,11 @@ function drawBackground() {
     ctx.fillStyle = "#3CC3DB";
     ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 }
-
+function winCondition() {
+    let winMessage = document.getElementById("win-message");
+    winMessage.children[4].innerHTML = Math.round(gameTimer / 100, 2);
+    winMessage.style.zIndex = 4;
+}
 //main game loop
 let gameTimer = 0;
 function gameLoop() {
