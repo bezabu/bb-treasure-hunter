@@ -9,6 +9,7 @@ let yScreenOffset = 0;
 // identify hot/cold message
 let hintMessage = document.getElementById("hint-message");
 let hints = ["Red-Hot!", "Boiling", "Hot", "Warm", "Warm", "Lukewarm", "Lukewarm", "Cold", "Cold", "Cold", "Very Cold", "Very Cold", "Extremely Cold", "Freezing", "Absolute Zero"];
+let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537', '#E8C369', '#E5DEAF'];
 hintMessage.innerHTML = hints[6];
 //load images
 let playerLoad = 0;
@@ -382,8 +383,12 @@ function checkHint() {
     }
     if (Math.floor(shortestDist / 2) <= hints.length - 1) {
         hintMessage.innerHTML = hints[Math.floor(shortestDist / 2)];
+        hintMessage.parentNode.style.backgroundColor = hintColors[Math.floor(shortestDist / 2)];
         //console.log(hints.length);
-    } else hintMessage.innerHTML = hints[hints.length - 1];
+    } else {
+        hintMessage.innerHTML = hints[hints.length - 1];
+        hintMessage.parentNode.style.backgroundColor = hintColors[hintColors.length - 1];
+    }
     //console.log(hints[Math.floor(shortestDist / 2)]);
     //console.log(hints[hints.length - 1]);
 }
