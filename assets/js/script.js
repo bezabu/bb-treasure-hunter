@@ -69,6 +69,7 @@ let tileWidth = 32;
 let tileHeight = Math.floor(tileWidth / 2);
 let treasureCount = 3;
 let nearestTreasure = "";
+let treasureFound = 0;
 //player object
 let player = {
     playerId: 1,
@@ -375,6 +376,10 @@ function dig(x, y) {
                 }
             }
             treasureList.splice(rightTreasure, 1);
+            treasureFound++;
+            if (treasureFound == 1) document.getElementById("prize-1").style.zIndex = 3;
+            if (treasureFound == 2) document.getElementById("prize-2").style.zIndex = 3;
+            if (treasureFound == 3) document.getElementById("prize-3").style.zIndex = 3;
             break;
         }
         case 0: {
@@ -643,16 +648,16 @@ document.addEventListener("touchend", (evt) => {
 
 document.addEventListener("DOMContentLoaded", function () {
     let resetButton = document.getElementById('reset-button');
-
-
     resetButton.addEventListener("click", function () {
-
         //reload the page
         window.location.reload();
         return false;
-
     });
-
+    let digButton = document.getElementById('dig-button');
+    digButton.addEventListener("click", function () {
+        //dig
+        dig(player.playerX, player.playerY);
+    });
 
 
 });
