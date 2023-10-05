@@ -172,6 +172,17 @@ for (let n = 1; n < rows - 1; n++) {
         heightMap[n][m] = smoothMap[n][m];
     }
 }
+//use smoothmap to store color info
+for (let n = 1; n < rows - 1; n++) {
+    for (let m = 1; m < columns - 1; m++) {
+        let colString1 = (68 + myGetRandomInt(10) - myGetRandomInt(10)).toString();
+        let colString2 = (138 + myGetRandomInt(10) - myGetRandomInt(10)).toString();
+        let colString3 = (67 + myGetRandomInt(10) - myGetRandomInt(10)).toString();
+        //console.log("rgb(" + colString1 + "," + colString2 + "," + colString3 + ")");
+        let fullCol = "rgb(" + colString1 + "," + colString2 + "," + colString3 + ")";
+        smoothMap[n][m] = fullCol;
+    }
+}
 //set edge tiles to 0 height and mark them as water
 for (let n = 1; n < rows; n++) {
     for (let m = 1; m < columns; m++) {
@@ -435,11 +446,18 @@ function drawTerrain() {
             heightOffSetNextY = heightMap[n][m + 1];
             isox = getIsoX(n, m, tileWidth, tileHeight);
             isoy = getIsoY(n, m, tileWidth, tileHeight);
-            //if (getIsoX(n, m, tileWidth, tileHeight) > 0 && getIsoY(n, m, tileWidth, tileHeight) > 0 && getIsoX(n + 1, m + 1, tileWidth, tileHeight) < CanvasWidth && getIsoY(n + 1, m + 1, tileWidth, tileHeight) < CanvasHeight) {
+            //if (getIsoX(n, m, tileWidth, tileHeight) > 0 && getIsoY(n, m, tileWidth, tileHeight) > 0 && getIsoX(n + 1, m + 1, tileWidth, tileHeight) < CanvasWidth && getIsoY(n + 1, m + 1, tileWidth, tileHeight) < CanvasHei{ght) {
             //draw tile
             if (featureMap[n][m] == 3) {
                 ctx.fillStyle = "#3CC3DB";
-            } else ctx.fillStyle = "#448A43";
+            } else {
+
+                //ctx.fillStyle = fullCol;
+                //console.log(smoothMap[n][m]);
+                //ctx.fillStyle = "#448A43";
+                ctx.fillStyle = smoothMap[n][m];
+            }
+
             ctx.beginPath();
             ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m, tileWidth, tileHeight) - heightOffSet + yScreenOffset);
             ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX + yScreenOffset);
@@ -456,10 +474,11 @@ function drawTerrain() {
             //ctx.lineTo((n * tileWidth) + tileWidth, (m * tileWidth) + tileWidth);
             ctx.stroke();
             //}
-
         }
+
     }
 }
+
 //clears the canvas ready for next frame
 function clearCanvas() {
     ctx.clearRect(0, 0, CanvasWidth, CanvasHeight);
@@ -561,7 +580,7 @@ document.addEventListener("touchend", (evt) => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    let resetButton = document.getElementsById('reset-button');
+    let resetButton = document.getElementById('reset-button');
 
 
     resetButton.addEventListener("onclick", function () {
