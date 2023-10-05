@@ -426,14 +426,29 @@ function drawTerrain() {
     let heightOffSet = "";
     let heightOffSetNextX = "";
     let heightOffSetNextXY = "";
+    let heightOffSetNextY = "";
     for (let n = 1; n < rows - 1; n++) {
         for (let m = 1; m < columns - 1; m++) {
             heightOffSet = heightMap[n][m];
             heightOffSetNextX = heightMap[n + 1][m];
             heightOffSetNextXY = heightMap[n + 1][m + 1];
+            heightOffSetNextY = heightMap[n][m + 1];
             isox = getIsoX(n, m, tileWidth, tileHeight);
             isoy = getIsoY(n, m, tileWidth, tileHeight);
             //if (getIsoX(n, m, tileWidth, tileHeight) > 0 && getIsoY(n, m, tileWidth, tileHeight) > 0 && getIsoX(n + 1, m + 1, tileWidth, tileHeight) < CanvasWidth && getIsoY(n + 1, m + 1, tileWidth, tileHeight) < CanvasHeight) {
+            //draw tile
+            if (featureMap[n][m] == 3) {
+                ctx.fillStyle = "#3CC3DB";
+            } else ctx.fillStyle = "#448A43";
+            ctx.beginPath();
+            ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m, tileWidth, tileHeight) - heightOffSet + yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX + yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) - heightOffSetNextXY + yScreenOffset);
+            ctx.lineTo(getIsoX(n, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m + 1, tileWidth, tileHeight) - heightOffSetNextY + yScreenOffset);
+            //ctx.lineTo((n * tileWidth) + tileWidth, (m * tileWidth) + tileWidth);
+            ctx.fill();
+            //draw tile outline
+            ctx.strokeStyle = "#000000";
             ctx.beginPath();
             ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m, tileWidth, tileHeight) - heightOffSet + yScreenOffset);
             ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX + yScreenOffset);
@@ -450,7 +465,7 @@ function clearCanvas() {
     ctx.clearRect(0, 0, CanvasWidth, CanvasHeight);
 }
 function drawBackground() {
-    ctx.fillStyle = "#448A43";
+    ctx.fillStyle = "#3CC3DB";
     ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 }
 
