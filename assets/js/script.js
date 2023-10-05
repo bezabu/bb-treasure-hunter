@@ -430,29 +430,57 @@ function checkHint() {
     }
 }
 //pathfinding
-function FrontierCell(newX, newY, distStart) {
+function FrontierCell(newX, newY, distStart, pathB) {
     this.x = newX;
     this.y = newY;
     this.neighbors = [];
     this.distToStart = distStart;
+    this.pathBack = pathB;
 }
 function pathFind(sx, sy, fx, fy) {
-    //find neighbours of cell
     let frontier = [];
     let sx2 = Math.round(sx);
     let sy2 = Math.round(sy);
     let fx2 = Math.round(fx);
     let fy2 = Math.round(fy);
-    for (let n = sx2 - 1; n <= sx2 + 1; n++) {
-        for (let m = sy2 - 1; m <= sy2 + 1; m++) {
+    neighborFind(sx2, sy2, frontier, 1);
+    console.log(frontier);
+    //if (checkIfDest()) {
+    //destination reached
+    //}
+}
+function addThis(a, b) {
+    return (a + b);
+}
+
+function neighborFind(sx, sy, cellList, iterationN) {
+    //find neighbours of cell
+    for (let n = sx - 1; n <= sx + 1; n++) {
+        for (let m = sy - 1; m <= sy + 1; m++) {
             //
-            if ((n != sx2 && m == sy2) || (n == sx2 && m != sy2) || (n != sx2 && m != sy2)) {
-                let newFrontier = new FrontierCell(n, m, 1);
-                frontier.push(newFrontier);
+            if ((n != sx && m == sy) || (n == sx && m != sy) || (n != sx && m != sy)) {
+                let notNew = 0;
+                for (i = 0; i < cellList.length; i++) {
+                    if (cellList[i].x == sx && cellList[i].y == sy) notNew = 1;
+                }
+                if (!notNew) {
+                    let dir = "null";
+                    if (sx - n < 0 && sy - m < 0) dir = "north";
+                    if (sx - n < 0 && sy - m == 0) dir = "northeast";
+                    if (sx - n < 0 && sy - m > 0) dir = "east";
+                    if (sx - n == 0 && sy - m < 0) dir = "northwest";
+                    if (sx - n == 0 && sy - m > 0) dir = "southeast";
+                    if (sx - n > 0 && sy - m < 0) dir = "west";
+                    if (sx - n > 0 && sy - m == 0) dir = "southwest";
+                    if (sx - n > 0 && sy - m > 0) dir = "south";
+                    
+                    let newFrontier = new FrontierCell(n, m, iterationN, dir);
+                    cellList.push(newFrontier);
+                }
             }
         }
     }
-    console.log(frontier);
+    //console.log(cellList);
 }
 //drawing functions
 function updatePlayerDrawObject() {
