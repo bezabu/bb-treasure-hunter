@@ -449,11 +449,10 @@ function pathFind(sx, sy, fx, fy) {
     console.log(searched);
 
     let destReached = (checkIfDest(fx, fy, searched));
+    let iter = 1;
     while (destReached == 0) {
-        let iter = 1;
+
         for (i = 0; i < frontier.length; i++) {
-            frontier[i].x;
-            frontier[i].y;
             neighborFind(frontier[i].x, frontier[i].y, frontier, iter, searched);
         }
         destReached = (checkIfDest(fx, fy, searched));
@@ -467,7 +466,7 @@ function addThis(a, b) {
 function checkIfDest(dx, dy, searched) {
     let reached = 0;
     for (i = 0; i < searched.length; i++) {
-        if (searched[i].x == dx && searched[i].y == ddy) reached = 1;
+        if (searched[i].x == dx && searched[i].y == dy) reached = 1;
         return reached;
     }
 }
@@ -478,8 +477,8 @@ function neighborFind(sx, sy, cellList, iterationN, searchList) {
             //for all cells around the origin
             if ((n != sx && m == sy) || (n == sx && m != sy) || (n != sx && m != sy)) {
                 let notNew = 0;
-                for (i = 0; i < cellList.length; i++) {
-                    if (cellList[i].x == sx && cellList[i].y == sy) notNew = 1;
+                for (i = 0; i < searchList.length; i++) {
+                    if (searchList[i].x == sx && searchList[i].y == sy) notNew = 1;
                 }
                 if (!notNew) {
                     let dir = "null";
