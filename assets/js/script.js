@@ -430,12 +430,102 @@ function checkHint() {
     }
 }
 //pathfinding
-function FrontierCell(newX, newY, distStart, pathB) {
+function Cell(newX, newY, distStart, pathB, pathB2) {
     this.x = newX;
     this.y = newY;
-    this.neighbors = [];
     this.distToStart = distStart;
     this.pathBack = pathB;
+    this.dirBack = pathB2;
+}
+
+function pathFind(startX, startY, goalX, goalY) {
+    let frontierList = [];
+    let searchedList = [];
+    let sx = Math.round(startX);
+    let sy = Math.round(startY);
+    let gx = Math.round(goalX);
+    let gy = Math.round(goalY);
+    let newFrontier = new Cell(sx, sy, 0, "start", "start");
+    frontierList.push(newFrontier);
+    searchedList.push(newFrontier);
+    console.log("origin only");
+    console.log(frontierList);
+    console.log(frontierList.length);
+    for (let iter = 0; iter < 4; iter++) {
+        //get new frontier cells
+        let frontL = frontierList.length;
+        console.log(frontL);
+        for (let i = 0; i < frontL; i++) {
+            let fx = frontierList[i].x;
+            let fy = frontierList[i].y;
+            for (let n = fx - 1; n <= fx + 1; n++) {
+                for (let m = fy - 1; m <= fy + 1; m++) {
+                    //for all cells around the origin
+                    if ((n != fx && m == fy) || (n == fx && m != fy) || (n != fx && m != fy)) {
+                        //check if cell matches any already in searchlist
+                        let newC = 1;
+                        for (let j = 0; j < searchedList.length; j++) {
+                            if (searchedList[j].x == n && searchedList[j].y == m) newC = 0;
+                        }
+                        if (newC) {
+                            //add to frontier list and record pathback
+                            let dir = "null";
+                            //assign a pathback direction
+                            if (fx - n < 0 && fy - m < 0) dir = "north";
+                            if (fx - n < 0 && fy - m == 0) dir = "northeast";
+                            if (fx - n < 0 && fy - m > 0) dir = "east";
+                            if (fx - n == 0 && fy - m < 0) dir = "northwest";
+                            if (fx - n == 0 && fy - m > 0) dir = "southeast";
+                            if (fx - n > 0 && fy - m < 0) dir = "west";
+                            if (fx - n > 0 && fy - m == 0) dir = "southwest";
+                            if (fx - n > 0 && fy - m > 0) dir = "south";
+                            //add to frontier list
+                            newFrontier = new Cell(n, m, 0, frontierList[i], dir);
+                            frontierList.push(newFrontier);
+                            console.log(`add new cell to frontier list: ${newFrontier}`);
+
+                        }
+                    }
+                }
+            }
+        }
+        //add any frontier cells to the searched list that aren't already
+        for (let i = 0; i < frontierList.length; i++) {
+            let newCell = "";
+            let searchL = searchedList.length;
+            let matches = 1;
+            for (let j = 0; j < searchL; j++) {
+                //let matches = 1;
+                if (frontierList[i].x == searchedList[j].x && frontierList[i].y == searchedList[j].y) {
+                    matches = 1;
+                    break;
+                } else matches = 0;
+            }
+            if (matches == 0) {
+                newCell = new Cell(frontierList[i].x, frontierList[i].y, 0, frontierList[i].pathBack, frontierList[i].dirBack);
+                searchedList.push(newCell);
+            }
+        }
+        //remove original frontier cell from frontier list
+        for (let i = 0; i < frontierList.length; i++) {
+            if (frontierList[i].x == sx && frontierList[i].y == sy) {
+                frontierList.splice(i, 1);
+            }
+        }
+        console.log("surrounding cells, should be 8");
+        console.log(frontierList);
+        console.log(frontierList.length);
+        console.log("all cells, should be 9");
+        console.log(searchedList);
+        console.log(searchedList.length);
+        //check if goal is reached
+        for (let i = 0; i < searchedList.length; i++) {
+            if (searchedList[i].x == gx && searchedList[i].y == gy) {
+                let path = [];
+                path.push(searchedList[i]);
+            }
+        }
+    }
 }
 /*
 function pathFind(sx, sy, fx, fy) {
