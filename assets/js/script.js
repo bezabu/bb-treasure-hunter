@@ -91,6 +91,7 @@ yScreenOffset = -200;
 let frontierList = [];
 let searchedList = [];
 let pathFound = [];
+let found = 0;
 //create arrays for storing terrain height and feature coordinates
 let heightMap = []; //stores height value to add after isometric conversion
 let featureMap = []; //stores the contents of the tile
@@ -229,28 +230,26 @@ sortImages();
 //Isometric conversion functions
 //get isometric x coordinate
 function getIsoX(x, y, tileWidth, tileHeight) {
-    let isoX = ((x - y) * (tileWidth));
-
-
+    let isoX = ((x - y) * (tileWidth / 2)) * 2;
     return isoX;
 }
 //get isometric y coordinate
 function getIsoY(x, y, tileWidth, tileHeight) {
-    let isoY = ((x + y) * (tileHeight));
+    let isoY = ((x + y) * (tileHeight / 2)) * 2;
     return isoY;
 }
 //get original x coordinate from isometric coordinates
 function inverseIsoX(x, y, tileWidth, tileHeight) {
-    x = x - xScreenOffset;
-    y = y - yScreenOffset;
-    let mapX = (x / (tileWidth) + y / (tileHeight)) / 2 - 0.5;
+    let nx = x - xScreenOffset;
+    let ny = y - yScreenOffset;
+    let mapX = ((nx / (tileWidth / 2) + ny / (tileHeight / 2)) / 2) - 0.5;
     return mapX;
 }
 //get original y coordinate from isometric coordinates
 function inverseIsoY(x, y, tileWidth, tileHeight) {
-    x = x - xScreenOffset;
-    y = y - yScreenOffset;
-    let mapY = (y / (tileHeight) - x / (tileWidth)) / 2 - 0.5 - 2 - 0.2;
+    let nx = x - xScreenOffset;
+    let ny = y - yScreenOffset;
+    let mapY = ((ny / (tileHeight / 2) - nx / (tileWidth / 2)) / 2) - 0.5;
     return mapY;
 }
 /*
@@ -466,7 +465,7 @@ function pathFindA() {
 
         let fx = frontierList[i].x;
         let fy = frontierList[i].y;
-        //find neighbours of origin cell (sx,sy)
+        //find neighbours of origin cell (fx,fy)
         for (let n = fx - 1; n <= fx + 1; n++) {
             for (let m = fy - 1; m <= fy + 1; m++) {
                 //make sure its not origin cell
@@ -479,13 +478,15 @@ function pathFindA() {
                         let newC = 1;
                         //check if cell matches any already in searchlist
                         for (let j = 0; j < searchedList.length; j++) {
+
                             if (searchedList[j].x == n && searchedList[j].y == m) {
                                 newC = 0;
+                                console.log(searchedList[j].x);
                             }
                         }
                         if (newC == 1) {
                             let dir = "null";
-                            console.log("marker");
+                            //console.log("marker");
                             //assign a pathback direction
                             if (fx - n < 0 && fy - m < 0) dir = "south";
                             if (fx - n < 0 && fy - m == 0) dir = "southeast";
@@ -510,19 +511,49 @@ function pathFindB() {
     //delete any frontier cells that match searchedlist cells
     let frontL = frontierList.length;
     let toDelete = [];
+    let matches = 0;
+    for (let i = 0; i < searchedList.length; i++) {
+        let sx = searchedList[i].x;
+        let sy = searchedList[i].y;
+        matches = 0;
+        for (let j = 0; j < frontierList.length; j++) {
+            if (frontierList[j].x == sx && frontierList[j].y == sy) {
+                frontierList.splice(j, 1);
+                j--;
+                //console.log("deleted");
+            }
+        }
+    }
+
+    /*
     for (let i = 0; i < frontierList.length; i++) {
         let fx = frontierList[i].x;
         let fy = frontierList[i].y;
-        let matches = 0;
+        matches = 0;
         //check if cell matches any already in searchlist
+        
         for (let j = 0; j < searchedList.length; j++) {
-            if (searchedList[j].x == fx && searchedList[j].y == fy) matches = 1;
+            if (searchedList[j].x == fx && searchedList[j].y == fy) {
+                matches = 1;
+                console.log("match, deleting");
+            }
         }
         if (matches == 1) {
             frontierList.splice(i, 1);
             i--;
+            console.log("deleted");
         }
-    }
+        
+        let j = 0;
+        while (j < searchedList.length) {
+            if (searchedList[j].x == fx && searchedList[j].y == fy) {
+                frontierList.splice(i, 1);
+            } else {
+                ++j;
+            }
+        }
+        
+    }*/
 }
 function pathFindC() {
     //add frontierlist items to searchedlist
@@ -545,11 +576,11 @@ function pathFindD(gx, gy) {
                     inspect = inspect.pathBack;
                     pathFound.push(inspect);
                     if (inspect == "start") d = 1;
-                    console.log("marker1");
+                    //console.log("marker1");
                     found = 1;
                 }
             }
-
+            break;
         }
 
     }
@@ -578,21 +609,21 @@ function pathFind(startX, startY, goalX, goalY) {
     frontierList.push(newFrontier);
     searchedList.push(newFrontier);
     while (found == 0) {
-        console.log("origin only");
-        console.log(frontierList);
-        console.log(searchedList);
+        //console.log("origin only");
+        //console.log(frontierList);
+        //console.log(searchedList);
         pathFindA();
-        console.log("after first iteration");
-        console.log(frontierList);
-        console.log(searchedList);
+        //console.log("after first iteration");
+        //console.log(frontierList);
+        //console.log(searchedList);
         pathFindB();
-        console.log("after second iteration");
-        console.log(frontierList);
-        console.log(searchedList);
+        //console.log("after second iteration");
+        //console.log(frontierList);
+        //console.log(searchedList);
         pathFindC();
-        console.log("after third iteration");
-        console.log(frontierList);
-        console.log(searchedList);
+        //console.log("after third iteration");
+        //console.log(frontierList);
+        //console.log(searchedList);
         pathFindD(gx, gy);
         console.log(pathFound);
     }
@@ -769,6 +800,7 @@ document.addEventListener('keyup', (event) => {
     if (event.key == "2") {
         //winCondition();
         console.log(`player at ${player.playerX},${player.playerY}`);
+        clearList(pathFound);
         console.log(pathFound);
     }
 });
@@ -781,13 +813,19 @@ document.addEventListener("mousedown", (evt) => {
     //mouseMove();
     //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
     //console.log(mousePosition);
-    //console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
+    console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
 });
 document.addEventListener("pointerdown", (evt) => {
     //console.log("mouse click");
     //get mouse position
 
     logMouse(evt);
+    if (mouseConvertX(mousePosition.x, mousePosition.y) > 1 && mouseConvertX(mousePosition.x, mousePosition.y) < mapSize - 2 && mouseConvertY(mousePosition.x, mousePosition.y) > 1 && mouseConvertY(mousePosition.x, mousePosition.y) < mapSize - 2) {
+        //pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
+        console.log(mouseConvertX(mousePosition.x, mousePosition.y));
+        console.log(mouseConvertY(mousePosition.x, mousePosition.y));
+    }
+
     //
     //console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
     touch = 1;
