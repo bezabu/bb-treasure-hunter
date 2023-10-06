@@ -437,10 +437,98 @@ function Cell(newX, newY, distStart, pathB, pathB2) {
     this.pathBack = pathB;
     this.dirBack = pathB2;
 }
+function pathFindA() {
+    //get neighbouring frontier cells that arent also in searchedlist or obstructions
+    let frontL = frontierList.length;
+    for (let i = 0; i < frontL; i++) {
 
+        let fx = frontierList[i].x;
+        let fy = frontierList[i].y;
+        //find neighbours of origin cell (sx,sy)
+        for (let n = fx - 1; n <= fx + 1; n++) {
+            for (let m = fy - 1; m <= fy + 1; m++) {
+                //make sure its not origin cell
+
+                if ((n != fx && m == fy) || (n == fx && m != fy) || (n != fx && m != fy)) {
+                    //ignore obstacles
+
+                    if (featureMap[n][m] != 2 && featureMap[n][m] != 3) {
+
+                        let newC = 1;
+                        //check if cell matches any already in searchlist
+                        for (let i = 0; i < searchedList.length; i++) {
+                            if (searchedList[i].x == n && searchedList[i].y == m) {
+                                newC = 0;
+                            }
+                        }
+                        if (newC == 1) {
+                            let dir = "null";
+                            console.log("marker");
+                            //assign a pathback direction
+                            if (fx - n < 0 && fy - m < 0) dir = "south";
+                            if (fx - n < 0 && fy - m == 0) dir = "southeast";
+                            if (fx - n < 0 && fy - m > 0) dir = "east";
+                            if (fx - n == 0 && fy - m < 0) dir = "southwest";
+                            if (fx - n == 0 && fy - m > 0) dir = "northeast";
+                            if (fx - n > 0 && fy - m < 0) dir = "west";
+                            if (fx - n > 0 && fy - m == 0) dir = "northwest";
+                            if (fx - n > 0 && fy - m > 0) dir = "north";
+                            //add to frontier and searched list
+                            let newFrontier = new Cell(n, m, 0, frontierList[i], dir);
+                            frontierList.push(newFrontier);
+                            console.log("new cell for frontier list");
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+function pathFindB() {
+    //delete any frontier cells that match searchedlist cells
+    let frontL = frontierList.length;
+    let toDelete = [];
+    for (let i = 0; i < frontierList.length; i++) {
+        let fx = frontierList[i].x;
+        let fy = frontierList[i].y;
+        let matches = 0;
+        //check if cell matches any already in searchlist
+        for (let j = 0; j < searchedList.length; j++) {
+            if (searchedList[j].x == fx && searchedList[j].y == fy) matches = 1;
+        }
+        if (matches == 1) {
+            frontierList.splice(i, 1);
+        }
+    }
+}
+function pathFindC() {
+    //add frontierlist items to searchedlist
+    for (let i = 0; i < frontierList.length; i++) {
+        let newS = frontierList[i];
+        searchedList.push(newS);
+    }
+}
+function pathFindD(gx, gy) {
+
+    //check if goal is in searchedlist
+    for (i = 0; i < searchedList.length; i++) {
+        if (searchedList[i].x == gx && searchedList[i].y == gy) {
+            let inspect = 0;
+            while (inspect != "start") {
+                //found!
+                inspect = searchedList[i].pathB;
+                //while thingy.pathB != "start"
+                pathFound.push(inspect);
+            }
+            console.log(pathFound);
+        }
+    }
+}
+let frontierList = [];
+let searchedList = [];
+let pathFound = [];
 function pathFind(startX, startY, goalX, goalY) {
-    let frontierList = [];
-    let searchedList = [];
+    found = 0;
     let sx = Math.round(startX);
     let sy = Math.round(startY);
     let gx = Math.round(goalX);
@@ -450,85 +538,96 @@ function pathFind(startX, startY, goalX, goalY) {
     searchedList.push(newFrontier);
     console.log("origin only");
     console.log(frontierList);
-    console.log(frontierList.length);
-    
-    
-}
-/*
-function pathFind(sx, sy, fx, fy) {
-    let frontier = [];
-    let searched = [];
-    let sx2 = Math.round(sx);
-    let sy2 = Math.round(sy);
-    let fx2 = Math.round(fx);
-    let fy2 = Math.round(fy);
-    neighborFind(sx2, sy2, frontier, 1, searched, fx2, fy2);
-    console.log(frontier);
-    console.log(searched);
-    destReached = 0;
-    let iter = 0;
-    while (destReached == 0) {
-        for (let i = 0; i < frontier.length; i++) {
-            //for each cell in frontier set
-            neighborFind(sx2, sy2, frontier, 1, searched, fx2, fy2);
+    console.log(searchedList);
+    pathFindA();
+    console.log("after first iteration");
+    console.log(frontierList);
+    console.log(searchedList);
+    pathFindB();
+    console.log("after second iteration");
+    console.log(frontierList);
+    console.log(searchedList);
+    pathFindC();
+    console.log("after third iteration");
+    console.log(frontierList);
+    console.log(searchedList);
+    pathFindD(gx, gy);
+    /*
+    function pathFind(sx, sy, fx, fy) {
+        let frontier = [];
+        let searched = [];
+        let sx2 = Math.round(sx);
+        let sy2 = Math.round(sy);
+        let fx2 = Math.round(fx);
+        let fy2 = Math.round(fy);
+        neighborFind(sx2, sy2, frontier, 1, searched, fx2, fy2);
+        console.log(frontier);
+        console.log(searched);
+        destReached = 0;
+        let iter = 0;
+        while (destReached == 0) {
+            for (let i = 0; i < frontier.length; i++) {
+                //for each cell in frontier set
+                neighborFind(sx2, sy2, frontier, 1, searched, fx2, fy2);
+            }
+            if (checkIfDest(dx, dy, searched)) {
+                //path!
+                destReached = 1;
+            }
+            iter++;
+            if (iter > 10) destReached = 1;
         }
-        if (checkIfDest(dx, dy, searched)) {
-            //path!
-            destReached = 1;
+    }
+    function addThis(a, b) {
+        return (a + b);
+    }
+    function checkIfDest(dx, dy, searched) {
+        let reached = 0;
+        for (let i = 0; i < searched.length; i++) {
+            if (searched[i].x == dx && searched[i].y == dy) reached = 1;
+            return reached;
         }
-        iter++;
-        if (iter > 10) destReached = 1;
     }
-}
-function addThis(a, b) {
-    return (a + b);
-}
-function checkIfDest(dx, dy, searched) {
-    let reached = 0;
-    for (let i = 0; i < searched.length; i++) {
-        if (searched[i].x == dx && searched[i].y == dy) reached = 1;
-        return reached;
-    }
-}
-function neighborFind(sx, sy, cellList, iterationN, searchList, dx, dy) {
-    //find neighbours of origin cell (sx,sy)
-    for (let n = sx - 1; n <= sx + 1; n++) {
-        for (let m = sy - 1; m <= sy + 1; m++) {
-            //for all cells around the origin
-            if ((n != sx && m == sy) || (n == sx && m != sy) || (n != sx && m != sy)) {
-                let notNew = 0;
-                //check if cell matches any already in searchlist
-                for (let i = 0; i < searchList.length; i++) {
-                    if (searchList[i].x == sx && searchList[i].y == sy) notNew = 1;
-                }
-                if (!notNew) {
-                    let dir = "null";
-                    //assign a pathback direction
-                    if (sx - n < 0 && sy - m < 0) dir = "north";
-                    if (sx - n < 0 && sy - m == 0) dir = "northeast";
-                    if (sx - n < 0 && sy - m > 0) dir = "east";
-                    if (sx - n == 0 && sy - m < 0) dir = "northwest";
-                    if (sx - n == 0 && sy - m > 0) dir = "southeast";
-                    if (sx - n > 0 && sy - m < 0) dir = "west";
-                    if (sx - n > 0 && sy - m == 0) dir = "southwest";
-                    if (sx - n > 0 && sy - m > 0) dir = "south";
-                    //add to frontier and searched list
-                    let newFrontier = new FrontierCell(n, m, iterationN, dir);
-                    cellList.push(newFrontier);
-                    searchList.push(newFrontier);
-
+    function neighborFind(sx, sy, cellList, iterationN, searchList, dx, dy) {
+        //find neighbours of origin cell (sx,sy)
+        for (let n = sx - 1; n <= sx + 1; n++) {
+            for (let m = sy - 1; m <= sy + 1; m++) {
+                //for all cells around the origin
+                if ((n != sx && m == sy) || (n == sx && m != sy) || (n != sx && m != sy)) {
+                    let notNew = 0;
+                    //check if cell matches any already in searchlist
+                    for (let i = 0; i < searchList.length; i++) {
+                        if (searchList[i].x == sx && searchList[i].y == sy) notNew = 1;
+                    }
+                    if (!notNew) {
+                        let dir = "null";
+                        //assign a pathback direction
+                        if (sx - n < 0 && sy - m < 0) dir = "north";
+                        if (sx - n < 0 && sy - m == 0) dir = "northeast";
+                        if (sx - n < 0 && sy - m > 0) dir = "east";
+                        if (sx - n == 0 && sy - m < 0) dir = "northwest";
+                        if (sx - n == 0 && sy - m > 0) dir = "southeast";
+                        if (sx - n > 0 && sy - m < 0) dir = "west";
+                        if (sx - n > 0 && sy - m == 0) dir = "southwest";
+                        if (sx - n > 0 && sy - m > 0) dir = "south";
+                        //add to frontier and searched list
+                        let newFrontier = new FrontierCell(n, m, iterationN, dir);
+                        cellList.push(newFrontier);
+                        searchList.push(newFrontier);
+    
+                    }
                 }
             }
         }
-    }
-    //remove origin from frontier
-    for (let i = 0; i < cellList.length; i++) {
-        if (cellList[i].x == sx && cellList[i].y == sy) {
-            cellList.slice(i, 1);
+        //remove origin from frontier
+        for (let i = 0; i < cellList.length; i++) {
+            if (cellList[i].x == sx && cellList[i].y == sy) {
+                cellList.slice(i, 1);
+            }
         }
     }
+    */
 }
-*/
 //drawing functions
 function updatePlayerDrawObject() {
     /* update the position of the player in the player draw object and which 
