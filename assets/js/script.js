@@ -226,6 +226,8 @@ sortImages();
 //get isometric x coordinate
 function getIsoX(x, y, tileWidth, tileHeight) {
     let isoX = ((x - y) * (tileWidth));
+
+
     return isoX;
 }
 //get isometric y coordinate
@@ -233,6 +235,21 @@ function getIsoY(x, y, tileWidth, tileHeight) {
     let isoY = ((x + y) * (tileHeight));
     return isoY;
 }
+//get original x coordinate from isometric coordinates
+function inverseIsoX(x, y, tileWidth, tileHeight) {
+    x = x - xScreenOffset;
+    y = y - yScreenOffset;
+    let mapX = (x / (tileWidth) + y / (tileHeight)) / 2 - 0.5;
+    return mapX;
+}
+//get original y coordinate from isometric coordinates
+function inverseIsoY(x, y, tileWidth, tileHeight) {
+    x = x - xScreenOffset;
+    y = y - yScreenOffset;
+    let mapY = (y / (tileHeight) - x / (tileWidth)) / 2 - 0.5 - 2 - 0.2;
+    return mapY;
+}
+/*
 //get original x coordinate from isometric coordinates
 function inverseIsoX(x, y, tileWidth, tileHeight) {
     x = x - xScreenOffset;
@@ -247,6 +264,7 @@ function inverseIsoY(x, y, tileWidth, tileHeight) {
     let mapY = (y / (tileHeight * 2) - x / (tileWidth * 2)) - 0.5;
     return mapY;
 }
+*/
 //returns a random integer between 0 and maxNum
 function myGetRandomInt(maxNum) {
     let randomInt = Math.round(Math.random() * maxNum);
@@ -742,7 +760,7 @@ let gameTimer = 0;
 function gameLoop() {
     clearCanvas();
     if (gameState) {
-        if (touch == 1) mouseMove();
+        //if (touch == 1) mouseMove();
         if (touch == 0 && keyPressed == 0) {
             moving.up = 0;
         }
@@ -798,7 +816,7 @@ document.addEventListener('keyup', (event) => {
     if (event.key == "1") {
         //winCondition();
         console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
-        //pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
+        pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
     }
     if (event.key == "2") {
         //winCondition();
@@ -811,7 +829,7 @@ document.addEventListener("mousemove", (e) => {
 
 document.addEventListener("mousedown", (evt) => {
     //get mouse position and use it
-    mouseMove();
+    //mouseMove();
     console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
     console.log(mousePosition);
     console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
