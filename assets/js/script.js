@@ -444,40 +444,40 @@ function pathFind(sx, sy, fx, fy) {
     let sy2 = Math.round(sy);
     let fx2 = Math.round(fx);
     let fy2 = Math.round(fy);
-    neighborFind(sx2, sy2, frontier, 1, searched);
+    neighborFind(sx2, sy2, frontier, 1, searched, fx2, fy2);
     console.log(frontier);
     console.log(searched);
-
-    let destReached = (checkIfDest(fx, fy, searched));
-    let iter = 1;
-    while (destReached == 0) {
-
-        for (i = 0; i < frontier.length; i++) {
-            neighborFind(frontier[i].x, frontier[i].y, frontier, iter, searched);
+    destReached = 0;
+    while (destReached = 0) {
+        for (let i = 0; i < frontier.length; i++) {
+            //for each cell in frontier set
+            neighborFind(sx2, sy2, frontier, 1, searched, fx2, fy2);
         }
-        destReached = (checkIfDest(fx, fy, searched));
-        if (iter > 100) destReached = 1;
+        if (checkIfDest(dx, dy, searched)) {
+            //path!
+            destReached = 1;
+        }
     }
-    //destination reached, path back
 }
 function addThis(a, b) {
     return (a + b);
 }
 function checkIfDest(dx, dy, searched) {
     let reached = 0;
-    for (i = 0; i < searched.length; i++) {
+    for (let i = 0; i < searched.length; i++) {
         if (searched[i].x == dx && searched[i].y == dy) reached = 1;
         return reached;
     }
 }
-function neighborFind(sx, sy, cellList, iterationN, searchList) {
+function neighborFind(sx, sy, cellList, iterationN, searchList, dx, dy) {
     //find neighbours of origin cell (sx,sy)
     for (let n = sx - 1; n <= sx + 1; n++) {
         for (let m = sy - 1; m <= sy + 1; m++) {
             //for all cells around the origin
             if ((n != sx && m == sy) || (n == sx && m != sy) || (n != sx && m != sy)) {
                 let notNew = 0;
-                for (i = 0; i < searchList.length; i++) {
+                //check if cell matches any already in frontierlist
+                for (let i = 0; i < searchList.length; i++) {
                     if (searchList[i].x == sx && searchList[i].y == sy) notNew = 1;
                 }
                 if (!notNew) {
@@ -495,12 +495,13 @@ function neighborFind(sx, sy, cellList, iterationN, searchList) {
                     let newFrontier = new FrontierCell(n, m, iterationN, dir);
                     cellList.push(newFrontier);
                     searchList.push(newFrontier);
+
                 }
             }
         }
     }
     //remove origin from frontier
-    for (i = 0; i < cellList.length; i++) {
+    for (let i = 0; i < cellList.length; i++) {
         if (cellList[i].x == sx && cellList[i].y == sy) {
             cellList.slice(i, 1);
         }
@@ -671,6 +672,7 @@ document.addEventListener('keyup', (event) => {
     }
     if (event.key == "1") {
         //winCondition();
+        console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
         pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
     }
 });
