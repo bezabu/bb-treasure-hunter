@@ -437,6 +437,7 @@ function FrontierCell(newX, newY, distStart, pathB) {
     this.distToStart = distStart;
     this.pathBack = pathB;
 }
+/*
 function pathFind(sx, sy, fx, fy) {
     let frontier = [];
     let searched = [];
@@ -448,7 +449,8 @@ function pathFind(sx, sy, fx, fy) {
     console.log(frontier);
     console.log(searched);
     destReached = 0;
-    while (destReached = 0) {
+    let iter = 0;
+    while (destReached == 0) {
         for (let i = 0; i < frontier.length; i++) {
             //for each cell in frontier set
             neighborFind(sx2, sy2, frontier, 1, searched, fx2, fy2);
@@ -457,6 +459,8 @@ function pathFind(sx, sy, fx, fy) {
             //path!
             destReached = 1;
         }
+        iter++;
+        if (iter > 10) destReached = 1;
     }
 }
 function addThis(a, b) {
@@ -476,7 +480,7 @@ function neighborFind(sx, sy, cellList, iterationN, searchList, dx, dy) {
             //for all cells around the origin
             if ((n != sx && m == sy) || (n == sx && m != sy) || (n != sx && m != sy)) {
                 let notNew = 0;
-                //check if cell matches any already in frontierlist
+                //check if cell matches any already in searchlist
                 for (let i = 0; i < searchList.length; i++) {
                     if (searchList[i].x == sx && searchList[i].y == sy) notNew = 1;
                 }
@@ -507,6 +511,7 @@ function neighborFind(sx, sy, cellList, iterationN, searchList, dx, dy) {
         }
     }
 }
+*/
 //drawing functions
 function updatePlayerDrawObject() {
     /* update the position of the player in the player draw object and which 
