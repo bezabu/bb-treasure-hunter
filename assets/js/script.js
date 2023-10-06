@@ -87,6 +87,10 @@ let moveAmount = 0.05;
 xScreenOffset = -200;
 yScreenOffset = -200;
 
+//arrays used in pathfinding
+let frontierList = [];
+let searchedList = [];
+let pathFound = [];
 //create arrays for storing terrain height and feature coordinates
 let heightMap = []; //stores height value to add after isometric conversion
 let featureMap = []; //stores the contents of the tile
@@ -474,8 +478,8 @@ function pathFindA() {
 
                         let newC = 1;
                         //check if cell matches any already in searchlist
-                        for (let i = 0; i < searchedList.length; i++) {
-                            if (searchedList[i].x == n && searchedList[i].y == m) {
+                        for (let j = 0; j < searchedList.length; j++) {
+                            if (searchedList[j].x == n && searchedList[j].y == m) {
                                 newC = 0;
                             }
                         }
@@ -531,23 +535,37 @@ function pathFindD(gx, gy) {
     //check if goal is in searchedlist
     for (i = 0; i < searchedList.length; i++) {
         if (searchedList[i].x == gx && searchedList[i].y == gy) {
-            let inspect = searchedList[i].pathB;
-            while (inspect != "start") {
-                //found!
-                pathFound.push(inspect);
-                inspect = inspect.pathB;
-                console.log("marker");
-
+            let inspect = searchedList[i].pathBack;
+            pathFound.push(inspect);
+            if (inspect != "start") {
+                let d = 0;
+                while (d == 0) {
+                    //found!
+                    inspect = inspect.pathBack;
+                    pathFound.push(inspect);
+                    if (inspect == "start") d = 1;
+                    console.log("marker1");
+                    found = 1;
+                }
             }
-
+            console.log("marker2");
         }
     }
 
 }
-let frontierList = [];
-let searchedList = [];
-let pathFound = [];
+
+
+function clearList(listToClear) {
+    let len = listToClear.length;
+    for (i = 0; i < len; i++) {
+        listToClear.shift();
+    }
+
+}
 function pathFind(startX, startY, goalX, goalY) {
+    clearList(frontierList);
+    clearList(searchedList);
+    clearList(pathFound);
     found = 0;
     let sx = Math.round(startX);
     let sy = Math.round(startY);
@@ -557,23 +575,25 @@ function pathFind(startX, startY, goalX, goalY) {
     let newFrontier = new Cell(sx, sy, 0, "start", "start");
     frontierList.push(newFrontier);
     searchedList.push(newFrontier);
-    console.log("origin only");
-    console.log(frontierList);
-    console.log(searchedList);
-    pathFindA();
-    console.log("after first iteration");
-    console.log(frontierList);
-    console.log(searchedList);
-    pathFindB();
-    console.log("after second iteration");
-    console.log(frontierList);
-    console.log(searchedList);
-    pathFindC();
-    console.log("after third iteration");
-    console.log(frontierList);
-    console.log(searchedList);
-    pathFindD(gx, gy);
-    console.log(pathFound);
+    while (found == 0) {
+        console.log("origin only");
+        console.log(frontierList);
+        console.log(searchedList);
+        pathFindA();
+        console.log("after first iteration");
+        console.log(frontierList);
+        console.log(searchedList);
+        pathFindB();
+        console.log("after second iteration");
+        console.log(frontierList);
+        console.log(searchedList);
+        pathFindC();
+        console.log("after third iteration");
+        console.log(frontierList);
+        console.log(searchedList);
+        pathFindD(gx, gy);
+        console.log(pathFound);
+    }
     /*
     function pathFind(sx, sy, fx, fy) {
         let frontier = [];
@@ -830,9 +850,9 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mousedown", (evt) => {
     //get mouse position and use it
     //mouseMove();
-    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
-    console.log(mousePosition);
-    console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
+    //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
+    //console.log(mousePosition);
+    //console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
 });
 document.addEventListener("pointerdown", (evt) => {
     //console.log("mouse click");
