@@ -329,8 +329,8 @@ function moveDown() {
 function logMouse(e) {
     let rect = canvas.getBoundingClientRect(); /*get coordinates of canvas in 
     page, and use to find the position of the cursor within the canvas*/
-    mousePosition.x = Math.floor(e.clientX - rect.left);
-    mousePosition.y = Math.floor(e.clientY - rect.top);
+    mousePosition.x = Math.round(e.clientX - rect.left);
+    mousePosition.y = Math.round(e.clientY - rect.top);
 }
 function mouseConvertX(mouseX, mouseY) {
     return inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight);
@@ -513,16 +513,18 @@ function pathFindD(gx, gy) {
     //check if goal is in searchedlist
     for (i = 0; i < searchedList.length; i++) {
         if (searchedList[i].x == gx && searchedList[i].y == gy) {
-            let inspect = 0;
+            let inspect = searchedList[i].pathB;
             while (inspect != "start") {
                 //found!
-                inspect = searchedList[i].pathB;
-                //while thingy.pathB != "start"
                 pathFound.push(inspect);
+                inspect = inspect.pathB;
+                console.log("marker");
+
             }
-            console.log(pathFound);
+
         }
     }
+
 }
 let frontierList = [];
 let searchedList = [];
@@ -533,6 +535,7 @@ function pathFind(startX, startY, goalX, goalY) {
     let sy = Math.round(startY);
     let gx = Math.round(goalX);
     let gy = Math.round(goalY);
+    console.log(`goal: ${gx},${gy}`);
     let newFrontier = new Cell(sx, sy, 0, "start", "start");
     frontierList.push(newFrontier);
     searchedList.push(newFrontier);
@@ -552,6 +555,7 @@ function pathFind(startX, startY, goalX, goalY) {
     console.log(frontierList);
     console.log(searchedList);
     pathFindD(gx, gy);
+    console.log(pathFound);
     /*
     function pathFind(sx, sy, fx, fy) {
         let frontier = [];
@@ -794,15 +798,23 @@ document.addEventListener('keyup', (event) => {
     if (event.key == "1") {
         //winCondition();
         console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
-        pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
+        //pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
+    }
+    if (event.key == "2") {
+        //winCondition();
+        console.log(`player at ${player.playerX},${player.playerY}`);
     }
 });
-document.addEventListener("mousemove", logMouse); //record cursor position
+document.addEventListener("mousemove", (e) => {
+    logMouse(e);
+}); //record cursor position
 
 document.addEventListener("mousedown", (evt) => {
     //get mouse position and use it
-    //mouseMove();
-    //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
+    mouseMove();
+    console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
+    console.log(mousePosition);
+    console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
 });
 document.addEventListener("pointerdown", (evt) => {
     //console.log("mouse click");
