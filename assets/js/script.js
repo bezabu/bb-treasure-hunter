@@ -540,6 +540,7 @@ function winCondition() {
     let timer = Math.round(gameTimer / 25, 2);
     winMessage.children[3].textContent = timer.toString() + " seconds!";
     winMessage.style.zIndex = 4;
+    winMessage.style.visibility = "visible";
     gameState = 0;
 }
 //main game loop
@@ -747,6 +748,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!started) {
             let startMessage = document.getElementById('start-message');
             startMessage.style.zIndex = 0;
+            startMessage.style.visibility = "hidden";
             started = 1;
             gameState = 1;
             setInterval(gameLoop, 40);

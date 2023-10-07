@@ -115,7 +115,7 @@ header {
 .button-area {
     position: fixed;
     height: 25%;
-    left: 50%;
+    right: 20%;
     bottom: 10px;
 
 }
@@ -147,13 +147,14 @@ header {
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.5);
     visibility: hidden;
-    font-family: "wingdings";
+    margin: 1px;
 }
 
 #dir-div {
     left: 50%;
     width: 195px;
-    height: 195px;
+    height: 210px;
+
 }
 
 #not-button {
@@ -306,10 +307,19 @@ footer {
 
     }
 
+    #start-message {
+        top: 31%;
+    }
+
+    #win-message {
+        top: 31%;
+        visibility: hidden;
+    }
+
     .button-area {
         position: fixed;
         height: 50%;
-        left: 50%;
+        right: 10%;
         bottom: 0;
 
     }
@@ -328,7 +338,7 @@ footer {
     }
 
     .dir-button {
-        transform: translate(200%, -100%);
+        transform: translate(100%, -100%);
     }
 }
 
