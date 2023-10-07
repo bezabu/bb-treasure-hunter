@@ -545,7 +545,6 @@ function gameLoop() {
     sortImages();
     drawImages();
     gameTimer++; //record the duration of the game
-    console.log(player.animation);
 }
 
 //draw everything once before starting the game to give a backdrop

@@ -16,9 +16,9 @@ header {
 
 #game-container {
     position: fixed;
-    top: 30%;
+
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     width: 800px;
     height: 450px;
 }
@@ -112,7 +112,7 @@ header {
 
 .button-area {
     position: fixed;
-    height: 40%;
+    height: 25%;
     left: 50%;
     bottom: 0;
 
@@ -121,7 +121,8 @@ header {
 .misc-button {
     width: 50px;
     height: 50px;
-    transform: translate(-250%, 0);
+    transform: translate(-250%, 220%);
+    border-radius: 10px;
 }
 
 #reset-button {
@@ -135,12 +136,14 @@ header {
 .dir-button {
     width: 50px;
     height: 50px;
-    transform: translate(0, -120%);
+    transform: translate(-5px, -100%);
+    border-radius: 10px;
 }
 
 #dir-div {
+    left: 50%;
     width: 195px;
-    height: 151px;
+    height: 195px;
 }
 
 
