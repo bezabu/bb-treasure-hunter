@@ -424,9 +424,8 @@ function updatePlayerDrawAnimation() {
 //cycle through drawlist
 function drawImages() {
     for (let i = 0; i < drawList.length; i++) {
-        //call the drawimage
         if (drawList[i].type == imgPlayer) {
-            //special code for animating the player incorporating animations
+            //function for drawing the player with animations
             drawPlayer(drawList[i].type,
                 drawList[i].x,
                 drawList[i].y,
