@@ -38,10 +38,10 @@ header {
 
 #reset-button {
     position: absolute;
-    left: 50%;
-    top: 60%;
+    left: 25%;
+    top: 70%;
     padding: 40px;
-    transform: translate(-150%, 0);
+    transform: translate(0, -100%);
     width: 300;
     height: 150;
     background-color: red;
@@ -50,14 +50,39 @@ header {
 
 #dig-button {
     position: absolute;
-    left: 50%;
-    top: 60%;
+    left: 25%;
+    top: 70%;
     padding: 40px;
-    transform: translate(+150%, 0);
+    transform: translate(0, 100%);
     width: 300;
     height: 150;
     background-color: red;
     border-radius: 10px;
+}
+
+.dir-button {
+    position: absolute;
+    left: 70%;
+    top: 70%;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+#up-button {
+    transform: translate(0, -100%);
+}
+
+#down-button {
+    transform: translate(0, +100%);
+}
+
+#left-button {
+    transform: translate(-100%, 0);
+}
+
+#right-button {
+    transform: translate(100%, 0);
 }
 
 #start-message {
