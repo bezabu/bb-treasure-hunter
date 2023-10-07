@@ -59,6 +59,8 @@ A custom favicon has been created to make the page stand out among other tabs.
 
 ### custom 404 page
 
+A custom 404 page has been made for the web site to enable the user to find their way back to the homepage if they become lost.
+
 ## Features to implement
 
 ### Pathfinding

@@ -210,8 +210,18 @@ footer p {
     left: 50%;
     top: 50%;
     text-align: center;
-    transform: translate(-50%, -70%);
+    transform: translate(-50%, -100%);
 
+}
+
+.hole-message-link {
+    font-size: 2rem;
+    color: #ffffff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    transform: translate(-50%, -30%);
 }
 
 
@@ -265,6 +275,10 @@ footer p {
 
     .hole-message {
         font-size: 6rem;
+    }
+
+    .hole-message-link {
+        font-size: 1rem;
     }
 }
 
