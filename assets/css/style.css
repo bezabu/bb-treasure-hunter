@@ -105,9 +105,10 @@ header {
 
 #start-button {
     position: relative;
-
-
-    transform: translate(-50%, 0);
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    transform: translate(0, 0);
     margin: auto;
 }
 
@@ -130,12 +131,13 @@ header {
 }
 
 #reset-button {
-    background-color: red;
+
+    background-color: rgba(255, 0, 0, 0.5);
     visibility: visible;
 }
 
 #dig-button {
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.5);
 }
 
 .dir-button {
@@ -143,7 +145,7 @@ header {
     height: 50px;
     transform: translate(-5px, -100%);
     border-radius: 10px;
-
+    background-color: rgba(255, 255, 255, 0.5);
     visibility: hidden;
 
 }
@@ -188,6 +190,7 @@ footer {
     .dir-button {
         visibility: visible;
     }
+
 }
 
 /* small screens, laptops */
@@ -262,6 +265,10 @@ footer {
         transform: matrix(0.9, 0, 0, 0.9, 0, -50);
 
     }
+
+    .dir-button {
+        height: 40px;
+    }
 }
 
 @media screen and (max-height: 320px) {
@@ -271,7 +278,7 @@ footer {
     }
 
     .dir-button {
-        height: 40px;
+        height: 35px;
     }
 }
 
@@ -281,7 +288,7 @@ footer {
     }
 
     .dir-button {
-        height: 35px;
+        height: 30px;
     }
 }
 
