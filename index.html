@@ -13,72 +13,94 @@
       <h1 id="header">Treasure Hunter</h1>
     </header>
     <section>
-      <div class="hints"><p id="hint-message">placeholder text</p></div>
-      <div>
-        <canvas id="game-area"> </canvas>
-        <span id="prize-1" class="treasure-span">1Found!</span>
-        <span id="prize-2" class="treasure-span">2Found!</span>
-        <span id="prize-3" class="treasure-span">3Found!</span>
-      </div>
-      <div>
-        <button id="reset-button" data-type="reset-game">Reset</button>
-      </div>
-      <div>
-        <button id="dig-button" data-type="dig-game">dig</button>
-      </div>
-      <div id="start-message">
-        <p>Press Start to begin!</p>
+      <div id="game-container">
+        <div class="treasure-div">
+          <span id="prize-1" class="treasure-span">1Found!</span>
+          <span id="prize-2" class="treasure-span">2Found!</span>
+          <span id="prize-3" class="treasure-span">3Found!</span>
+        </div>
+        <div class="hints">
+          <p id="hint-message">placeholder text</p>
+        </div>
 
-        <button id="start-button" data-type="start-game">Start</button>
-      </div>
-      <div id="win-message">
-        <h3>Congratulations!</h3>
-        <p>You found all 3 treasures!</p>
-        <p>It only took you</p>
-        <p>0 seconds!</p>
-        <p>Press reset to play again!</p>
-      </div>
-      <div class="dir-div">
-        <button id="up-button" class="dir-button" data-type="up-move">
-          up
-        </button>
-      </div>
-      <div class="dir-div" class="dir-button">
-        <button id="down-button" class="dir-button" data-type="down-move">
-          down
-        </button>
-      </div>
-      <div class="dir-div">
-        <button id="left-button" class="dir-button" data-type="left-move">
-          left
-        </button>
-      </div>
-      <div class="dir-div">
-        <button id="right-button" class="dir-button" data-type="right-move">
-          right
-        </button>
-      </div>
+        <div id="canvas-container">
+          <canvas id="game-area"> </canvas>
+        </div>
+        <div class="button-area">
+          <button id="reset-button" class="misc-button" data-type="reset-game">
+            Reset
+          </button>
 
-    <div class="dir-div">
-        <button id="up-left-button" class="dir-button" data-type="up-left-move">
-            \
-        </button>
-    </div>
-    <div class="dir-div">
-        <button id="up-right-button" class="dir-button" data-type="up-right-move">
-            /
-        </button>
-    </div>
-    <div class="dir-div">
-        <button id="down-left-button" class="dir-button" data-type="down-left-move">
-            |_
-        </button>
-    </div>
-    <div class="dir-div">
-        <button id="down-right-button" class="dir-button" data-type="down-right-move">
-            _|
-        </button>
-    </div>
+          <button id="dig-button" class="misc-button" data-type="dig-game">
+            dig
+          </button>
+
+          <button
+            id="up-button"
+            class="dir-button"
+            data-type="up-move"
+          ></button>
+          <button
+            id="down-button"
+            class="dir-button"
+            data-type="down-move"
+          ></button>
+          <button
+            id="left-button"
+            class="dir-button"
+            data-type="left-move"
+          ></button>
+          <button
+            id="right-button"
+            class="dir-button"
+            data-type="right-move"
+          ></button>
+          <button
+            id="up-left-button"
+            class="dir-button"
+            data-type="up-left-move"
+          ></button>
+          <button
+            id="up-right-button"
+            class="dir-button"
+            data-type="up-right-move"
+          ></button>
+          <button
+            id="down-left-button"
+            class="dir-button"
+            data-type="down-left-move"
+          ></button>
+          <button
+            id="down-right-button"
+            class="dir-button"
+            data-type="down-right-move"
+          ></button>
+        </div>
+        <div id="start-message">
+          <h3>Welcome to Treasure Hunter!</h3>
+          <p>When the hint shows "red-hot", dig for treasure.</p>
+          <p>Find all 3 to win!</p>
+          <p>Press start to begin</p>
+
+          <button id="start-button" data-type="start-game">Start</button>
+        </div>
+        <div id="win-message">
+          <h3>Congratulations!</h3>
+          <p>You found all 3 treasures!</p>
+          <p>It only took you</p>
+          <p>0 seconds!</p>
+          <p>Press reset to play again!</p>
+        </div>
+        <div class="dir-div"></div>
+        <div class="dir-div" class="dir-button"></div>
+        <div class="dir-div"></div>
+        <div class="dir-div"></div>
+
+        <div class="dir-div"></div>
+        <div class="dir-div"></div>
+        <div class="dir-div"></div>
+        <div class="dir-div"></div>
+      </div>
     </section>
     <script src="assets/js/script.js"></script>
   </body>

@@ -965,7 +965,7 @@ document.addEventListener("DOMContentLoaded", function () {
         upButton = 0;
         rightButton = 0;
     });
-    downLeftButton2.addEventListener("ointerleave", function () {
+    downLeftButton2.addEventListener("pointerleave", function () {
         leftButton = 0;
         downButton = 0;
     });
