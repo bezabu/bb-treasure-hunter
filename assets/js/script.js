@@ -525,7 +525,7 @@ function drawBackground() {
 }
 function winCondition() {
     let winMessage = document.getElementById("win-message");
-    let timer = Math.round(gameTimer / 40, 2);
+    let timer = Math.round(gameTimer / 25, 2);
     winMessage.children[3].textContent = timer.toString() + " seconds!";
     winMessage.style.zIndex = 4;
     gameState = 0;
