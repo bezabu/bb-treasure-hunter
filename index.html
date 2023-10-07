@@ -26,6 +26,21 @@
         <div id="canvas-container">
           <canvas id="game-area"> </canvas>
         </div>
+        <div id="start-message">
+          <h3>Welcome to Treasure Hunter!</h3>
+          <p>When the hint shows "red-hot", dig for treasure.</p>
+          <p>Find all 3 to win!</p>
+          <p>Press start to begin</p>
+
+          <button id="start-button" data-type="start-game">Start</button>
+        </div>
+        <div id="win-message">
+          <h3>Congratulations!</h3>
+          <p>You found all 3 treasures!</p>
+          <p>It only took you</p>
+          <p>0 seconds!</p>
+          <p>Press reset to play again!</p>
+        </div>
         <div class="button-area">
           <button id="reset-button" class="misc-button" data-type="reset-game">
             Reset
@@ -76,30 +91,6 @@
             data-type="down-right-move"
           ></button>
         </div>
-        <div id="start-message">
-          <h3>Welcome to Treasure Hunter!</h3>
-          <p>When the hint shows "red-hot", dig for treasure.</p>
-          <p>Find all 3 to win!</p>
-          <p>Press start to begin</p>
-
-          <button id="start-button" data-type="start-game">Start</button>
-        </div>
-        <div id="win-message">
-          <h3>Congratulations!</h3>
-          <p>You found all 3 treasures!</p>
-          <p>It only took you</p>
-          <p>0 seconds!</p>
-          <p>Press reset to play again!</p>
-        </div>
-        <div class="dir-div"></div>
-        <div class="dir-div" class="dir-button"></div>
-        <div class="dir-div"></div>
-        <div class="dir-div"></div>
-
-        <div class="dir-div"></div>
-        <div class="dir-div"></div>
-        <div class="dir-div"></div>
-        <div class="dir-div"></div>
       </div>
     </section>
     <script src="assets/js/script.js"></script>

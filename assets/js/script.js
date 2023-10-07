@@ -402,9 +402,12 @@ function dig(x, y) {
             treasureList.splice(rightTreasure, 1); //remove it from list
             treasureFound++; //increment score
             //make prize icons visible
-            if (treasureFound == 1) document.getElementById("prize-1").style.zIndex = 3;
-            if (treasureFound == 2) document.getElementById("prize-2").style.zIndex = 3;
-            if (treasureFound == 3) document.getElementById("prize-3").style.zIndex = 3;
+            if (treasureFound == 1) document.getElementById("prize-1").style.zIndex = 6;
+            if (treasureFound == 2) document.getElementById("prize-2").style.zIndex = 6;
+            if (treasureFound == 3) document.getElementById("prize-3").style.zIndex = 6;
+            if (treasureFound == 1) document.getElementById("prize-1").style.visibility = "visible";
+            if (treasureFound == 2) document.getElementById("prize-2").style.visibility = "visible";
+            if (treasureFound == 3) document.getElementById("prize-3").style.visibility = "visible";
             break;
         }
         //empty tile
@@ -454,184 +457,7 @@ function checkHint() {
         hintMessage.parentNode.style.backgroundColor = hintColors[hintColors.length - 1];
     }
 }
-//pathfinding
-function Cell(newX, newY, distStart, pathB, pathB2) {
-    this.x = newX;
-    this.y = newY;
-    this.distToStart = distStart;
-    this.pathBack = pathB;
-    this.dirBack = pathB2;
-}
-function pathFindA() {
-    //get neighbouring cells of frontier cells that arent also in searchedlist or obstructions
-    let frontL = frontierList.length;
-    for (let i = 0; i < frontL; i++) {
 
-        let fx = frontierList[i].x;
-        let fy = frontierList[i].y;
-        //find neighbours of origin cell (fx,fy)
-        for (let n = fx - 1; n <= fx + 1; n++) {
-            for (let m = fy - 1; m <= fy + 1; m++) {
-                //make sure its not origin cell
-
-                if ((n != fx && m == fy) || (n == fx && m != fy) || (n != fx && m != fy)) {
-                    //ignore obstacles
-
-                    if (featureMap[n][m] != 2 && featureMap[n][m] != 3) {
-
-                        let newC = 1;
-                        //check if cell matches any already in searchlist
-                        for (let j = 0; j < searchedList.length; j++) {
-
-                            if (searchedList[j].x == n && searchedList[j].y == m) {
-                                newC = 0;
-                                console.log(searchedList[j].x);
-                            }
-                        }
-                        if (newC == 1) {
-                            let dir = "null";
-                            //console.log("marker");
-                            //assign a pathback direction
-                            if (fx - n < 0 && fy - m < 0) dir = "south";
-                            if (fx - n < 0 && fy - m == 0) dir = "southeast";
-                            if (fx - n < 0 && fy - m > 0) dir = "east";
-                            if (fx - n == 0 && fy - m < 0) dir = "southwest";
-                            if (fx - n == 0 && fy - m > 0) dir = "northeast";
-                            if (fx - n > 0 && fy - m < 0) dir = "west";
-                            if (fx - n > 0 && fy - m == 0) dir = "northwest";
-                            if (fx - n > 0 && fy - m > 0) dir = "north";
-                            //add to frontier and searched list
-                            let newFrontier = new Cell(n, m, 0, frontierList[i], dir);
-                            frontierList.push(newFrontier);
-                            //console.log("new cell for frontier list");
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-function pathFindB() {
-    //delete any frontier cells that match searchedlist cells
-    let frontL = frontierList.length;
-    let toDelete = [];
-    let matches = 0;
-    for (let i = 0; i < searchedList.length; i++) {
-        let sx = searchedList[i].x;
-        let sy = searchedList[i].y;
-        matches = 0;
-        for (let j = 0; j < frontierList.length; j++) {
-            if (frontierList[j].x == sx && frontierList[j].y == sy) {
-                frontierList.splice(j, 1);
-                j--;
-                //console.log("deleted");
-            }
-        }
-    }
-
-    /*
-    for (let i = 0; i < frontierList.length; i++) {
-        let fx = frontierList[i].x;
-        let fy = frontierList[i].y;
-        matches = 0;
-        //check if cell matches any already in searchlist
-        
-        for (let j = 0; j < searchedList.length; j++) {
-            if (searchedList[j].x == fx && searchedList[j].y == fy) {
-                matches = 1;
-                console.log("match, deleting");
-            }
-        }
-        if (matches == 1) {
-            frontierList.splice(i, 1);
-            i--;
-            console.log("deleted");
-        }
-        
-        let j = 0;
-        while (j < searchedList.length) {
-            if (searchedList[j].x == fx && searchedList[j].y == fy) {
-                frontierList.splice(i, 1);
-            } else {
-                ++j;
-            }
-        }
-        
-    }*/
-}
-function pathFindC() {
-    //add frontierlist items to searchedlist
-    for (let i = 0; i < frontierList.length; i++) {
-        let newS = frontierList[i];
-        searchedList.push(newS);
-    }
-}
-function pathFindD(gx, gy) {
-
-    //check if goal is in searchedlist
-    for (i = 0; i < searchedList.length; i++) {
-        if (searchedList[i].x == gx && searchedList[i].y == gy) {
-            let inspect = searchedList[i].pathBack;
-            pathFound.push(inspect);
-            if (inspect != "start") {
-                let d = 0;
-                while (d == 0) {
-                    //found!
-                    inspect = inspect.pathBack;
-                    pathFound.push(inspect);
-                    if (inspect == "start") d = 1;
-                    //console.log("marker1");
-                    found = 1;
-                }
-            }
-            break;
-        }
-
-    }
-
-}
-
-function clearList(listToClear) {
-    let len = listToClear.length;
-    for (i = 0; i < len; i++) {
-        listToClear.shift();
-    }
-
-}
-
-function pathFind(startX, startY, goalX, goalY) {
-    clearList(frontierList);
-    clearList(searchedList);
-    clearList(pathFound);
-    found = 0;
-    let sx = Math.round(startX);
-    let sy = Math.round(startY);
-    let gx = Math.round(goalX);
-    let gy = Math.round(goalY);
-    console.log(`goal: ${gx},${gy}`);
-    let newFrontier = new Cell(sx, sy, 0, "start", "start");
-    frontierList.push(newFrontier);
-    searchedList.push(newFrontier);
-    while (found == 0) {
-        //console.log("origin only");
-        //console.log(frontierList);
-        //console.log(searchedList);
-        pathFindA();
-        //console.log("after first iteration");
-        //console.log(frontierList);
-        //console.log(searchedList);
-        pathFindB();
-        //console.log("after second iteration");
-        //console.log(frontierList);
-        //console.log(searchedList);
-        pathFindC();
-        //console.log("after third iteration");
-        //console.log(frontierList);
-        //console.log(searchedList);
-        pathFindD(gx, gy);
-        console.log(pathFound);
-    }
-}
 
 //drawing functions
 function updatePlayerDrawObject() {

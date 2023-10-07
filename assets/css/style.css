@@ -24,30 +24,35 @@ header {
 
 .treasure-div {
     position: relative;
+    display: inline-block;
     width: 320px;
     left: 50%;
-    top: 10%;
+    top: 12%;
     transform: translate(-50%, 0);
-    z-index: 5;
+    z-index: 3;
     text-align: center;
 }
 
 .treasure-span {
-
-    display: inline-block;
+    position: relative;
     padding: 5px;
-    width: 50px;
-    height: 15px;
+    display: inline-block;
     background-color: yellow;
-    z-index: 5;
+    visibility: hidden;
     border-radius: 10px;
 }
 
-#prize-1 {}
+#prize-1 {
+    position: relative;
+}
 
-#prize-2 {}
+#prize-2 {
+    position: relative;
+}
 
-#prize-3 {}
+#prize-3 {
+    position: relative;
+}
 
 #hint-message {
     text-align: center;
@@ -66,38 +71,6 @@ header {
 #game-area {
     position: relative;
     z-index: 2;
-}
-
-.misc-button {
-    position: relative;
-    padding: 40px;
-    left: 25%;
-    top: 70%;
-    width: 100px;
-    height: 50px;
-    border-radius: 10px;
-    z-index: 4;
-}
-
-#reset-button {
-    transform: translate(0, -100%);
-    background-color: red;
-}
-
-#dig-button {
-    transform: translate(0, 100%);
-    background-color: red;
-}
-
-.dir-button {
-    display: block;
-    position: relative;
-    padding: 10px;
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    background-color: white;
-    z-index: 4;
 }
 
 #start-message {
@@ -135,6 +108,40 @@ header {
     transform: translate(-50%, 0);
     margin: auto;
 }
+
+.button-area {
+    position: absolute;
+    left: 50%;
+    bottom: 20%;
+}
+
+.misc-button {
+    position: relative;
+    padding: 40px;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    z-index: 4;
+}
+
+#reset-button {
+    transform: translate(0, -100%);
+    background-color: red;
+}
+
+#dig-button {
+    transform: translate(0, 100%);
+    background-color: red;
+}
+
+.dir-button {
+    position: relative;
+    border-radius: 10px;
+    background-color: white;
+    z-index: 4;
+}
+
+
 
 
 #left-button {
