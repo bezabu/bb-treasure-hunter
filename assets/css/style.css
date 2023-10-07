@@ -180,7 +180,15 @@ footer {
 @media screen and (max-width: 1920px) {}
 
 /* Small screens, laptops */
-@media screen and (max-width: 1200px) {}
+@media screen and (max-width: 1200px) {
+    .misc-button {
+        visibility: visible;
+    }
+
+    .dir-button {
+        visibility: visible;
+    }
+}
 
 /* small screens, laptops */
 @media screen and (max-width: 1024px) {
@@ -222,6 +230,12 @@ footer {
 
     #game-area {
         transform: scale(0.9);
+
+    }
+
+    h1 {
+        font-size: large;
+        z-index: 6;
     }
 }
 
@@ -235,15 +249,39 @@ footer {
         visibility: visible;
     }
 
+    /*
     #game-area {
-        transform: scale(0.8);
+        transform: scale(0.7);
+        transform: translate(0, -5%);
+    }
+    */
+}
+
+@media screen and (max-height: 400px) {
+    #game-area {
+        transform: matrix(0.9, 0, 0, 0.9, 0, -50);
+
     }
 }
 
 @media screen and (max-height: 320px) {
     #game-area {
-        transform: scale(0.7);
-        transform: translate(0, -20%);
+        transform: matrix(0.7, 0, 0, 0.7, 0, -100);
+
+    }
+
+    .dir-button {
+        height: 40px;
+    }
+}
+
+@media screen and (max-height: 260px) {
+    #game-area {
+        transform: matrix(0.6, 0, 0, 0.6, 0, -120);
+    }
+
+    .dir-button {
+        height: 35px;
     }
 }
 
@@ -254,7 +292,7 @@ footer {
 
     #game-container {
 
-        transform: translate(-50%, -10%);
+        transform: translate(-50%, -5%);
 
     }
 

@@ -496,13 +496,15 @@ function drawTerrain() {
             ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) - heightOffSetNextXY + yScreenOffset);
             ctx.lineTo(getIsoX(n, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m + 1, tileWidth, tileHeight) - heightOffSetNextY + yScreenOffset);
             ctx.fill();
+
             //draw tile outline
-            ctx.strokeStyle = "#000000";
+            ctx.strokeStyle = "#113715";
             ctx.beginPath();
             ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m, tileWidth, tileHeight) - heightOffSet + yScreenOffset);
             ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX + yScreenOffset);
             ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) - heightOffSetNextXY + yScreenOffset);
             ctx.stroke();
+
             //}
             if (featureMap[n][m] == 5) {
                 /*draw a dug up hole as part of the terrain to prevent it being
