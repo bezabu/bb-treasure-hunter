@@ -184,7 +184,15 @@ h1 {
 #down-right-button {}
 
 footer {
-    height: 50px;
+    position: absolute;
+    color: #ffffff;
+    left: 50%;
+    bottom: 0;
+    font-size: xx-small;
+}
+
+footer p {
+    transform: translate(-50%, 0);
 }
 
 /* media queries */
