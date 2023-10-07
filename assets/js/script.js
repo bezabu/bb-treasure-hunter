@@ -874,19 +874,19 @@ document.addEventListener("DOMContentLoaded", function () {
     let downButton2 = document.getElementById('down-button');
     let leftButton2 = document.getElementById('left-button');
     let rightButton2 = document.getElementById('right-button');
-
-
+    let upLeftButton2 = document.getElementById('up-left-button');
+    let upRightButton2 = document.getElementById('up-right-button');
+    let downLeftButton2 = document.getElementById('down-left-button');
+    let downRightButton2 = document.getElementById('down-right-button');
+    //button pressed
     upButton2.addEventListener("pointerdown", function () {
         //move up
         upButton = 1;
-        console.log("up button pressed");
     });
-
     downButton2.addEventListener("pointerdown", function () {
         //move down
         downButton = 1;
     });
-
     leftButton2.addEventListener("pointerdown", function () {
         //move left
         leftButton = 1;
@@ -895,23 +895,83 @@ document.addEventListener("DOMContentLoaded", function () {
         //move right
         rightButton = 1;
     });
-    upButton2.addEventListener("pointerup", function () {
+    upLeftButton2.addEventListener("pointerdown", function () {
         //move up
+        upButton = 1;
+        leftButton = 1;
+    });
+    upRightButton2.addEventListener("pointerdown", function () {
+        //move down
+        upButton = 1;
+        rightButton = 1;
+    });
+    downLeftButton2.addEventListener("pointerdown", function () {
+        //move left
+        leftButton = 1;
+        downButton = 1;
+    });
+    downRightButton2.addEventListener("pointerdown", function () {
+        //move right
+        rightButton = 1;
+        downButton = 1;
+    });
+    //pointer released
+    upButton2.addEventListener("pointerup", function () {
         upButton = 0;
-        console.log("up button released");
     });
     downButton2.addEventListener("pointerup", function () {
-        //move down
         downButton = 0;
     });
-    ;
     leftButton2.addEventListener("pointerup", function () {
-        //move left
         leftButton = 0;
     });
     rightButton2.addEventListener("pointerup", function () {
-        //move right
         rightButton = 0;
+    });
+    upLeftButton2.addEventListener("pointerup", function () {
+        upButton = 0;
+        leftButton = 0;
+    });
+    upRightButton2.addEventListener("pointerup", function () {
+        upButton = 0;
+        rightButton = 0;
+    });
+    downLeftButton2.addEventListener("pointerup", function () {
+        leftButton = 0;
+        downButton = 0;
+    });
+    downRightButton2.addEventListener("pointerup", function () {
+        rightButton = 0;
+        downButton = 0;
+    });
+    //pointer leaves button
+    upButton2.addEventListener("pointerleave", function () {
+        upButton = 0;
+    });
+    downButton2.addEventListener("pointerleave", function () {
+        downButton = 0;
+    });
+    leftButton2.addEventListener("pointerleave", function () {
+        leftButton = 0;
+    });
+    rightButton2.addEventListener("pointerleave", function () {
+        rightButton = 0;
+    });
+    upLeftButton2.addEventListener("pointerleave", function () {
+        upButton = 0;
+        leftButton = 0;
+    });
+    upRightButton2.addEventListener("pointerleave", function () {
+        upButton = 0;
+        rightButton = 0;
+    });
+    downLeftButton2.addEventListener("ointerleave", function () {
+        leftButton = 0;
+        downButton = 0;
+    });
+    downRightButton2.addEventListener("pointerleave", function () {
+        rightButton = 0;
+        downButton = 0;
     });
     let resetButton = document.getElementById('reset-button');
     resetButton.addEventListener("click", function () {

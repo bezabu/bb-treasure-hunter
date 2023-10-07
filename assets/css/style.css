@@ -60,29 +60,58 @@ header {
     border-radius: 10px;
 }
 
-.dir-button {
+/*
+.dir-div {
     position: absolute;
     left: 70%;
     top: 70%;
     width: 100px;
     height: 100px;
     border-radius: 10px;
+    background-color: grey;
+}
+*/
+.dir-button {
+    display: block;
+    position: absolute;
+    left: 70%;
+    top: 70%;
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    background-color: white;
 }
 
 #up-button {
-    transform: translate(0, -100%);
+    transform: translate(0, -110%);
 }
 
 #down-button {
-    transform: translate(0, +100%);
+    transform: translate(0, +110%);
 }
 
 #left-button {
-    transform: translate(-100%, 0);
+    transform: translate(-110%, 0);
 }
 
 #right-button {
-    transform: translate(100%, 0);
+    transform: translate(110%, 0);
+}
+
+#up-left-button {
+    transform: translate(-110%, -110%);
+}
+
+#up-right-button {
+    transform: translate(+110%, -110%);
+}
+
+#down-left-button {
+    transform: translate(-110%, 110%);
+}
+
+#down-right-button {
+    transform: translate(110%, 110%);
 }
 
 #start-message {
