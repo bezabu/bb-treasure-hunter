@@ -47,5 +47,44 @@ When the player has located and dug up each of the three treasure goals, a messa
 
 ### header
 
+A simple header with the title of the game is shown at the top of the page. There are no navigational elements.
+
 ### footer
 
+A simple footer with a short sentance explaining the web site and game were created by me for educational purposes only. 
+
+### favicon
+
+A custom favicon has been created to make the page stand out among other tabs.
+
+### custom 404 page
+
+## Features to implement
+
+### Pathfinding
+
+I attempted to write a pathfinding algorithm that would plot a path between two points, but was unsuccessful.
+
+### Customizable difficulty settings
+
+Amount of treasure to find, amount of rocks or other obstacles. The nature of the game could be changed in a way so that finding treasure only adds time onto a timer which is constantly counting down to game over.
+
+### Better terrain generation
+
+Given more time, I would like to enhance the terrain generation so that it looks more natural and poses more of a challenge to the player. Trees could be grouped together more allowing for small clearings. More variation to the coasts, possibly even rivers extending into the island. Treasure prevented from spawning too close to other treasure.
+
+### computer controlled antagonist
+
+With pathfinding, it would be possible for another entity to hunt down the player, presenting more of a challenge and a fail state to the game.
+
+# Technologies
+
+
+
+# Testing
+
+## Validator Testing
+
+## Unfixed Bugs
+
+# Deployment

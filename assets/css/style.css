@@ -195,6 +195,27 @@ footer p {
     transform: translate(-50%, 0);
 }
 
+.hole-image {
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hole-message {
+    font-size: 8rem;
+    color: #ffffff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    transform: translate(-50%, -70%);
+
+}
+
+
+
 /* media queries */
 /* Laptops, desktops */
 @media screen and (max-width: 1920px) {}
@@ -220,6 +241,10 @@ footer p {
     .dir-button {
         visibility: visible;
     }
+
+    .hole-message {
+        font-size: 7rem;
+    }
 }
 
 /* landscape phones, tablets */
@@ -236,6 +261,10 @@ footer p {
 
     .dir-button {
         visibility: visible;
+    }
+
+    .hole-message {
+        font-size: 6rem;
     }
 }
 
@@ -258,6 +287,10 @@ footer p {
         font-size: large;
         z-index: 6;
     }
+
+    .hole-message {
+        font-size: 4rem;
+    }
 }
 
 /* small phones */
@@ -268,6 +301,10 @@ footer p {
 
     .dir-button {
         visibility: visible;
+    }
+
+    .hole-message {
+        font-size: 2rem;
     }
 
     /*
