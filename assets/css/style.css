@@ -115,7 +115,7 @@ header {
     position: fixed;
     height: 25%;
     left: 50%;
-    bottom: 0;
+    bottom: 10px;
 
 }
 
@@ -166,6 +166,10 @@ header {
 #down-left-button {}
 
 #down-right-button {}
+
+footer {
+    height: 50px;
+}
 
 /* media queries */
 /* Laptops, desktops */
@@ -238,7 +242,7 @@ header {
     .misc-button {
         width: 50px;
         height: 50px;
-        transform: translate(-450%, 150%);
+        transform: translate(-500%, 150%);
         border-radius: 10px;
 
     }
@@ -246,6 +250,10 @@ header {
     .dir-div {
         position: relative;
         transform: translate(50%, 0);
+    }
+
+    .dir-button {
+        transform: translate(200%, -100%);
     }
 }
 
