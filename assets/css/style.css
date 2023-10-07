@@ -15,6 +15,10 @@ header {
     z-index: 5;
 }
 
+h1 {
+    color: #ffffff;
+}
+
 #game-container {
     position: fixed;
 
@@ -68,6 +72,7 @@ header {
     top: 15%;
     transform: translate(-50%, 0);
     border-radius: 5px;
+    background-color: #ffffff;
 }
 
 #game-area {
