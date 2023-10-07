@@ -1,6 +1,6 @@
 # Treasure Hunter
 
-Treasure Hunter is a game in which the player must find three pieces of buried treasure on a small island.
+Treasure Hunter is a game in which the player must find three pieces of buried treasure on a small island. the game can be accessed [here](https://bezabu.github.io/bb-treasure-hunter/index.html).
 
 images
 
@@ -15,19 +15,19 @@ The terrain data is stored in several 2 dimensional arrays. Nested for loops are
 
 ### Isometric projection
 
-To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates are passed through a function which converts them. This results in the diamond shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away.
+To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates or objects and terrain are passed through a function which converts them. This results in the diamond shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away.
 
 ### the Hunter
 
-The hunter is the player avatar. The hunter can move in 8 directions and can dig in the currently occupied cell. The player can control the hunter using either the keyboard or by pressing buttons. Animated
+The hunter is the player avatar. The hunter can move in 8 directions and can dig in the currently occupied cell. The player can control the hunter using either the keyboard or by pressing buttons. The hunter has an idle animation and a moving animation for each direction.
 
 ### collision detection
 
-Whenever the player attempts to move the player, the destination is checked against the feature map for potential obstacles. If a rock is in the location the player is trying to move to, movement is prevented.
+Whenever the player attempts to move, the destination is checked against the feature map for potential obstacles. If a rock is in the location the player is trying to move to, movement is prevented.
 
 ### reset button
 
-The reset button reloads the page so that in the event of an unfavourable map (for example the player or treasure hemmed in by impassable rocks) the player can try again.
+The reset button reloads the page so that in the event of an unfavourable map, for example the player or treasure hemmed in by impassable rocks, the player can try again.
 
 ### movement buttons
 
