@@ -5,6 +5,16 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: #F39001;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #F33801;
+}
+
 body {
     background-color: #46546A;
 }
@@ -216,7 +226,6 @@ footer p {
 
 .hole-message-link {
     font-size: 2rem;
-    color: #ffffff;
     position: absolute;
     left: 50%;
     top: 50%;
