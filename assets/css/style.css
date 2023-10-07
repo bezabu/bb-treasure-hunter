@@ -110,71 +110,54 @@ header {
 }
 
 .button-area {
-    position: absolute;
+    position: fixed;
+    height: 30%;
     left: 50%;
-    bottom: 20%;
+    bottom: 0;
+
 }
 
 .misc-button {
-    position: relative;
-    padding: 40px;
-    width: 100px;
+    width: 50px;
     height: 50px;
-    border-radius: 10px;
-    z-index: 4;
+    transform: translate(-300%, 0);
 }
 
 #reset-button {
-    transform: translate(0, -100%);
     background-color: red;
 }
 
 #dig-button {
-    transform: translate(0, 100%);
     background-color: red;
 }
 
 .dir-button {
-    position: relative;
-    border-radius: 10px;
-    background-color: white;
-    z-index: 4;
+    width: 50px;
+    height: 50px;
+
+}
+
+#dir-div {
+    width: 151;
+    height: 151;
 }
 
 
+#left-button {}
 
+#right-button {}
 
-#left-button {
-    transform: translate(-110%, 0);
-}
+#up-button {}
 
-#right-button {
-    transform: translate(+110%, 0);
-}
+#down-button {}
 
-#up-button {
-    transform: translate(0, -110%);
-}
+#up-left-button {}
 
-#down-button {
-    transform: translate(0, +110%);
-}
+#up-right-button {}
 
-#up-left-button {
-    transform: translate(-110%, -110%);
-}
+#down-left-button {}
 
-#up-right-button {
-    transform: translate(+110%, -110%);
-}
-
-#down-left-button {
-    transform: translate(-110%, +110%);
-}
-
-#down-right-button {
-    transform: translate(+110%, +110%);
-}
+#down-right-button {}
 
 /* media queries */
 /* Laptops, desktops */

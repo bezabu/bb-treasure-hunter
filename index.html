@@ -41,25 +41,32 @@
           <p>0 seconds!</p>
           <p>Press reset to play again!</p>
         </div>
-        <div class="button-area">
-          <button id="reset-button" class="misc-button" data-type="reset-game">
-            Reset
-          </button>
+      </div>
+      <div class="button-area">
+        <button id="reset-button" class="misc-button" data-type="reset-game">
+          Reset
+        </button>
 
-          <button id="dig-button" class="misc-button" data-type="dig-game">
-            dig
-          </button>
-
+        <button id="dig-button" class="misc-button" data-type="dig-game">
+          dig
+        </button>
+        <div id="dir-div">
+          <button
+            id="up-left-button"
+            class="dir-button"
+            data-type="up-left-move"
+          ></button>
           <button
             id="up-button"
             class="dir-button"
             data-type="up-move"
           ></button>
           <button
-            id="down-button"
+            id="up-right-button"
             class="dir-button"
-            data-type="down-move"
+            data-type="up-right-move"
           ></button>
+
           <button
             id="left-button"
             class="dir-button"
@@ -70,20 +77,16 @@
             class="dir-button"
             data-type="right-move"
           ></button>
-          <button
-            id="up-left-button"
-            class="dir-button"
-            data-type="up-left-move"
-          ></button>
-          <button
-            id="up-right-button"
-            class="dir-button"
-            data-type="up-right-move"
-          ></button>
+
           <button
             id="down-left-button"
             class="dir-button"
             data-type="down-left-move"
+          ></button>
+          <button
+            id="down-button"
+            class="dir-button"
+            data-type="down-move"
           ></button>
           <button
             id="down-right-button"
