@@ -367,9 +367,6 @@ function dig(x, y) {
             treasureList.splice(rightTreasure, 1); //remove it from list
             treasureFound++; //increment score
             //make prize icons visible
-            if (treasureFound == 1) document.getElementById("prize-1").style.zIndex = 6;
-            if (treasureFound == 2) document.getElementById("prize-2").style.zIndex = 6;
-            if (treasureFound == 3) document.getElementById("prize-3").style.zIndex = 6;
             if (treasureFound == 1) document.getElementById("prize-1").style.visibility = "visible";
             if (treasureFound == 2) document.getElementById("prize-2").style.visibility = "visible";
             if (treasureFound == 3) document.getElementById("prize-3").style.visibility = "visible";
