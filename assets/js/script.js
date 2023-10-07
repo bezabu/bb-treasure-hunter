@@ -10,8 +10,12 @@ let yScreenOffset = 0;
 let gameState = 0; //wether or not to check for player input
 // get hint area in HTML and set hot/cold hint messages/colours
 let hintMessage = document.getElementById("hint-message");
-let hints = ["Red-Hot!", "Boiling", "Hot", "Warm", "Warm", "Lukewarm", "Lukewarm", "Cold", "Cold", "Cold", "Very Cold", "Very Cold", "Extremely Cold", "Freezing", "Absolute Zero"];
-let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537', '#E8C369', '#E5DEAF', '#AFB6E5', '#4183E8', '#047EF9', '#73D1E1', '#99E4E7', '#BAEAE8', '#E6F5F5', '#ffffff'];
+let hints = ["Red-Hot!", "Boiling", "Hot", "Warm", "Warm", "Lukewarm",
+    "Lukewarm", "Cold", "Cold", "Cold", "Very Cold", "Very Cold",
+    "Extremely Cold", "Freezing", "Absolute Zero"];
+let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537',
+    '#E8C369', '#E5DEAF', '#AFB6E5', '#4183E8', '#047EF9', '#73D1E1', '#99E4E7',
+    '#BAEAE8', '#E6F5F5', '#ffffff'];
 hintMessage.innerHTML = hints[6];
 
 //load images
@@ -44,12 +48,7 @@ imgHole.onload = () => {
     holeLoad = 1;
 };
 
-//object for storing the cursor position and key presses
-let mousePosition = {
-    x: 0,
-    y: 0
-};
-
+//variables for storing player input
 let leftKey = 0;
 let rightKey = 0;
 let upKey = 0;
@@ -61,14 +60,14 @@ let upButton = 0;
 let downButton = 0;
 let keyPressed = 0;
 let buttonPressed = 0;
-let isMoving = 0;
-let touch = 0;
+let isMoving = 0; //used for sprite animations
 let moving = {
     up: 0,
     down: 0,
     left: 0,
     right: 0
 };
+
 let started = 0; //set to 1 once game has started
 // set terrain generation variables
 let mapSize = 40;
@@ -77,7 +76,7 @@ let rows = mapSize + 1;
 let columns = mapSize + 1;
 let tileWidth = 32;
 let tileHeight = Math.floor(tileWidth / 2);
-let treasureCount = 3;
+let treasureCount = 3; //how many treasures
 let nearestTreasure = "";
 let treasureFound = 0;
 //player object
@@ -94,25 +93,22 @@ let moveAmount = 0.05;
 xScreenOffset = -200;
 yScreenOffset = -200;
 
-//arrays used in pathfinding
-let frontierList = [];
-let searchedList = [];
-let pathFound = [];
-let found = 0;
-//create arrays for storing terrain height and feature coordinates
-let heightMap = []; //stores height value to add after isometric conversion
-let featureMap = []; //stores the contents of the tile
+
+//arrays for storing terrain height and feature coordinates
+let heightMap = [];
+let featureMap = [];
 let smoothMap = []; //used to smooth terrain and then to store colours
 
-//create the draw list
+
 let drawList = []; //list of all items to draw
+
 //create the draw list object type
 function DrawObject(newType, newX, newY, newOx, newOy) {
-    this.type = newType; //image name
-    this.x = newX; //x position
-    this.y = newY; //y position
-    this.xo = newOx; //how much to offset
-    this.yo = newOy; //prevents drawing at top left corner
+    this.type = newType;
+    this.x = newX;
+    this.y = newY;
+    this.xo = newOx; //x offset
+    this.yo = newOy; //y offset
 }
 // creating two-dimensional arrays for height, movement, trees and rocks
 /*
@@ -147,11 +143,13 @@ for (let n = 0; n < rows - 1; n++) {
         heightMap[n][m] = myGetRandomInt(maxHeight); //generate height value
         if (n != player.playerX && m != player.playerY) {
             //chance to generate a tree, but only if not near edges of map
-            if (myGetRandomInt(3) > 2 && n > mapMargin && n < rows - mapMargin && m > mapMargin && m < columns - mapMargin) {
-                featureMap[n][m] = 1; //store tree in featureMap
+            if (myGetRandomInt(3) > 2 && n > mapMargin &&
+                n < rows - mapMargin && m > mapMargin && m < columns -
+                mapMargin) {
+                featureMap[n][m] = 1;
                 //enter the object in the drawobject list
                 let entry = new DrawObject(imgTree, n, m, 22, 45);
-                drawList.push(entry); //add new tree to drawlist
+                drawList.push(entry);
             } else {
                 //chance to generate a rock, but only if not near edges of map
                 if (myGetRandomInt(4) > 3 && n > mapMargin && n < rows -
@@ -159,7 +157,7 @@ for (let n = 0; n < rows - 1; n++) {
                     featureMap[n][m] = 2;
                     //enter the object in the drawobject list
                     let entry = new DrawObject(imgRock, n, m, 25, 35);
-                    drawList.push(entry); //add new rock to drawlist
+                    drawList.push(entry);
                 }
             }
         }
@@ -193,10 +191,10 @@ for (let n = 1; n < rows - 1; n++) {
         let colSt2 = (138 + myGetRandomInt(10) - myGetRandomInt(10)).toString();
         let colSt3 = (67 + myGetRandomInt(10) - myGetRandomInt(10)).toString();
         let fullCol = "rgb(" + colSt1 + "," + colSt2 + "," + colSt3 + ")";
-        smoothMap[n][m] = fullCol; //store rgb values in a string ofr later use
+        smoothMap[n][m] = fullCol; //store rgb values in a string for later use
     }
 }
-//set edge tiles to 0 height and mark them as water
+
 for (let n = 1; n < rows; n++) {
     for (let m = 1; m < columns; m++) {
         if (n == 1 || m == 1 || n == rows - 1 || m == columns - 1) {
@@ -206,12 +204,11 @@ for (let n = 1; n < rows; n++) {
     }
 }
 //distribute treasures
-let treasureList = []; //store treasures in array
+let treasureList = [];
 for (let i = 0; i < treasureCount; i++) {
     let treasureAssigned = 0;
     while (treasureAssigned == 0) {
         console.log('Assigning treasure...');
-        //choose a random location not too close to map edges
         let thisX = Math.floor(myGetRandomInt(rows - 8) + 4);
         let thisY = Math.floor(myGetRandomInt(columns - 8) + 4);
         /* check if location suitable and if so, create the treasure, add it 
@@ -223,9 +220,9 @@ for (let i = 0; i < treasureCount; i++) {
                 x: thisX,
                 y: thisY
             }; //create an object with the treasure's position on the map
-            treasureList.push(thisTreasure); //add object to list
+            treasureList.push(thisTreasure);
             console.log(`treasure hidden at ${thisX},${thisY}`);
-            treasureAssigned = 1; //exit while loop
+            treasureAssigned = 1;
         }
     }
 }
@@ -245,7 +242,6 @@ function getIsoY(x, y, tileWidth, tileHeight) {
     let isoY = ((x + y) * (tileHeight / 2)) * 2;
     return isoY;
 }
-
 //returns a random integer between 0 and maxNum
 function myGetRandomInt(maxNum) {
     let randomInt = Math.round(Math.random() * maxNum);
@@ -255,11 +251,6 @@ function myGetRandomInt(maxNum) {
 function myGetDistance(x1, y1, x2, y2) {
     let myDistance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     return myDistance;
-}
-//get the angle between two points
-function getAngleDeg(x1, y1, x2, y2) {
-    let angleDeg = (Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI) + 180;
-    return angleDeg;
 }
 //returns the mean average of 8 inputs
 function myGetMean(n1, n2, n3, n4, n5, n6, n7, n8) {
@@ -275,6 +266,7 @@ function colCheck(x, y) {
         return true;
     }
 }
+//check if player is moving
 function checkIfMoving() {
     if (keyPressed == 1 || buttonPressed == 1) {
         isMoving = 1;
@@ -300,18 +292,18 @@ function playerMove(player, eventKey) {
     } else moving.down = 0;
     if (!downKey && !upKey && !leftKey && !rightKey) keyPressed = 0;
 }
+//player movement functions
 function moveLeft() {
     if (!colCheck(player.playerX - moveAmount, player.playerY + moveAmount)) {
-        //moving.left = 1;
+        moving.left = 1;
         player.playerX -= moveAmount;
         player.playerY += moveAmount;
-        xScreenOffset += moveAmount * tileWidth * 2; /* move the 'camera' with 
-        the player */
+        xScreenOffset += moveAmount * tileWidth * 2;
     }
 }
 function moveRight() {
     if (!colCheck(player.playerX + moveAmount, player.playerY - moveAmount)) {
-        //moving.right = 1;
+        moving.right = 1;
         player.playerX += moveAmount;
         player.playerY -= moveAmount;
         xScreenOffset -= moveAmount * tileWidth * 2;
@@ -319,7 +311,7 @@ function moveRight() {
 }
 function moveUp() {
     if (!colCheck(player.playerX - moveAmount, player.playerY - moveAmount)) {
-        //moving.up = 1;
+        moving.up = 1;
         player.playerX -= moveAmount;
         player.playerY -= moveAmount;
         yScreenOffset += moveAmount * tileWidth;
@@ -327,24 +319,11 @@ function moveUp() {
 }
 function moveDown() {
     if (!colCheck(player.playerX + moveAmount, player.playerY + moveAmount)) {
-        //moving.down = 1;
+        moving.down = 1;
         player.playerX += moveAmount;
         player.playerY += moveAmount;
         yScreenOffset -= moveAmount * tileWidth;
     }
-}
-//get the mouse coordinates
-function logMouse(e) {
-    let rect = canvas.getBoundingClientRect(); /*get coordinates of canvas in 
-    page, and use to find the position of the cursor within the canvas*/
-    mousePosition.x = Math.round(e.clientX - rect.left);
-    mousePosition.y = Math.round(e.clientY - rect.top);
-}
-function mouseConvertX(mouseX, mouseY) {
-    return inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight);
-}
-function mouseConvertY(mouseX, mouseY) {
-    return inverseIsoY(mousePosition.y, mousePosition.y, tileWidth, tileHeight);
 }
 
 //dig for treasure
@@ -352,8 +331,7 @@ function dig(x, y) {
     console.log(`digging at ${Math.round(x, 0)},${Math.round(y, 0)}...`);
     //determine the contents of the tile
     switch (featureMap[Math.round(x, 0)][Math.round(y, 0)]) {
-        case 4: {
-            //treasure tile
+        case 4: { //treasure tile
             console.log("Found treasure!");
             featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5;
             //remove treasure from treasurelist
@@ -367,26 +345,26 @@ function dig(x, y) {
             treasureList.splice(rightTreasure, 1); //remove it from list
             treasureFound++; //increment score
             //make prize icons visible
-            if (treasureFound == 1) document.getElementById("prize-1").style.visibility = "visible";
-            if (treasureFound == 2) document.getElementById("prize-2").style.visibility = "visible";
-            if (treasureFound == 3) document.getElementById("prize-3").style.visibility = "visible";
+            let p1 = document.getElementById("prize-1");
+            let p2 = document.getElementById("prize-2");
+            let p3 = document.getElementById("prize-3");
+            if (treasureFound == 1) p1.style.visibility = "visible";
+            if (treasureFound == 2) p2.style.visibility = "visible";
+            if (treasureFound == 3) p3.style.visibility = "visible";
             break;
         }
-        //empty tile
-        case 0: {
+        case 0: {//empty tile
             console.log("No treasure!");
             featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5; //mark as dug
             break;
         }
-        //previously dug up tile
-        case 5: {
+        case 5: {//previously dug up tile
             console.log("Already dug here!");
             break;
         }
-        //trees/rocks/water
-        case 1:
-        case 2:
-        case 3: {
+        case 1: //trees
+        case 2: //rocks
+        case 3: { //water
             console.log("Cannot dig here!");
             break;
         }
@@ -401,7 +379,10 @@ function checkHint() {
     let shortestDist = 999999;
     //go through each treasure in list and record shortest distance
     for (let i = 0; i < treasureList.length; i++) {
-        dist = myGetDistance(player.playerX, player.playerY, treasureList[i].x, treasureList[i].y);
+        dist = myGetDistance(player.playerX,
+            player.playerY,
+            treasureList[i].x,
+            treasureList[i].y);
         if (dist < shortestDist) {
             shortestDist = dist; //record new shortest distance
             nearestTreasure = treasureList[i].id;
@@ -411,12 +392,14 @@ function checkHint() {
     for the hint message and colour arrays*/
     if (Math.floor(shortestDist / 2) <= hints.length - 1) {
         hintMessage.innerHTML = hints[Math.floor(shortestDist / 2)];
-        hintMessage.parentNode.style.backgroundColor = hintColors[Math.floor(shortestDist / 2)];
+        hintMessage.parentNode.style.backgroundColor =
+            hintColors[Math.floor(shortestDist / 2)];
     } else {
         /*if the shortest distance is longer than the array length, use the 
         last entry in the array */
         hintMessage.innerHTML = hints[hints.length - 1];
-        hintMessage.parentNode.style.backgroundColor = hintColors[hintColors.length - 1];
+        hintMessage.parentNode.style.backgroundColor =
+            hintColors[hintColors.length - 1];
     }
 }
 
@@ -446,26 +429,41 @@ function drawImages() {
         //call the drawimage
         if (drawList[i].type == imgPlayer) {
             //special code for animating the player incorporating animations
-            drawPlayer(drawList[i].type, drawList[i].x, drawList[i].y, drawList[i].xo, drawList[i].yo);
+            drawPlayer(drawList[i].type,
+                drawList[i].x,
+                drawList[i].y,
+                drawList[i].xo,
+                drawList[i].yo);
         } else {
             //function for drawing non animated objects
-            drawThis(drawList[i].type, drawList[i].x, drawList[i].y, drawList[i].xo, drawList[i].yo);
+            drawThis(drawList[i].type,
+                drawList[i].x,
+                drawList[i].y,
+                drawList[i].xo,
+                drawList[i].yo);
         }
     }
 }
 //sort images in drawlist by isometric y
 function sortImages() {
-    drawList.sort(function (a, b) { return getIsoY(a.x, a.y, tileWidth, tileHeight) - getIsoY(b.x, b.y, tileWidth, tileHeight); });
+    drawList.sort(function (a, b) {
+        return getIsoY(a.x, a.y, tileWidth, tileHeight) -
+            getIsoY(b.x, b.y, tileWidth, tileHeight);
+    });
 }
 //draw an image
 function drawThis(imageToDraw, x, y, originX, originY) {
-    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight));
+    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) +
+        xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) +
+        yScreenOffset - originY + (tileHeight));
 }
 //draw the player
 function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
     let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
-    let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight);
-    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64, (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
+    let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
+        (tileHeight);
+    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64,
+        (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
 }
 //draw the terain
 function drawTerrain() {
@@ -491,18 +489,32 @@ function drawTerrain() {
             all other draw functions are offset by half tile to give the 
             illusion that the centre of the tile is at it's actual centre*/
             ctx.beginPath();
-            ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m, tileWidth, tileHeight) - heightOffSet + yScreenOffset);
-            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX + yScreenOffset);
-            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) - heightOffSetNextXY + yScreenOffset);
-            ctx.lineTo(getIsoX(n, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m + 1, tileWidth, tileHeight) - heightOffSetNextY + yScreenOffset);
+            ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset,
+                getIsoY(n, m, tileWidth, tileHeight) - heightOffSet +
+                yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset,
+                getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX +
+                yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) +
+                xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) -
+                heightOffSetNextXY + yScreenOffset);
+            ctx.lineTo(getIsoX(n, m + 1, tileWidth, tileHeight) + xScreenOffset,
+                getIsoY(n, m + 1, tileWidth, tileHeight) - heightOffSetNextY +
+                yScreenOffset);
             ctx.fill();
 
             //draw tile outline
             ctx.strokeStyle = "#113715";
             ctx.beginPath();
-            ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n, m, tileWidth, tileHeight) - heightOffSet + yScreenOffset);
-            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX + yScreenOffset);
-            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) + xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) - heightOffSetNextXY + yScreenOffset);
+            ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset,
+                getIsoY(n, m, tileWidth, tileHeight) - heightOffSet +
+                yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m, tileWidth, tileHeight) + xScreenOffset,
+                getIsoY(n + 1, m, tileWidth, tileHeight) - heightOffSetNextX +
+                yScreenOffset);
+            ctx.lineTo(getIsoX(n + 1, m + 1, tileWidth, tileHeight) +
+                xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) -
+                heightOffSetNextXY + yScreenOffset);
             ctx.stroke();
 
             //}
@@ -585,17 +597,6 @@ document.addEventListener('keyup', (event) => {
         dig(player.playerX, player.playerY);
         spaceKey = 0; /* only listen for space bar key up as constant input is 
         not required*/
-    }
-    if (event.key == "1") {
-        //winCondition();
-        console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
-        pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
-    }
-    if (event.key == "2") {
-        //winCondition();
-        console.log(`player at ${player.playerX},${player.playerY}`);
-        clearList(pathFound);
-        console.log(pathFound);
     }
 });
 

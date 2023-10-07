@@ -147,7 +147,7 @@ header {
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.5);
     visibility: hidden;
-
+    font-family: "wingdings";
 }
 
 #dir-div {
@@ -156,6 +156,9 @@ header {
     height: 195px;
 }
 
+#not-button {
+    visibility: hidden;
+}
 
 #left-button {}
 
