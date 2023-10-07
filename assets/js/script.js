@@ -68,7 +68,7 @@ let moving = {
     right: 0
 };
 
-let started = 0; //set to 1 once game has started
+let started = false;
 // set terrain generation variables
 let mapSize = 40;
 let maxHeight = 30;
@@ -403,17 +403,15 @@ function checkHint() {
     }
 }
 
-
 //drawing functions
 function updatePlayerDrawObject() {
-    /* update the position of the player in the player draw object and which 
-    animation to draw */
+    // update the position of the player in the player draw object
     playerDrawObject.x = player.playerX;
     playerDrawObject.y = player.playerY;
     updatePlayerDrawAnimation();
-
 }
 function updatePlayerDrawAnimation() {
+    //set animation
     if (moving.up) player.animation = 1;
     if (moving.right) player.animation = 3;
     if (moving.down) player.animation = 5;
@@ -530,11 +528,12 @@ function drawTerrain() {
 function clearCanvas() {
     ctx.clearRect(0, 0, CanvasWidth, CanvasHeight);
 }
-//draws a water coloured background to give the impression the map is an island
+//draws a water backdrop
 function drawBackground() {
     ctx.fillStyle = "#3CC3DB";
     ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 }
+//win message
 function winCondition() {
     let winMessage = document.getElementById("win-message");
     let timer = Math.round(gameTimer / 25, 2);
@@ -572,8 +571,6 @@ drawImages();
 //event listeners
 //key downs
 document.addEventListener('keydown', (event) => {
-    //key down
-    //playerMove(player, event.key);
     if (event.key == "ArrowLeft") leftKey = 1;
     if (event.key == "ArrowRight") rightKey = 1;
     if (event.key == "ArrowUp") upKey = 1;
@@ -601,7 +598,7 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-//reset and dig buttons
+//button event listeners
 document.addEventListener("DOMContentLoaded", function () {
 
     let upButton2 = document.getElementById('up-button');
@@ -614,46 +611,38 @@ document.addEventListener("DOMContentLoaded", function () {
     let downRightButton2 = document.getElementById('down-right-button');
     //button pressed
     upButton2.addEventListener("pointerdown", function () {
-        //move up
-        upButton = 1;
+        upButton = 1; //move up
         buttonPressed = 1;
     });
     downButton2.addEventListener("pointerdown", function () {
-        //move down
-        downButton = 1;
+        downButton = 1; //move down
         buttonPressed = 1;
     });
     leftButton2.addEventListener("pointerdown", function () {
-        //move left
-        leftButton = 1;
+        leftButton = 1; //move left
         buttonPressed = 1;
     });
     rightButton2.addEventListener("pointerdown", function () {
-        //move right
-        rightButton = 1;
+        rightButton = 1; //move right
         buttonPressed = 1;
     });
     upLeftButton2.addEventListener("pointerdown", function () {
-        //move up
-        upButton = 1;
+        upButton = 1; //move up and left
         leftButton = 1;
         buttonPressed = 1;
     });
     upRightButton2.addEventListener("pointerdown", function () {
-        //move down
-        upButton = 1;
+        upButton = 1; //move up and right
         rightButton = 1;
         buttonPressed = 1;
     });
     downLeftButton2.addEventListener("pointerdown", function () {
-        //move left
-        leftButton = 1;
+        leftButton = 1; //move down and left
         downButton = 1;
         buttonPressed = 1;
     });
     downRightButton2.addEventListener("pointerdown", function () {
-        //move right
-        rightButton = 1;
+        rightButton = 1; //move down and right
         downButton = 1;
         buttonPressed = 1;
     });
@@ -747,9 +736,8 @@ document.addEventListener("DOMContentLoaded", function () {
         /*start the game once we've determined it has not already started */
         if (!started) {
             let startMessage = document.getElementById('start-message');
-            startMessage.style.zIndex = 0;
             startMessage.style.visibility = "hidden";
-            started = 1;
+            started = true;
             gameState = 1;
             setInterval(gameLoop, 40);
         }
