@@ -49,6 +49,7 @@ let mousePosition = {
     x: 0,
     y: 0
 };
+
 let leftKey = 0;
 let rightKey = 0;
 let upKey = 0;
@@ -59,6 +60,8 @@ let rightButton = 0;
 let upButton = 0;
 let downButton = 0;
 let keyPressed = 0;
+let buttonPressed = 0;
+let isMoving = 0;
 let touch = 0;
 let moving = {
     up: 0,
@@ -242,36 +245,7 @@ function getIsoY(x, y, tileWidth, tileHeight) {
     let isoY = ((x + y) * (tileHeight / 2)) * 2;
     return isoY;
 }
-//get original x coordinate from isometric coordinates
-function inverseIsoX(x, y, tileWidth, tileHeight) {
-    let nx = x - xScreenOffset;
-    let ny = y - yScreenOffset;
-    let mapX = ((nx / (tileWidth / 2) + ny / (tileHeight / 2)) / 2) - 0.5;
-    return mapX;
-}
-//get original y coordinate from isometric coordinates
-function inverseIsoY(x, y, tileWidth, tileHeight) {
-    let nx = x - xScreenOffset;
-    let ny = y - yScreenOffset;
-    let mapY = ((ny / (tileHeight / 2) - nx / (tileWidth / 2)) / 2) - 0.5;
-    return mapY;
-}
-/*
-//get original x coordinate from isometric coordinates
-function inverseIsoX(x, y, tileWidth, tileHeight) {
-    x = x - xScreenOffset;
-    y = y - yScreenOffset;
-    let mapX = (x / (tileWidth * 2) + y / (tileHeight * 2)) - 0.5;
-    return mapX;
-}
-//get original y coordinate from isometric coordinates
-function inverseIsoY(x, y, tileWidth, tileHeight) {
-    x = x - xScreenOffset;
-    y = y - yScreenOffset;
-    let mapY = (y / (tileHeight * 2) - x / (tileWidth * 2)) - 0.5;
-    return mapY;
-}
-*/
+
 //returns a random integer between 0 and maxNum
 function myGetRandomInt(maxNum) {
     let randomInt = Math.round(Math.random() * maxNum);
@@ -301,25 +275,34 @@ function colCheck(x, y) {
         return true;
     }
 }
+function checkIfMoving() {
+    if (keyPressed == 1 || buttonPressed == 1) {
+        isMoving = 1;
+    } else isMoving = 0;
+}
 //move player
 function playerMove(player, eventKey) {
     if (leftKey || leftButton) {
+        moving.left = 1;
         moveLeft();
-    }
+    } else moving.left = 0;
     if (rightKey || rightButton) {
+        moving.right = 1;
         moveRight();
-    }
+    } else moving.right = 0;
     if (upKey || upButton) {
+        moving.up = 1;
         moveUp();
-    }
+    } else moving.up = 0;
     if (downKey || downButton) {
+        moving.down = 1;
         moveDown();
-    }
+    } else moving.down = 0;
     if (!downKey && !upKey && !leftKey && !rightKey) keyPressed = 0;
 }
 function moveLeft() {
     if (!colCheck(player.playerX - moveAmount, player.playerY + moveAmount)) {
-        moving.left = 1;
+        //moving.left = 1;
         player.playerX -= moveAmount;
         player.playerY += moveAmount;
         xScreenOffset += moveAmount * tileWidth * 2; /* move the 'camera' with 
@@ -328,7 +311,7 @@ function moveLeft() {
 }
 function moveRight() {
     if (!colCheck(player.playerX + moveAmount, player.playerY - moveAmount)) {
-        moving.right = 1;
+        //moving.right = 1;
         player.playerX += moveAmount;
         player.playerY -= moveAmount;
         xScreenOffset -= moveAmount * tileWidth * 2;
@@ -336,7 +319,7 @@ function moveRight() {
 }
 function moveUp() {
     if (!colCheck(player.playerX - moveAmount, player.playerY - moveAmount)) {
-        moving.up = 1;
+        //moving.up = 1;
         player.playerX -= moveAmount;
         player.playerY -= moveAmount;
         yScreenOffset += moveAmount * tileWidth;
@@ -344,7 +327,7 @@ function moveUp() {
 }
 function moveDown() {
     if (!colCheck(player.playerX + moveAmount, player.playerY + moveAmount)) {
-        moving.down = 1;
+        //moving.down = 1;
         player.playerX += moveAmount;
         player.playerY += moveAmount;
         yScreenOffset -= moveAmount * tileWidth;
@@ -363,25 +346,7 @@ function mouseConvertX(mouseX, mouseY) {
 function mouseConvertY(mouseX, mouseY) {
     return inverseIsoY(mousePosition.y, mousePosition.y, tileWidth, tileHeight);
 }
-function mouseMove() {
-    let moveAngle = (getAngleDeg(player.playerX, player.playerY,
-        inverseIsoX(mousePosition.x, mousePosition.y, tileWidth, tileHeight),
-        inverseIsoY(mousePosition.x, mousePosition.y, tileWidth, tileHeight)));
-    if (moveAngle <= 112 || moveAngle > 337) {
-        //move up
-        moveUp();
-    } else if (moveAngle > 157 && moveAngle <= 292) {
-        //move down
-        moveDown();
-    }
-    if (moveAngle > 67 && moveAngle <= 202) {
-        //left
-        moveLeft();
-    } else if (moveAngle > 247 || moveAngle <= 22) {
-        //move right
-        moveRight();
-    }
-}
+
 //dig for treasure
 function dig(x, y) {
     console.log(`digging at ${Math.round(x, 0)},${Math.round(y, 0)}...`);
@@ -465,16 +430,18 @@ function updatePlayerDrawObject() {
     animation to draw */
     playerDrawObject.x = player.playerX;
     playerDrawObject.y = player.playerY;
-    if (upKey) player.animation = 1;
-    if (rightKey) player.animation = 3;
-    if (downKey) player.animation = 5;
-    if (leftKey) player.animation = 7;
-    if (leftKey && upKey) player.animation = 0;
-    if (rightKey && upKey) player.animation = 2;
-    if (rightKey && downKey) player.animation = 4;
-    if (leftKey && downKey) player.animation = 6;
-    playerAnimateCount += 0.5;
-    if (playerAnimateCount > 7) playerAnimateCount = 0;
+    updatePlayerDrawAnimation();
+
+}
+function updatePlayerDrawAnimation() {
+    if (moving.up) player.animation = 1;
+    if (moving.right) player.animation = 3;
+    if (moving.down) player.animation = 5;
+    if (moving.left) player.animation = 7;
+    if (moving.left && moving.up) player.animation = 0;
+    if (moving.right && moving.up) player.animation = 2;
+    if (moving.right && moving.down) player.animation = 4;
+    if (moving.left && moving.down) player.animation = 6;
 }
 //cycle through drawlist
 function drawImages() {
@@ -501,7 +468,7 @@ function drawThis(imageToDraw, x, y, originX, originY) {
 function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
     let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
     let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight);
-    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64, (player.animation + (keyPressed * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
+    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64, (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
 }
 //draw the terain
 function drawTerrain() {
@@ -569,22 +536,21 @@ let gameTimer = 0;
 function gameLoop() {
     clearCanvas();
     if (gameState) {
-        //if (touch == 1) mouseMove();
-        if (touch == 0 && keyPressed == 0) {
-            moving.up = 0;
-        }
         playerMove(player);
+        checkIfMoving();
     }
     checkHint();
     drawBackground();
     drawTerrain();
     updatePlayerDrawObject();
+    playerAnimateCount += 0.5;
+    if (playerAnimateCount > 7) playerAnimateCount = 0;
     sortImages();
     drawImages();
     gameTimer++; //record the duration of the game
+    console.log(player.animation);
 }
-//run gameLoop 25 times per second (every 40 milliseconds)
-//setInterval(gameLoop, 40);
+
 //draw everything once before starting the game to give a backdrop
 clearCanvas();
 drawBackground();
@@ -635,64 +601,6 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-/*
-document.addEventListener("mousemove", (e) => {
-    logMouse(e);
-}); //record cursor position
-
-document.addEventListener("mousedown", (evt) => {
-    //get mouse position and use it
-    //mouseMove();
-    //console.log(`mouse click at ${mousePosition.x},${mousePosition.y}`);
-    //console.log(mousePosition);
-    console.log(`${mouseConvertX(mousePosition.x, mousePosition.y)},${mouseConvertY(mousePosition.x, mousePosition.y)}`);
-});
-document.addEventListener("pointerdown", (evt) => {
-    //console.log("mouse click");
-    //get mouse position
-
-    logMouse(evt);
-    if (mouseConvertX(mousePosition.x, mousePosition.y) > 1 && mouseConvertX(mousePosition.x, mousePosition.y) < mapSize - 2 && mouseConvertY(mousePosition.x, mousePosition.y) > 1 && mouseConvertY(mousePosition.x, mousePosition.y) < mapSize - 2) {
-        //pathFind(player.playerX, player.playerY, mouseConvertX(mousePosition.x, mousePosition.y), mouseConvertY(mousePosition.x, mousePosition.y));
-        console.log(mouseConvertX(mousePosition.x, mousePosition.y));
-        console.log(mouseConvertY(mousePosition.x, mousePosition.y));
-    }
-
-    //
-    //console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
-    touch = 1;
-});
-document.addEventListener("pointerup", (evt) => {
-    //console.log("mouse click");
-    //get mouse position
-
-    //logMouse(evt);
-    //console.log(`mobile touch 1 at ${mousePosition.x},${mousePosition.y}`);
-    touch = 0;
-});
-document.addEventListener("touchstart", (evt) => {
-
-    //logMouse(evt);
-    //console.log(`mobile touch 2 at ${mousePosition.x},${mousePosition.y}`);
-    touch = 1;
-});
-document.addEventListener("touchmove", (touch) => {
-
-    logMouse(touch);
-    //
-    //console.log(`mobile touch 3 at ${mousePosition.x},${mousePosition.y}`);
-    //touch = 1;
-
-});
-document.addEventListener("touchend", (evt) => {
-
-    //logMouse(evt);
-    //console.log(`mobile touch at ${mousePosition.x},${mousePosition.y}`);
-    touch = 0;
-
-});
-*/
-
 //reset and dig buttons
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -708,96 +616,120 @@ document.addEventListener("DOMContentLoaded", function () {
     upButton2.addEventListener("pointerdown", function () {
         //move up
         upButton = 1;
+        buttonPressed = 1;
     });
     downButton2.addEventListener("pointerdown", function () {
         //move down
         downButton = 1;
+        buttonPressed = 1;
     });
     leftButton2.addEventListener("pointerdown", function () {
         //move left
         leftButton = 1;
+        buttonPressed = 1;
     });
     rightButton2.addEventListener("pointerdown", function () {
         //move right
         rightButton = 1;
+        buttonPressed = 1;
     });
     upLeftButton2.addEventListener("pointerdown", function () {
         //move up
         upButton = 1;
         leftButton = 1;
+        buttonPressed = 1;
     });
     upRightButton2.addEventListener("pointerdown", function () {
         //move down
         upButton = 1;
         rightButton = 1;
+        buttonPressed = 1;
     });
     downLeftButton2.addEventListener("pointerdown", function () {
         //move left
         leftButton = 1;
         downButton = 1;
+        buttonPressed = 1;
     });
     downRightButton2.addEventListener("pointerdown", function () {
         //move right
         rightButton = 1;
         downButton = 1;
+        buttonPressed = 1;
     });
     //pointer released
     upButton2.addEventListener("pointerup", function () {
         upButton = 0;
+        buttonPressed = 0;
     });
     downButton2.addEventListener("pointerup", function () {
         downButton = 0;
+        buttonPressed = 0;
     });
     leftButton2.addEventListener("pointerup", function () {
         leftButton = 0;
+        buttonPressed = 0;
     });
     rightButton2.addEventListener("pointerup", function () {
         rightButton = 0;
+        buttonPressed = 0;
     });
     upLeftButton2.addEventListener("pointerup", function () {
         upButton = 0;
         leftButton = 0;
+        buttonPressed = 0;
     });
     upRightButton2.addEventListener("pointerup", function () {
         upButton = 0;
         rightButton = 0;
+        buttonPressed = 0;
     });
     downLeftButton2.addEventListener("pointerup", function () {
         leftButton = 0;
         downButton = 0;
+        buttonPressed = 0;
     });
     downRightButton2.addEventListener("pointerup", function () {
         rightButton = 0;
         downButton = 0;
+        buttonPressed = 0;
     });
     //pointer leaves button
     upButton2.addEventListener("pointerleave", function () {
         upButton = 0;
+        buttonPressed = 0;
     });
     downButton2.addEventListener("pointerleave", function () {
         downButton = 0;
+        buttonPressed = 0;
     });
     leftButton2.addEventListener("pointerleave", function () {
         leftButton = 0;
+        buttonPressed = 0;
     });
     rightButton2.addEventListener("pointerleave", function () {
         rightButton = 0;
+        buttonPressed = 0;
     });
     upLeftButton2.addEventListener("pointerleave", function () {
         upButton = 0;
         leftButton = 0;
+        buttonPressed = 0;
     });
     upRightButton2.addEventListener("pointerleave", function () {
         upButton = 0;
         rightButton = 0;
+        buttonPressed = 0;
     });
     downLeftButton2.addEventListener("pointerleave", function () {
         leftButton = 0;
         downButton = 0;
+        buttonPressed = 0;
     });
     downRightButton2.addEventListener("pointerleave", function () {
         rightButton = 0;
         downButton = 0;
+        buttonPressed = 0;
     });
     let resetButton = document.getElementById('reset-button');
     resetButton.addEventListener("click", function () {
