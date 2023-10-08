@@ -8,6 +8,11 @@ Treasure Hunter is a game in which the player must find three pieces of buried t
 
 ## Existing Features
 
+### Game Loop
+
+The aim of the game is to find 3 hidden treasures. The player controls the hunter and can move them in 8 directions, and can dig at the hunter's current location to attempt to dig up treasure. Digging will make a hole in the ground so that the player knows not to try again in teh same location.
+
+
 ### Procedurally generated terrain
 
 The game world, or map is randomly generated each time the game loads. Trees, rocks and buried treasure are dispersed around the map for the player to avoid or interact with. There are also subtle variations in the colour and elevation of the ground and there are 4 tree variants and 3 rock variants. During generation, each cell has a chance to spawn a tree or a rock (unless it is the player starting cell) and three cells are randomly selected for the treasure.
@@ -90,18 +95,18 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 - HTML has been used to structure the web site.
 - CSS has been used to style the web site.
 - javascript has been used to create the game including interactive elements
-- Blender was used to create 3d models of trees, rocks, holes and crowns
-- Pain.NET was used to edit images
-- GitHub has been used to store code, images and other contents.
+- [Blender](https://www.blender.org/) was used to create 3d models of trees, rocks, holes and crowns
+- [Pain.NET](https://www.getpaint.net/) was used to edit images
+- [GitHub](https://github.com/) has been used to store code, images and other contents.
 - Gitpages was used to deploy the website.
 - Git was used for version control, pushing contents to github.
-- Codeanywhere was used as IDE.
+- [Codeanywhere](https://app.codeanywhere.com/) was used as IDE.
 - [favicon.io](https://favicon.io/) was used to make a simple favicon
-- Wave Web Accessibility Evaluation tool was used to test the accessibility of the web site.
-- W3C Markup Validation Service was used to check HTML.
-- W3C CSS Validation Service was used to check CSS.
-- jshint was used to test the javascript code
-- HTMLcolourcodes.com was used to get hex colour values.
+- [Wave Web Accessibility Evaluation tool](https://wave.webaim.org/) was used to test the accessibility of the web site.
+- [W3C Markup Validation Service](https://validator.w3.org/) was used to check HTML.
+- [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) was used to check CSS.
+- [JSHint](https://jshint.com/) was used to test the javascript code
+- [HTMLcolourcodes.com](https://htmlcolorcodes.com/) was used to get hex colour values.
 - [Am I Responsive](https://ui.dev/amiresponsive?url=https://bezabu.github.io/bb-treasure-hunter/index.html) was used to create the mockup
 - chrome developer tools was used for testing
 
