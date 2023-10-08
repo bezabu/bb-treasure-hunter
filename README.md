@@ -182,7 +182,10 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 - Check hint message is functioning correctly
   
   - Test: Begin the game and locate a piece of treasure using the hint message, checking against the console log which displays the locations of the 2 treasures, and observe the outcome.
-    - Result: The hint message displays the text "red-hot" at the treasure location and at an acceptable radius around it (2-3 cells)
+    - Result: The hint message displays the text "red-hot" at the treasure location and at an acceptable radius around it (2-3 cells). 
+  
+  - Test: Begin the game, find 2 of the 3 treasures and move as far away from the remaining treasure as possible to verify the hint message is correct at long distances.
+    - Result: Beyond a certain distance to the treasure, the hint message will display the text "Absolute zero" (about 28 cells).
   
 - Check treasures found indicator is working correctly
   - Test: Begin the game, find and dig up a treasure. Observe the outcome.
@@ -196,8 +199,6 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Test: Use a stopwatch to time how long a game takes and make a not of how many holes are dug over the course of the game. Compare to the win modal message.
     - Result: The timer and hole counter are accurate.
 
-
-
 ## Validator Testing
 
 - No errors were returned when passing through the [W3C HTML Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html)
@@ -207,10 +208,8 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 ## Unfixed Bugs
 
-button mouse movement
-button mouse movement animation
-terrain features not shown on first loading
-
+- moving a finger or cursor enough distance while pressing a button will register as leaving the button.
+- Hunter may have incorrect direction animation if certain unintuitive combinations of inputs are received.
 
 # Deployment
 
