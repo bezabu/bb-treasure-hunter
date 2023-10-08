@@ -5,8 +5,8 @@ let ctx = canvas.getContext("2d");
 let CanvasWidth = canvas.width = 800;
 let CanvasHeight = canvas.height = 450;
 //set view area
-let xScreenOffset = 0; //added to all draw functions to simulate a 'camera'
-let yScreenOffset = 0;
+let xScreenOffset = -200; //added to all draw functions to simulate a 'camera'
+let yScreenOffset = -200;
 let gameState = 0; //wether or not to check for player input
 // get hint area in HTML and set hot/cold hint messages/colours
 let hintMessage = document.getElementById("hint-message");
@@ -71,8 +71,6 @@ let player = {
 };
 let playerAnimateCount = 0;
 let moveAmount = 0.05;
-xScreenOffset = -200;
-yScreenOffset = -200;
 let digLog = 0;
 
 //arrays for storing terrain height and feature coordinates
@@ -146,7 +144,6 @@ for (let n = 0; n < rows - 1; n++) {
         }
     }
 }
-
 //get average height of surrounding tiles
 for (let n = 1; n < rows - 2; n++) {
     for (let m = 1; m < columns - 2; m++) {
@@ -215,15 +212,15 @@ sortImages();
 
 //functions
 //Isometric conversion functions
-//get isometric x coordinate
 function getIsoX(x, y, tileWidth, tileHeight) {
     let isoX = ((x - y) * (tileWidth / 2)) * 2;
-    return isoX;
+    return isoX; //gets isometric x coordinate
+    //isometric conversion formula from Clint Bellanger tutorial
 }
-//get isometric y coordinate
 function getIsoY(x, y, tileWidth, tileHeight) {
     let isoY = ((x + y) * (tileHeight / 2)) * 2;
-    return isoY;
+    return isoY; //gets isometric y coordinate
+    //isometric conversion formula from Clint Bellanger tutorial
 }
 //returns a random integer between 0 and maxNum
 function myGetRandomInt(maxNum) {
@@ -255,7 +252,7 @@ function checkIfMoving() {
         isMoving = 1;
     } else isMoving = 0;
 }
-//move player
+//move player based on user input
 function playerMove(player, eventKey) {
     if (leftKey || leftButton) {
         moving.left = 1;
@@ -308,7 +305,6 @@ function moveDown() {
         yScreenOffset -= moveAmount * tileWidth;
     }
 }
-
 //dig for treasure
 function dig(x, y) {
     console.log(`digging at ${Math.round(x, 0)},${Math.round(y, 0)}...`);
@@ -356,7 +352,6 @@ function dig(x, y) {
     }
     if (treasureFound == 3) winCondition();
 }
-
 //check distance to nearest treasure
 function checkHint() {
     //find closest treasure
@@ -389,14 +384,14 @@ function checkHint() {
 }
 
 //drawing functions
+// update the position of the player in the player draw object
 function updatePlayerDrawObject() {
-    // update the position of the player in the player draw object
     playerDrawObject.x = player.playerX;
     playerDrawObject.y = player.playerY;
     updatePlayerDrawAnimation();
 }
+//set animation
 function updatePlayerDrawAnimation() {
-    //set animation
     if (moving.up) player.animation = 1;
     if (moving.right) player.animation = 3;
     if (moving.down) player.animation = 5;
@@ -406,7 +401,7 @@ function updatePlayerDrawAnimation() {
     if (moving.right && moving.down) player.animation = 4;
     if (moving.left && moving.down) player.animation = 6;
 }
-//cycle through drawlist
+//go through drawlist
 function drawImages() {
     for (let i = 0; i < drawList.length; i++) {
         if (drawList[i].type == imgPlayer) {
@@ -456,6 +451,7 @@ function drawPlayer(imageToDraw, x, y, originX, originY, animation, opacity) {
     ctx.globalAlpha = opacity;
     ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64,
         (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
+        //animating from a single image from freeCodeCamp youtube tutorial
 }
 //draw the terain
 function drawTerrain() {

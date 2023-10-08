@@ -169,6 +169,10 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
   
 - Instructions on how to use canvas to animate sprites were taken from this [youtube tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c)
   
-- Insctructions on how to use canvas were taken from this [tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+- Insctructions on how to use canvas were taken from this [tutorial(part of developer documentation)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+
+- Instructions on how to use 2 dimensional arrays were taken from [this stackoverflow thread](https://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript)
+
+
 
 ## other
