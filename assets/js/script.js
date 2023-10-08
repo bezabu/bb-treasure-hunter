@@ -47,13 +47,6 @@ imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;
 };
-let crownLoad = 0;
-let imgCrown = new Image(); // Create new img element
-imgCrown.src = "../assets/images/crown2.png"; // Set source path
-imgCrown.onload = () => {
-    //rock image is loaded
-    crownLoad = 1;
-};
 
 //variables for storing player input
 let leftKey = 0;
@@ -456,7 +449,6 @@ function drawImages() {
     }
 
     //draw transparent player overlay
-
     drawPlayer(imgPlayer, player.playerX, player.playerY,
         player.playerOx, player.playerOy, player.animation, 0.2);
 
@@ -469,15 +461,6 @@ function sortImages() {
             getIsoY(b.x, b.y, tileWidth, tileHeight);
     });
 }
-/*
-//draw an image
-function drawThis(imageToDraw, x, y, originX, originY) {
-    let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
-    let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
-        (tileHeight);
-    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) +xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight));
-}
-*/
 //draw an image
 function drawThis(imageToDraw, x, y, originX, originY, va, wid, hei) {
     let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;

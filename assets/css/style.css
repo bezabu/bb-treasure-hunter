@@ -43,7 +43,7 @@ h1 {
     display: inline-block;
     width: 320px;
     left: 50%;
-    top: 12%;
+    top: 15%;
     transform: translate(-50%, 0);
     z-index: 3;
     text-align: center;
@@ -127,16 +127,11 @@ h1 {
     margin: auto;
 }
 
-.misc-button-area {
-    position: relative;
-    height: 25%;
-    left: 20%;
-}
 
 .button-area {
     position: fixed;
-    height: 25%;
-    right: 20%;
+    height: 30%;
+    width: 100%;
     bottom: 10px;
 
 }
@@ -144,12 +139,15 @@ h1 {
 .misc-button {
     width: 50px;
     height: 50px;
+    /*
     transform: translate(-250%, 220%);
+    */
     border-radius: 10px;
     position: relative;
     left: 10%;
+    /*
     visibility: hidden;
-
+*/
 }
 
 #reset-button {
@@ -165,19 +163,29 @@ h1 {
 .dir-button {
     width: 50px;
     height: 50px;
-    transform: translate(-5px, -100%);
+    transform: translate(-350%, -25px);
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.5);
-    visibility: hidden;
     margin: 1px;
     font-size: xx-small;
 }
 
-#dir-div {
+#misc-div {
     position: relative;
-    left: 50%;
-    width: 195px;
+    display: inline-block;
+    left: 5%;
+    bottom: 0;
+    width: 200px;
     height: 210px;
+}
+
+#dir-div {
+    position: absolute;
+    display: inline-block;
+    left: 100%;
+    bottom: 0;
+    width: 195px;
+
 
 }
 
@@ -355,6 +363,14 @@ footer p {
     .dir-button {
         height: 40px;
     }
+
+    .treasure-div {
+        top: 12%;
+    }
+
+    .hints {
+        top: 12%;
+    }
 }
 
 @media screen and (max-height: 320px) {
@@ -366,6 +382,14 @@ footer p {
     .dir-button {
         height: 35px;
     }
+
+    .treasure-div {
+        top: 10%;
+    }
+
+    .hints {
+        top: 10%;
+    }
 }
 
 @media screen and (max-height: 260px) {
@@ -375,6 +399,14 @@ footer p {
 
     .dir-button {
         height: 30px;
+    }
+
+    .treasure-div {
+        top: 8%;
+    }
+
+    .hints {
+        top: 8%;
     }
 }
 
@@ -398,30 +430,19 @@ footer p {
         visibility: hidden;
     }
 
-    .button-area {
-        position: fixed;
-        height: 50%;
-        right: 10%;
-        bottom: 0;
 
-    }
 
     .misc-button {
         width: 50px;
         height: 50px;
-        transform: translate(-500%, 150%);
-        border-radius: 10px;
-
     }
 
     .dir-div {
         position: relative;
-        transform: translate(50%, 0);
+
     }
 
-    .dir-button {
-        transform: translate(100%, -100%);
-    }
+
 }
 
 @media screen and (orientation: portrait) {}
