@@ -188,7 +188,13 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Test: Begin the game, find and dig up a treasure. Observe the outcome.
     - Result: A crown image appears in the correct position after the first treasure is found. The second crown image appears after the second treasure is found. The third crown image appears after the third treasure is found. Due to the way in which elements are styled, it is only possible to see the third crown on smaller screen sizes, but by this point the win modal is visible to inform the player that they have found the third treasure.
 
+- Check features and treasure locations are randomly generated
+  - Test: Restart the game several times, observing the distribution of the trees, rocks and elevation, and check the treasure locations in the console log.
+    - Result: The trees, rocks, elevation and treasure distribution are different every time.
 
+- Check that the timer works correctly and the log of holes dug is correct
+  - Test: Use a stopwatch to time how long a game takes and make a not of how many holes are dug over the course of the game. Compare to the win modal message.
+    - Result: The timer and hole counter are accurate.
 
 
 
