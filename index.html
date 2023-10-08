@@ -9,11 +9,14 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
+    <!-- header -->
     <header>
       <h1 id="header">Treasure Hunter</h1>
     </header>
     <section>
+      <!-- game area -->
       <div id="game-container">
+        <!-- treasure indicators -->
         <div class="treasure-div">
           <span id="prize-1" class="treasure-span"
             ><img src="assets/images/crown4.png" alt="1 of 3 treasures found."
@@ -25,13 +28,15 @@
             ><img src="assets/images/crown4.png" alt="3 of 3 treasures found."
           /></span>
         </div>
+        <!-- hint box -->
         <div class="hints">
           <p id="hint-message">placeholder text</p>
         </div>
-
+        <!-- canvas -->
         <div id="canvas-container">
           <canvas id="game-area"> </canvas>
         </div>
+        <!-- start modal -->
         <div id="start-message">
           <h2>Welcome to Treasure Hunter!</h2>
           <p>
@@ -45,6 +50,7 @@
             Start
           </button>
         </div>
+        <!-- win modal -->
         <div id="win-message">
           <h2>Congratulations!</h2>
           <p>You found all 3 treasures!</p>
@@ -55,12 +61,15 @@
           <button id="reset-button-2" class="start-button">Reset</button>
         </div>
       </div>
+      <!-- button area -->
       <div class="button-area">
+        <!-- reset button -->
         <div id="misc-div">
           <button id="reset-button" class="misc-button prevent-select">
             Reset
           </button>
         </div>
+        <!-- direction buttons -->
         <div id="dir-div">
           <button id="up-left-button" class="dir-button prevent-select">
             up/left
@@ -88,6 +97,7 @@
         </div>
       </div>
     </section>
+    <!-- footer -->
     <footer>
       <p>Created for educational purposes only by Benjamin Butler 2023</p>
     </footer>
