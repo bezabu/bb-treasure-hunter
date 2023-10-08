@@ -152,6 +152,15 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Test: Click on the reset button at the following scenarios: before starting the game (while the start modal is visible), after starting the game, after completing the game(win modal visible)
     - Result: The reset button functions correctly and reloads the page in all circumstances. The reset button in the win modal functions correctly.
 
+- Check isometric projection works correctly
+  - Test: Begin the game and observe the shape of the cells that make up the terrain.
+    - Result: Cells are diamond shape, as intended
+    - 
+  - Test: Begin the game and move the hunter in all directions. Check that directions moved match the inputs
+    - Result: The direction skew 45  to degrees has been accounted for, the hunter moves in the correct direction
+  - Test: Begin the game and observe the terrain for variations in height.
+    - Result: Subtle variations present and accounted for when drawing features and hunter.
+  
 - Check player movement inputs received correctly
 
   - Test: Begin the game on a PC/desktop and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
@@ -171,8 +180,8 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 - Check collision detection works correctly
 
-  - Test: Begin the game and move the hunter towards a rock. Attempt to run through it and observe.
-    - Result: The hunter will not move through the cell containing the rock. A running animation is still displayer
+  - Test: Begin the game and move the hunter towards a rock. Attempt to run through it and observe. Do the same at the edges of the island.
+    - Result: The hunter will not move through the cell containing the rock or past the edges of the island. A running animation is still displayer
 
 - Check 'perspective' draw order is correct
 
