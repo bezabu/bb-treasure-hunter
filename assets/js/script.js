@@ -42,7 +42,7 @@ imgRock.onload = () => {
 };
 let holeLoad = 0;
 let imgHole = new Image(); // Create new img element
-imgHole.src = "https://bezabu.github.io/bb-treasure-hunter/assets/images/hole_placeholder1.png"; // Set source path
+imgHole.src = "../assets/images/hole2.png"; // Set source path
 imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;

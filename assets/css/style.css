@@ -127,6 +127,12 @@ h1 {
     margin: auto;
 }
 
+.misc-button-area {
+    position: relative;
+    height: 25%;
+    left: 20%;
+}
+
 .button-area {
     position: fixed;
     height: 25%;
@@ -140,7 +146,8 @@ h1 {
     height: 50px;
     transform: translate(-250%, 220%);
     border-radius: 10px;
-
+    position: relative;
+    left: 10%;
     visibility: hidden;
 
 }
@@ -167,6 +174,7 @@ h1 {
 }
 
 #dir-div {
+    position: relative;
     left: 50%;
     width: 195px;
     height: 210px;
