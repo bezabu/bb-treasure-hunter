@@ -5,6 +5,10 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.prevent-select {
+    user-select: none;
+}
+
 a {
     text-decoration: none;
     color: #F39001;

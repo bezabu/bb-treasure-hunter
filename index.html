@@ -63,14 +63,18 @@
       </div>
       <div class="button-area">
         <div id="misc-div">
-          <button id="reset-button" class="misc-button" data-type="reset-game">
+          <button
+            id="reset-button"
+            class="misc-button prevent-select"
+            data-type="reset-game"
+          >
             Reset
           </button>
         </div>
         <div id="dir-div">
           <button
             id="up-left-button"
-            class="dir-button"
+            class="dir-button prevent-select"
             data-type="up-left-move"
             aria-label="up and left"
           >
@@ -78,7 +82,7 @@
           </button>
           <button
             id="up-button"
-            class="dir-button"
+            class="dir-button prevent-select"
             data-type="up-move"
             aria-label="up"
           >
@@ -86,36 +90,52 @@
           </button>
           <button
             id="up-right-button"
-            class="dir-button"
+            class="dir-button prevent-select"
             data-type="up-right-move"
             aria-label="up and right"
           >
             up/right
           </button>
 
-          <button id="left-button" class="dir-button" data-type="left-move">
+          <button
+            id="left-button"
+            class="dir-button prevent-select"
+            data-type="left-move"
+          >
             left
           </button>
-          <button id="dig-button" class="dir-button" data-type="dig-game">
+          <button
+            id="dig-button"
+            class="dir-button prevent-select"
+            data-type="dig-game"
+          >
             dig
           </button>
-          <button id="right-button" class="dir-button" data-type="right-move">
+          <button
+            id="right-button"
+            class="dir-button prevent-select"
+            data-type="right-move"
+          >
             right
           </button>
 
           <button
             id="down-left-button"
-            class="dir-button"
+            class="dir-button prevent-select"
             data-type="down-left-move"
           >
             down/left
           </button>
-          <button id="down-button" class="dir-button" data-type="down-move">
+          <button
+            id="down-button"
+            class="dir-button prevent-select"
+            data-type="down-move"
+          >
             down
           </button>
           <button
             id="down-right-button"
-            class="dir-button"
+            class="dir-button prevent-select"
             data-type="down-right-move"
           >
             down/right
