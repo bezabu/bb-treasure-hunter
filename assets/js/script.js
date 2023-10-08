@@ -92,7 +92,7 @@ let playerAnimateCount = 0;
 let moveAmount = 0.05;
 xScreenOffset = -200;
 yScreenOffset = -200;
-
+let digLog = 0;
 
 //arrays for storing terrain height and feature coordinates
 let heightMap = [];
@@ -354,11 +354,13 @@ function dig(x, y) {
             if (treasureFound == 1) p1.style.visibility = "visible";
             if (treasureFound == 2) p2.style.visibility = "visible";
             if (treasureFound == 3) p3.style.visibility = "visible";
+            digLog++;
             break;
         }
         case 0: {//empty tile
             console.log("No treasure!");
             featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5; //mark as dug
+            digLog++;
             break;
         }
         case 5: {//previously dug up tile
@@ -553,7 +555,7 @@ function drawBackground() {
 function winCondition() {
     let winMessage = document.getElementById("win-message");
     let timer = Math.round(gameTimer / 25, 2);
-    winMessage.children[3].textContent = timer.toString() + " seconds!";
+    winMessage.children[3].textContent = timer.toString() + " seconds to dig " + digLog.toString() + " holes!";
     winMessage.style.zIndex = 4;
     winMessage.style.visibility = "visible";
     gameState = 0;
@@ -738,6 +740,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     let resetButton = document.getElementById('reset-button');
     resetButton.addEventListener("click", function () {
+        //reload the page
+        window.location.reload();
+        return false;
+    });
+    let resetButton2 = document.getElementById('reset-button-2');
+    resetButton2.addEventListener("click", function () {
         //reload the page
         window.location.reload();
         return false;

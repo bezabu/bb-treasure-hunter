@@ -100,8 +100,12 @@ h1 {
     transform: translate(-50%, -40%);
     z-index: 5;
     border-radius: 10px;
-    background-color: aqua;
+    background-color: #4598A5;
     text-align: center;
+}
+
+#red-hot {
+    background-color: #FB1300;
 }
 
 #win-message {
@@ -114,11 +118,11 @@ h1 {
     transform: translate(-50%, -40%);
     z-index: 1;
     border-radius: 10px;
-    background-color: orangered;
+    background-color: #D65B21;
     text-align: center;
 }
 
-#start-button {
+.start-button {
     position: relative;
     width: 120px;
     height: 80px;

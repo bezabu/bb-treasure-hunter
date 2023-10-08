@@ -34,11 +34,16 @@
         </div>
         <div id="start-message">
           <h2>Welcome to Treasure Hunter!</h2>
-          <p>When the hint shows "red-hot", dig for treasure.</p>
+          <p>
+            When the hint shows "<span id="red-hot">red-hot</span>", dig for
+            treasure. Use the arrow keys to move, space bar to dig.
+          </p>
           <p>Find all 3 to win!</p>
           <p>Press start to begin</p>
           <br />
-          <button id="start-button" data-type="start-game">Start</button>
+          <button id="start-button" class="start-button" data-type="start-game">
+            Start
+          </button>
         </div>
         <div id="win-message">
           <h2>Congratulations!</h2>
@@ -46,6 +51,13 @@
           <p>It only took you</p>
           <p>0 seconds!</p>
           <p>Press reset to play again!</p>
+          <button
+            id="reset-button-2"
+            class="start-button"
+            data-type="reset-game"
+          >
+            Reset
+          </button>
         </div>
       </div>
       <div class="button-area">
