@@ -206,7 +206,7 @@ footer {
     color: #ffffff;
     left: 50%;
     bottom: 0;
-    font-size: xx-small;
+    font-size: small;
 }
 
 footer p {
@@ -249,6 +249,10 @@ footer p {
 
     .dir-button {
         visibility: visible;
+    }
+
+    footer {
+        font-size: xx-small;
     }
 }
 
