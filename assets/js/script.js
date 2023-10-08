@@ -451,7 +451,7 @@ function drawPlayer(imageToDraw, x, y, originX, originY, animation, opacity) {
     ctx.globalAlpha = opacity;
     ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64,
         (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
-        //animating from a single image from freeCodeCamp youtube tutorial
+    //animating from a single image from freeCodeCamp youtube tutorial
 }
 //draw the terain
 function drawTerrain() {
@@ -567,18 +567,10 @@ document.addEventListener('keydown', (event) => {
 });
 document.addEventListener('keyup', (event) => {
     //key up
-    if (event.key == "ArrowLeft") {
-        leftKey = 0;
-    }
-    if (event.key == "ArrowRight") {
-        rightKey = 0;
-    }
-    if (event.key == "ArrowUp") {
-        upKey = 0;
-    }
-    if (event.key == "ArrowDown") {
-        downKey = 0;
-    }
+    if (event.key == "ArrowLeft") leftKey = 0;
+    if (event.key == "ArrowRight") rightKey = 0;
+    if (event.key == "ArrowUp") upKey = 0;
+    if (event.key == "ArrowDown") downKey = 0;
     if (event.key == " ") {
         dig(player.playerX, player.playerY);
         spaceKey = 0; /* only listen for space bar key up as constant input is 
