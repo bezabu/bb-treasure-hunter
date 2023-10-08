@@ -167,6 +167,15 @@ Check dig input received correctly
 Test: Begin the game and press the spacebar and press the dig button in an empty cell.
 Result: The cell is marked as previously dug and a hole appears. If it is a treasure location, it is displayed appropriately.
 
+Check collision detection works correctly
+
+Test: Begin the game and move the hunter towards a rock. Attempt to run through it.
+Result: The hunter will not move through the cell containing the rock. A running animation is still displayer
+
+Check 'perspective' draw order is correct
+
+Test: Begin the game and move the hunter behind a tree and a rock at various points, from each corner of the map
+Result: The hunter is obscured by trees and rocks that are lower down (and therefore should be 'in front' of the hunter), and a faint overlay of the hunter is displayed in the correct position
 
 
 
