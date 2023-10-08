@@ -580,7 +580,6 @@ document.addEventListener('keyup', (event) => {
 
 //button event listeners
 document.addEventListener("DOMContentLoaded", function () {
-
     let upButton2 = document.getElementById('up-button');
     let downButton2 = document.getElementById('down-button');
     let leftButton2 = document.getElementById('left-button');
