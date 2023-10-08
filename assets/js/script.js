@@ -18,31 +18,32 @@ let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537',
     '#BAEAE8', '#E6F5F5', '#ffffff'];
 hintMessage.innerHTML = hints[6];
 
+let gitHubUrl = "https://bezabu.github.io/bb-treasure-hunter/";
 //load images
 let playerLoad = 0;
 let imgPlayer = new Image(); // Create new img element
-imgPlayer.src = "https://bezabu.github.io/bb-treasure-hunter/assets/images/player_placeholder01.png"; // Set source path
+imgPlayer.src = gitHubUrl + "assets/images/player_placeholder01.png";
 imgPlayer.onload = () => {
     //tree image is loaded
     playerLoad = 1;
 };
 let treeLoad = 0;
 let imgTree = new Image(); // Create new img element
-imgTree.src = "https://bezabu.github.io/bb-treasure-hunter//assets/images/tree_sheet2.png"; // Set source path
+imgTree.src = gitHubUrl + "assets/images/tree_sheet2.png";
 imgTree.onload = () => {
     //tree image is loaded
     treeLoad = 1;
 };
 let rockLoad = 0;
 let imgRock = new Image(); // Create new img element
-imgRock.src = "https://bezabu.github.io/bb-treasure-hunter//assets/images/rock_01_sheet.png"; // Set source path
+imgRock.src = gitHubUrl + "assets/images/rock_01_sheet.png";
 imgRock.onload = () => {
     //rock image is loaded
     rockLoad = 1;
 };
 let holeLoad = 0;
 let imgHole = new Image(); // Create new img element
-imgHole.src = "https://bezabu.github.io/bb-treasure-hunter//assets/images/hole2.png"; // Set source path
+imgHole.src = gitHubUrl + "assets/images/hole2.png";
 imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;
@@ -151,7 +152,8 @@ for (let n = 0; n < rows - 1; n++) {
                 mapMargin) {
                 featureMap[n][m] = 1;
                 //enter the object in the drawobject list
-                let entry = new DrawObject(imgTree, n, m, 34, 102, myGetRandomInt(3), 70, 116);
+                let entry = new DrawObject(imgTree, n, m, 34, 102,
+                    myGetRandomInt(3), 70, 116);
                 drawList.push(entry);
             } else {
                 //chance to generate a rock, but only if not near edges of map
@@ -159,7 +161,8 @@ for (let n = 0; n < rows - 1; n++) {
                     mapMargin && m > mapMargin && m < columns - mapMargin) {
                     featureMap[n][m] = 2;
                     //enter the object in the drawobject list
-                    let entry = new DrawObject(imgRock, n, m, 31, 41, myGetRandomInt(2), 54, 52);
+                    let entry = new DrawObject(imgRock, n, m, 31, 41,
+                        myGetRandomInt(2), 54, 52);
                     drawList.push(entry);
                 }
             }
@@ -477,7 +480,8 @@ function drawPlayer(imageToDraw, x, y, originX, originY, animation, opacity) {
     let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
         (tileHeight);
     ctx.globalAlpha = opacity;
-    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64, (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
+    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64,
+        (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
 }
 //draw the terain
 function drawTerrain() {
@@ -555,7 +559,8 @@ function drawBackground() {
 function winCondition() {
     let winMessage = document.getElementById("win-message");
     let timer = Math.round(gameTimer / 25, 2);
-    winMessage.children[3].textContent = timer.toString() + " seconds to dig " + digLog.toString() + " holes!";
+    winMessage.children[3].textContent = timer.toString() + " seconds to dig " +
+        digLog.toString() + " holes!";
     winMessage.style.zIndex = 4;
     winMessage.style.visibility = "visible";
     gameState = 0;

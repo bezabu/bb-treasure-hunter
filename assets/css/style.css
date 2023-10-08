@@ -29,6 +29,11 @@ h1 {
     color: #ffffff;
 }
 
+h2 {
+    margin-bottom: 15px;
+}
+
+
 #game-container {
     position: fixed;
 
@@ -102,6 +107,7 @@ h1 {
     border-radius: 10px;
     background-color: #4598A5;
     text-align: center;
+    padding: 5px;
 }
 
 #red-hot {
@@ -120,6 +126,7 @@ h1 {
     border-radius: 10px;
     background-color: #D65B21;
     text-align: center;
+    padding: 5px;
 }
 
 .start-button {
@@ -157,11 +164,15 @@ h1 {
 #reset-button {
 
     background-color: rgba(255, 0, 0, 0.5);
+    border-color: rgba(255, 0, 0, 0.5);
+    width: 100px;
     visibility: visible;
+    border-style: outset;
 }
 
 #dig-button {
     background-color: rgba(255, 0, 0, 0.5);
+    border-color: rgba(255, 0, 0, 0.5);
 }
 
 .dir-button {
@@ -172,6 +183,12 @@ h1 {
     background-color: rgba(255, 255, 255, 0.5);
     margin: 1px;
     font-size: xx-small;
+    border-style: outset;
+}
+
+.dir-button:active,
+.misc-button:active {
+    border-style: inset;
 }
 
 #misc-div {
