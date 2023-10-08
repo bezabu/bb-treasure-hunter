@@ -111,6 +111,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 - [HTMLcolourcodes.com](https://htmlcolorcodes.com/) was used to get hex colour values.
 - [Am I Responsive](https://ui.dev/amiresponsive?url=https://bezabu.github.io/bb-treasure-hunter/index.html) was used to create the mockup
 - chrome developer tools was used for testing
+- [Google fonts](https://fonts.google.com/specimen/Permanent+Marker/tester) has been used to import the font Permanent Marker.
 
 # Testing
 
