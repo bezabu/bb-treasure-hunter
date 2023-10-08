@@ -24,7 +24,7 @@ To give the illusion of perspective, an isometric projection is used to display 
 
 ### the Hunter
 
-The hunter is the player avatar. The hunter can move in 8 directions and can dig in the currently occupied cell. The player can control the hunter using either the keyboard or by pressing buttons. The hunter has an idle animation and a moving animation for each direction.
+The hunter is the player avatar. The hunter can move in 8 directions and can dig in the currently occupied cell. The player can control the hunter using either the keyboard or by pressing buttons. The hunter has an idle animation and a moving animation for each direction. This has been achieved by using canvas to only draw a section of the image, changing the section depending on the direction the hunter is facing and wether or not they are moving.
 
 ### collision detection
 
@@ -69,6 +69,8 @@ A simple footer with a short sentance explaining the web site and game were crea
 A custom favicon has been created to make the page stand out among other tabs.
 
 ### custom 404 page
+
+![My custom 404 page with image and link to index](assets/images/page_404.webp)
 
 A custom 404 page has been made for the web site to enable the user to find their way back to the homepage if they become lost.
 
