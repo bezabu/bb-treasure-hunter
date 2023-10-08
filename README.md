@@ -10,7 +10,7 @@ Treasure Hunter is a game in which the player must find three pieces of buried t
 
 ### Game Loop
 
-The aim of the game is to find 3 hidden treasures. The player controls the hunter and can move them in 8 directions, and can dig at the hunter's current location to attempt to dig up treasure. Digging will make a hole in the ground so that the player knows not to try again in teh same location.
+The aim of the game is to find 3 hidden treasures. The player controls the hunter and can move them in 8 directions, and can dig at the hunter's current location to attempt to dig up treasure. Digging will make a hole in the ground so that the player knows not to try again in the same location.
 
 ![Treasure hunter game](assets/images/game-02.webp)
 
@@ -75,7 +75,7 @@ A simple footer with a short sentance explaining the web site and game were crea
 
 ### 14 favicon
 
-![Favicon icon](icon-favicon.webp)
+![Favicon icon](assets/images/icon-favicon.webp)
 
 A custom favicon has been created to make the page stand out among other tabs.
 
