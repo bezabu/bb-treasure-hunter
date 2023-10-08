@@ -28,7 +28,7 @@ imgPlayer.onload = () => {
 };
 let treeLoad = 0;
 let imgTree = new Image(); // Create new img element
-imgTree.src = "../assets/images/tree_sheet.png"; // Set source path
+imgTree.src = "../assets/images/tree_sheet2.png"; // Set source path
 imgTree.onload = () => {
     //tree image is loaded
     treeLoad = 1;
@@ -433,7 +433,8 @@ function drawImages() {
                 drawList[i].x,
                 drawList[i].y,
                 drawList[i].xo,
-                drawList[i].yo);
+                drawList[i].yo,
+                player.animation, 1);
         } else {
             //function for drawing non animated objects
             drawThis(drawList[i].type,
@@ -446,6 +447,13 @@ function drawImages() {
                 drawList[i].hei);
         }
     }
+
+    //draw transparent player overlay
+
+    drawPlayer(imgPlayer, player.playerX, player.playerY,
+        player.playerOx, player.playerOy, player.animation, 0.2);
+
+
 }
 //sort images in drawlist by isometric y
 function sortImages() {
@@ -468,14 +476,15 @@ function drawThis(imageToDraw, x, y, originX, originY, va, wid, hei) {
     let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
     let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
         (tileHeight);
-
+    ctx.globalAlpha = 1;
     ctx.drawImage(imageToDraw, va * wid, 0, wid, hei, drawX, drawY, wid, hei);
 }
 //draw the player
-function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
+function drawPlayer(imageToDraw, x, y, originX, originY, animation, opacity) {
     let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
     let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
         (tileHeight);
+    ctx.globalAlpha = opacity;
     ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64, (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
 }
 //draw the terain
@@ -501,6 +510,7 @@ function drawTerrain() {
             /* the tile is drawn from it's origin to the next tiles origin and
             all other draw functions are offset by half tile to give the 
             illusion that the centre of the tile is at it's actual centre*/
+            ctx.globalAlpha = 1;
             ctx.beginPath();
             ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset,
                 getIsoY(n, m, tileWidth, tileHeight) - heightOffSet +
@@ -545,6 +555,7 @@ function clearCanvas() {
 }
 //draws a water backdrop
 function drawBackground() {
+    ctx.globalAlpha = 1;
     ctx.fillStyle = "#3CC3DB";
     ctx.fillRect(0, 0, CanvasWidth, CanvasHeight);
 }
