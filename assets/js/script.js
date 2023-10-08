@@ -18,36 +18,16 @@ let hintColors = ['#FB1300', '#F33C06', '#EC6D0F', '#FA9625', '#F5A537',
     '#BAEAE8', '#E6F5F5', '#ffffff'];
 hintMessage.innerHTML = hints[6];
 
-let gitHubUrl = "https://bezabu.github.io/bb-treasure-hunter/";
 //load images
-let playerLoad = 0;
+let gitHubUrl = "https://bezabu.github.io/bb-treasure-hunter/";
 let imgPlayer = new Image(); // Create new img element
 imgPlayer.src = gitHubUrl + "assets/images/player_placeholder01.png";
-imgPlayer.onload = () => {
-    //tree image is loaded
-    playerLoad = 1;
-};
-let treeLoad = 0;
 let imgTree = new Image(); // Create new img element
 imgTree.src = gitHubUrl + "assets/images/tree_sheet2.png";
-imgTree.onload = () => {
-    //tree image is loaded
-    treeLoad = 1;
-};
-let rockLoad = 0;
 let imgRock = new Image(); // Create new img element
 imgRock.src = gitHubUrl + "assets/images/rock_01_sheet.png";
-imgRock.onload = () => {
-    //rock image is loaded
-    rockLoad = 1;
-};
-let holeLoad = 0;
 let imgHole = new Image(); // Create new img element
 imgHole.src = gitHubUrl + "assets/images/hole2.png";
-imgHole.onload = () => {
-    //rock image is loaded
-    holeLoad = 1;
-};
 
 //variables for storing player input
 let leftKey = 0;
@@ -99,22 +79,19 @@ let digLog = 0;
 let heightMap = [];
 let featureMap = [];
 let smoothMap = []; //used to smooth terrain and then to store colours
-
-
+//create the draw list and object type
 let drawList = []; //list of all items to draw
-
-//create the draw list object type
 function DrawObject(newType, newX, newY, newOx, newOy, newVa, newWid, newHei) {
     this.type = newType;
-    this.x = newX;
-    this.y = newY;
+    this.x = newX; //x coord
+    this.y = newY; //y coord
     this.xo = newOx; //x offset
     this.yo = newOy; //y offset
     this.va = newVa; //variant
-    this.wid = newWid;
-    this.hei = newHei;
+    this.wid = newWid; //width of sprite
+    this.hei = newHei; //height of sprite
 }
-// creating two-dimensional arrays for height, movement, trees and rocks
+// create two-dimensional arrays for height, movement, trees and rocks
 /*
 featuremap assigns an integer based on what the tile contains:
 0   nothing
@@ -138,13 +115,13 @@ for (let i = 0; i < rows; i++) {
 //create an object for the player in the drawlist
 let playerDrawObject = new DrawObject(imgPlayer, player.playerX, player.playerY,
     player.playerOx, player.playerOy);
-drawList.push(playerDrawObject); //add to drawlist
+drawList.push(playerDrawObject);
 
 //generate terrain height map & feature map
 let mapMargin = 3;
 for (let n = 0; n < rows - 1; n++) {
     for (let m = 0; m < columns - 1; m++) {
-        heightMap[n][m] = myGetRandomInt(maxHeight); //generate height value
+        heightMap[n][m] = myGetRandomInt(maxHeight);
         if (n != player.playerX && m != player.playerY) {
             //chance to generate a tree, but only if not near edges of map
             if (myGetRandomInt(3) > 2 && n > mapMargin &&
@@ -200,7 +177,7 @@ for (let n = 1; n < rows - 1; n++) {
         smoothMap[n][m] = fullCol; //store rgb values in a string for later use
     }
 }
-
+//make coasts
 for (let n = 1; n < rows; n++) {
     for (let m = 1; m < columns; m++) {
         if (n == 1 || m == 1 || n == rows - 1 || m == columns - 1) {
@@ -452,12 +429,9 @@ function drawImages() {
                 drawList[i].hei);
         }
     }
-
     //draw transparent player overlay
     drawPlayer(imgPlayer, player.playerX, player.playerY,
         player.playerOx, player.playerOy, player.animation, 0.2);
-
-
 }
 //sort images in drawlist by isometric y
 function sortImages() {
@@ -503,9 +477,6 @@ function drawTerrain() {
                 ctx.fillStyle = smoothMap[n][m];
             }
             //draw the tile
-            /* the tile is drawn from it's origin to the next tiles origin and
-            all other draw functions are offset by half tile to give the 
-            illusion that the centre of the tile is at it's actual centre*/
             ctx.globalAlpha = 1;
             ctx.beginPath();
             ctx.moveTo(getIsoX(n, m, tileWidth, tileHeight) + xScreenOffset,
@@ -535,8 +506,6 @@ function drawTerrain() {
                 xScreenOffset, getIsoY(n + 1, m + 1, tileWidth, tileHeight) -
                 heightOffSetNextXY + yScreenOffset);
             ctx.stroke();
-
-            //}
             if (featureMap[n][m] == 5) {
                 /*draw a dug up hole as part of the terrain to prevent it being
                 shown in front of the player*/

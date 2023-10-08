@@ -37,10 +37,8 @@ h2 {
     margin-bottom: 15px;
 }
 
-
 #game-container {
     position: fixed;
-
     left: 50%;
     transform: translate(-50%, -10%);
     width: 800px;
@@ -142,31 +140,22 @@ h2 {
     margin: auto;
 }
 
-
 .button-area {
     position: fixed;
     height: 30%;
     width: 100%;
     bottom: 10px;
-
 }
 
 .misc-button {
     width: 50px;
     height: 50px;
-    /*
-    transform: translate(-250%, 220%);
-    */
     border-radius: 10px;
     position: relative;
     left: 10%;
-    /*
-    visibility: hidden;
-*/
 }
 
 #reset-button {
-
     background-color: rgba(255, 0, 0, 0.5);
     border-color: rgba(255, 0, 0, 0.5);
     width: 100px;
@@ -210,29 +199,7 @@ h2 {
     left: 100%;
     bottom: 0;
     width: 195px;
-
-
 }
-
-#not-button {
-    visibility: hidden;
-}
-
-#left-button {}
-
-#right-button {}
-
-#up-button {}
-
-#down-button {}
-
-#up-left-button {}
-
-#up-right-button {}
-
-#down-left-button {}
-
-#down-right-button {}
 
 footer {
     position: absolute;
@@ -262,7 +229,6 @@ footer p {
     top: 50%;
     text-align: center;
     transform: translate(-50%, -100%);
-
 }
 
 .hole-message-link {
@@ -274,12 +240,7 @@ footer p {
     transform: translate(-50%, -30%);
 }
 
-
-
 /* media queries */
-/* Laptops, desktops */
-@media screen and (max-width: 1920px) {}
-
 /* Small screens, laptops */
 @media screen and (max-width: 1200px) {
     .misc-button {
@@ -289,19 +250,10 @@ footer p {
     .dir-button {
         visibility: visible;
     }
-
 }
 
 /* small screens, laptops */
 @media screen and (max-width: 1024px) {
-    .misc-button {
-        visibility: visible;
-    }
-
-    .dir-button {
-        visibility: visible;
-    }
-
     .hole-message {
         font-size: 7rem;
     }
@@ -315,14 +267,6 @@ footer p {
         transform: none;
     }
 
-    .misc-button {
-        visibility: visible;
-    }
-
-    .dir-button {
-        visibility: visible;
-    }
-
     .hole-message {
         font-size: 6rem;
     }
@@ -334,17 +278,8 @@ footer p {
 
 /* phones */
 @media screen and (max-width: 480px) {
-    .misc-button {
-        visibility: visible;
-    }
-
-    .dir-button {
-        visibility: visible;
-    }
-
     #game-area {
         transform: scale(0.9);
-
     }
 
     h1 {
@@ -359,24 +294,9 @@ footer p {
 
 /* small phones */
 @media screen and (max-width: 320px) {
-    .misc-button {
-        visibility: visible;
-    }
-
-    .dir-button {
-        visibility: visible;
-    }
-
     .hole-message {
         font-size: 2rem;
     }
-
-    /*
-    #game-area {
-        transform: scale(0.7);
-        transform: translate(0, -5%);
-    }
-    */
 }
 
 @media screen and (max-height: 400px) {
@@ -401,7 +321,6 @@ footer p {
 @media screen and (max-height: 320px) {
     #game-area {
         transform: matrix(0.7, 0, 0, 0.7, 0, -100);
-
     }
 
     .dir-button {
@@ -441,9 +360,7 @@ footer p {
     }
 
     #game-container {
-
         transform: translate(-50%, -5%);
-
     }
 
     #start-message {
@@ -455,8 +372,6 @@ footer p {
         visibility: hidden;
     }
 
-
-
     .misc-button {
         width: 50px;
         height: 50px;
@@ -466,8 +381,4 @@ footer p {
         position: relative;
 
     }
-
-
 }
-
-@media screen and (orientation: portrait) {}
