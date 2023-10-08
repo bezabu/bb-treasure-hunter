@@ -47,6 +47,13 @@ imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;
 };
+let crownLoad = 0;
+let imgCrown = new Image(); // Create new img element
+imgCrown.src = "../assets/images/crown2.png"; // Set source path
+imgCrown.onload = () => {
+    //rock image is loaded
+    crownLoad = 1;
+};
 
 //variables for storing player input
 let leftKey = 0;
