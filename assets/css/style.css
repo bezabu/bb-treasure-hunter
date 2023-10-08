@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -30,7 +32,11 @@ header {
 }
 
 h1 {
-    color: #ffffff;
+    color: #F1A311;
+    font-family: "Permanent Marker", Verdana,
+        Geneva,
+        Tahoma,
+        sans-serif
 }
 
 h2 {
