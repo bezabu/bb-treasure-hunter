@@ -108,6 +108,10 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 ## Validator Testing
 
+- No errors were returned when passing through the [W3C HTML Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html)
+- No errors were returned when passing through the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+- No errors were found when passing through the [JSHint Code Analysis Tool](https://jshint.com/)
+
 ## Unfixed Bugs
 
 button mouse movement
