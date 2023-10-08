@@ -28,14 +28,14 @@ imgPlayer.onload = () => {
 };
 let treeLoad = 0;
 let imgTree = new Image(); // Create new img element
-imgTree.src = "https://bezabu.github.io/bb-treasure-hunter/assets/images/tree02_placeholder.png"; // Set source path
+imgTree.src = "../assets/images/tree_sheet.png"; // Set source path
 imgTree.onload = () => {
     //tree image is loaded
     treeLoad = 1;
 };
 let rockLoad = 0;
 let imgRock = new Image(); // Create new img element
-imgRock.src = "https://bezabu.github.io/bb-treasure-hunter/assets/images/rock_placeholder2.png"; // Set source path
+imgRock.src = "../assets/images/rock_01_sheet.png"; // Set source path
 imgRock.onload = () => {
     //rock image is loaded
     rockLoad = 1;
@@ -103,12 +103,15 @@ let smoothMap = []; //used to smooth terrain and then to store colours
 let drawList = []; //list of all items to draw
 
 //create the draw list object type
-function DrawObject(newType, newX, newY, newOx, newOy) {
+function DrawObject(newType, newX, newY, newOx, newOy, newVa, newWid, newHei) {
     this.type = newType;
     this.x = newX;
     this.y = newY;
     this.xo = newOx; //x offset
     this.yo = newOy; //y offset
+    this.va = newVa; //variant
+    this.wid = newWid;
+    this.hei = newHei;
 }
 // creating two-dimensional arrays for height, movement, trees and rocks
 /*
@@ -148,7 +151,7 @@ for (let n = 0; n < rows - 1; n++) {
                 mapMargin) {
                 featureMap[n][m] = 1;
                 //enter the object in the drawobject list
-                let entry = new DrawObject(imgTree, n, m, 22, 45);
+                let entry = new DrawObject(imgTree, n, m, 34, 102, myGetRandomInt(3), 70, 116);
                 drawList.push(entry);
             } else {
                 //chance to generate a rock, but only if not near edges of map
@@ -156,7 +159,7 @@ for (let n = 0; n < rows - 1; n++) {
                     mapMargin && m > mapMargin && m < columns - mapMargin) {
                     featureMap[n][m] = 2;
                     //enter the object in the drawobject list
-                    let entry = new DrawObject(imgRock, n, m, 25, 35);
+                    let entry = new DrawObject(imgRock, n, m, 31, 41, myGetRandomInt(2), 54, 52);
                     drawList.push(entry);
                 }
             }
@@ -437,7 +440,10 @@ function drawImages() {
                 drawList[i].x,
                 drawList[i].y,
                 drawList[i].xo,
-                drawList[i].yo);
+                drawList[i].yo,
+                drawList[i].va,
+                drawList[i].wid,
+                drawList[i].hei);
         }
     }
 }
@@ -448,19 +454,29 @@ function sortImages() {
             getIsoY(b.x, b.y, tileWidth, tileHeight);
     });
 }
+/*
 //draw an image
 function drawThis(imageToDraw, x, y, originX, originY) {
-    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) +
-        xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) +
-        yScreenOffset - originY + (tileHeight));
+    let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
+    let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
+        (tileHeight);
+    ctx.drawImage(imageToDraw, getIsoX(x, y, tileWidth, tileHeight) +xScreenOffset - originX, getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY + (tileHeight));
+}
+*/
+//draw an image
+function drawThis(imageToDraw, x, y, originX, originY, va, wid, hei) {
+    let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
+    let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
+        (tileHeight);
+
+    ctx.drawImage(imageToDraw, va * wid, 0, wid, hei, drawX, drawY, wid, hei);
 }
 //draw the player
 function drawPlayer(imageToDraw, x, y, originX, originY, animation) {
     let drawX = getIsoX(x, y, tileWidth, tileHeight) + xScreenOffset - originX;
     let drawY = getIsoY(x, y, tileWidth, tileHeight) + yScreenOffset - originY +
         (tileHeight);
-    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64,
-        (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
+    ctx.drawImage(imageToDraw, Math.floor(playerAnimateCount) * 64, (player.animation + (isMoving * 8)) * 64, 64, 64, drawX, drawY, 64, 64);
 }
 //draw the terain
 function drawTerrain() {
@@ -518,7 +534,7 @@ function drawTerrain() {
             if (featureMap[n][m] == 5) {
                 /*draw a dug up hole as part of the terrain to prevent it being
                 shown in front of the player*/
-                drawThis(imgHole, n, m, 25, 25);
+                drawThis(imgHole, n, m, 25, 25, 0, 50, 50);
             }
         }
     }
