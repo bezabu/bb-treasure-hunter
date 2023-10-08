@@ -28,21 +28,21 @@ imgPlayer.onload = () => {
 };
 let treeLoad = 0;
 let imgTree = new Image(); // Create new img element
-imgTree.src = "../assets/images/tree_sheet2.png"; // Set source path
+imgTree.src = "https://bezabu.github.io/bb-treasure-hunter//assets/images/tree_sheet2.png"; // Set source path
 imgTree.onload = () => {
     //tree image is loaded
     treeLoad = 1;
 };
 let rockLoad = 0;
 let imgRock = new Image(); // Create new img element
-imgRock.src = "../assets/images/rock_01_sheet.png"; // Set source path
+imgRock.src = "https://bezabu.github.io/bb-treasure-hunter//assets/images/rock_01_sheet.png"; // Set source path
 imgRock.onload = () => {
     //rock image is loaded
     rockLoad = 1;
 };
 let holeLoad = 0;
 let imgHole = new Image(); // Create new img element
-imgHole.src = "../assets/images/hole2.png"; // Set source path
+imgHole.src = "https://bezabu.github.io/bb-treasure-hunter//assets/images/hole2.png"; // Set source path
 imgHole.onload = () => {
     //rock image is loaded
     holeLoad = 1;
