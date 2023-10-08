@@ -128,7 +128,15 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 ## General
 
-Test: Open the website in each of the following browsers: chrome, Edge, Firefox, Opera
+Check the responsiveness of the website on different screen sizes on different browsers
+
+Test: Open the website in each browser and resize the window slowly down to 300px and back up again, checking everything is displaying properly
+Result: All elements display correctly in each size
+
+Test: Open the website in developer tools and simulate a phone screen in both portrait and landscape orientations. Check that the buttons do not obscure the player avatar.
+Result: Reset and directional buttons begin to overlap at around 300px wide. The only device with a width less than 320 that I can find is the Galaxy Fold in folded configuration
+
+
 
 
 ## Validator Testing
