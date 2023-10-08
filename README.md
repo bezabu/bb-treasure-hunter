@@ -2,7 +2,7 @@
 
 Treasure Hunter is a game in which the player must find three pieces of buried treasure on a small island. the game can be accessed [here](https://bezabu.github.io/bb-treasure-hunter/index.html).
 
-images
+![Mockup of the treasure hunter website on several different sized devices](assets/images/mockup01.webp)
 
 # Features
 
@@ -45,6 +45,12 @@ Before the player can begin, a short message appears explaining the presmise and
 
 When the player has located and dug up each of the three treasure goals, a message is shown on the screen congratulating the player and displaying the time taken. The player is then prompted to press the reset button to play again. The players movement is prevented while the modal is displayed.
 
+### responsive design
+
+![The website as it would appear in landscape and portrait configurations on phones](assets/images/mockup02.webp)
+
+Particular care has been taken to ensure the buttons do not obscure too much of the game area on smaller devices in either portrait or landscape orientations.
+
 ### header
 
 A simple header with the title of the game is shown at the top of the page. There are no navigational elements.
@@ -81,21 +87,21 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 # Technologies
 
-HTML has been used to structure the web site.
-CSS has been used to style the web site.
-javascript has been used to create the game including interactive elements
-Blender was used to create 3d models of trees, rocks, holes and crowns
-Pain.NET was used to edit images
-GitHub has been used to store code, images and other contents.
-Gitpages was used to deploy the website.
-Git was used for version control, pushing contents to github.
-Codeanywhere was used as IDE.
-favicon.io
-Wave Web Accessibility Evaluation tool was used to test the accessibility of the web site.
-W3C Markup Validation Service was used to check HTML.
-W3C CSS Validation Service was used to check CSS.
-jshint was used to test the javascript code
-HTMLcolourcodes.com was used to get hex colour values.
+- HTML has been used to structure the web site.
+- CSS has been used to style the web site.
+- javascript has been used to create the game including interactive elements
+- Blender was used to create 3d models of trees, rocks, holes and crowns
+- Pain.NET was used to edit images
+- GitHub has been used to store code, images and other contents.
+- Gitpages was used to deploy the website.
+- Git was used for version control, pushing contents to github.
+- Codeanywhere was used as IDE.
+- favicon.io
+- Wave Web Accessibility Evaluation tool was used to test the accessibility of the web site.
+- W3C Markup Validation Service was used to check HTML.
+- W3C CSS Validation Service was used to check CSS.
+- jshint was used to test the javascript code
+- HTMLcolourcodes.com was used to get hex colour values.
 
 
 # Testing
@@ -108,17 +114,29 @@ button mouse movement
 
 # Deployment
 
+The site was deployed to GitHub pages. The steps to deploy are as follows:
+
+- In the GitHub repository, navigate to the Settings tab
+- From the source section drop-down menu, select the Master Branch
+- Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
+- The live link can be found here: [https://bezabu.github.io/bb-treasure-hunter/](https://bezabu.github.io/bb-treasure-hunter/)
+
 # Credits
 
 ## images
 
-[Hunter sprite set](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1)
-[404 page image](https://creazilla.com/nodes/7766525-hole-in-the-ground-clipart)
+- Images used for trees, rocks, crowns and holes were made by me using Blender and Paint.NET
+
+- The hunter sprite set was taken from [this tutorial](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1) and has allegedly been made free for public use by the artist.
+
+- The shovel and hole in the ground image used in the 404 page was taken from [creazilla](https://creazilla.com/nodes/7766525-hole-in-the-ground-clipart) and is "free for editorial, educational, commercial, and/or personal projects. No attribution required."
 
 ## code
 
-Instructions on how to convert to isometric coordinates were taken from [this tutorial](https://clintbellanger.net/articles/isometric_math/)
-Instructions on how to use canvas to animate sprites were taken from this [youtube tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c)
-Insctructions on how to use canvas were taken from this [tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+- Instructions on how to convert to isometric coordinates were taken from [this tutorial](https://clintbellanger.net/articles/isometric_math/)
+  
+- Instructions on how to use canvas to animate sprites were taken from this [youtube tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c)
+  
+- Insctructions on how to use canvas were taken from this [tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
 
 ## other
