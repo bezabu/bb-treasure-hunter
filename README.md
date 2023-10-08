@@ -49,9 +49,13 @@ The game keeps track of how many pieces have been found by the player and displa
 
 ### 9 start modal
 
+![The start modal](assets/images/start-modal.webp)
+
 Before the player can begin, a short message appears explaining the presmise and controls. The user must press the start button to begin the game. This also starts the timer. The players movement is prevented while the modal is displayed.
 
 ### 10 win modal
+
+![The win modal](assets/images/win-modal.webp)
 
 When the player has located and dug up each of the three treasure goals, a message is shown on the screen congratulating the player and displaying the time taken. The player is then prompted to press the reset button to play again. The players movement is prevented while the modal is displayed.
 
@@ -70,6 +74,8 @@ A simple header with the title of the game is shown at the top of the page. Ther
 A simple footer with a short sentance explaining the web site and game were created by me for educational purposes only. 
 
 ### 14 favicon
+
+![Favicon icon](icon-favicon.webp)
 
 A custom favicon has been created to make the page stand out among other tabs.
 
@@ -135,6 +141,8 @@ Test: Open the website in each of the following browsers: chrome, Edge, Firefox,
 ## Unfixed Bugs
 
 button mouse movement
+terrain features not shown on first loading
+
 
 # Deployment
 
