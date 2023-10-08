@@ -10,7 +10,7 @@ Treasure Hunter is a game in which the player must find three pieces of buried t
 
 ### Procedurally generated terrain
 
-The game world, or map is randomly generated each time the game loads. Trees, rocks and buried treasure are dispersed around the map for the player to avoid or interact with. There are also subtle variations in the colour and elevation of the ground. During generation, each cell has a chance to spawn a tree or a rock (unless it is the player starting cell) and three cells are randomly selected for the treasure.
+The game world, or map is randomly generated each time the game loads. Trees, rocks and buried treasure are dispersed around the map for the player to avoid or interact with. There are also subtle variations in the colour and elevation of the ground and there are 4 tree variants and 3 rock variants. During generation, each cell has a chance to spawn a tree or a rock (unless it is the player starting cell) and three cells are randomly selected for the treasure.
 The terrain data is stored in several 2 dimensional arrays. Nested for loops are used to iterate through every element in the array whenever values are being assigned or read.
 
 ### Isometric projection
@@ -27,15 +27,15 @@ Whenever the player attempts to move, the destination is checked against the fea
 
 ### reset button
 
-The reset button reloads the page so that in the event of an unfavourable map, for example the player or treasure hemmed in by impassable rocks, the player can try again.
+The reset button reloads the page so that in the event of an unfavourable map, for example the player or treasure hemmed in by impassable rocks, the player can try again. It does this by reloading the page.
 
 ### movement buttons
 
-One of the ways input is obtained from the player on smaller devices is through the movement buttons. They are styled so that they do not obscure the centre of the game area regardless of portrait or landscape orientation and only appear on smaller screen sizes.
+One of the ways input is obtained from the player on smaller devices is through the movement buttons. They are styled so that they should not obscure the centre of the game area regardless of portrait or landscape orientation.
 
 ### hint message
 
-While the player is traversing the game world, a small hint message is displayed to aid the player in locating the treasure. A function determines the distance between the player and the nearest treasure and displays a hot/cold style hint. The hint message is also styled so that the background changes colour to make it more noticable.
+While the player is traversing the game world, a small hint message is displayed to aid the player in locating the treasure. A function determines the distance between the player and the nearest treasure and displays a hot/cold style hint. The hint message is also styled so that the background changes colour to make it more noticable. It is placed in a central location above the hunter so that the user should not have to look back and forth between two locations.
 
 ### start modal
 
@@ -49,7 +49,7 @@ When the player has located and dug up each of the three treasure goals, a messa
 
 ![The website as it would appear in landscape and portrait configurations on phones](assets/images/mockup02.webp)
 
-Particular care has been taken to ensure the buttons do not obscure too much of the game area on smaller devices in either portrait or landscape orientations.
+Particular care has been taken to ensure the buttons do not obscure too much of the game area on smaller devices in either portrait or landscape orientations. The game area also shrinks slightly to avoid the player avatar being cut off on smaller devices.
 
 ### header
 
@@ -96,15 +96,21 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 - Gitpages was used to deploy the website.
 - Git was used for version control, pushing contents to github.
 - Codeanywhere was used as IDE.
-- favicon.io
+- [favicon.io](https://favicon.io/) was used to make a simple favicon
 - Wave Web Accessibility Evaluation tool was used to test the accessibility of the web site.
 - W3C Markup Validation Service was used to check HTML.
 - W3C CSS Validation Service was used to check CSS.
 - jshint was used to test the javascript code
 - HTMLcolourcodes.com was used to get hex colour values.
-
+- [Am I Responsive](https://ui.dev/amiresponsive?url=https://bezabu.github.io/bb-treasure-hunter/index.html) was used to create the mockup
+- chrome developer tools was used for testing
 
 # Testing
+
+## General
+
+Test: Open the website in each of the following browsers: chrome, Edge, Firefox, Opera
+
 
 ## Validator Testing
 
@@ -132,7 +138,7 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
 
 - Images used for trees, rocks, crowns and holes were made by me using Blender and Paint.NET
 
-- The hunter sprite set was taken from [this tutorial](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1) and has allegedly been made free for public use by the artist.
+- The hunter sprite set was taken from [this tutorial](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1) and has been made [free for public use](https://flarerpg.org/) by the artist, [Clint Bellinger](https://clintbellanger.net/)
 
 - The shovel and hole in the ground image used in the 404 page was taken from [creazilla](https://creazilla.com/nodes/7766525-hole-in-the-ground-clipart) and is "free for editorial, educational, commercial, and/or personal projects. No attribution required."
 
