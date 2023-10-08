@@ -171,7 +171,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Test: Begin the game on a mobile device and press every combination of the direction buttons, or as many as possible.
     - Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. When 3 or more buttons are pressed, there will be no movement, regardless of the directions(this maybe a limitation of phone screens?).
     - When a direction is pressed, and a second direction is pressed so that the hunter changes direction during a period where two buttons are pressed, when the first button is released, an idle animation is displayed even while the hunter moves.
-    - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area.
+    - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area. This is aleviated somewhat by disabling context menus and text selection on the buttons.
 
 - Check dig input received correctly
 
@@ -217,7 +217,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 ## Unfixed Bugs
 
-- moving a finger or cursor enough distance while pressing a button will register as leaving the button.
+- moving a finger enough distance while pressing a button will register as leaving the button.
 - Hunter may have incorrect direction animation if certain unintuitive combinations of inputs are received.
 
 # Deployment
