@@ -128,54 +128,54 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 ## General
 
-Check the responsiveness of the website on different screen sizes on different browsers
+- Check the responsiveness of the website on different screen sizes on different browsers
 
-Test: Open the website in each browser and resize the window slowly down to 300px and back up again, checking everything is displaying properly
-Result: All elements display correctly in each size.
+  - Test: Open the website in each browser and resize the window slowly down to 300px and back up again, checking everything is displaying properly
+  - Result: All elements display correctly in each size.
 
-Test: Open the website in developer tools and simulate a phone screen in both portrait and landscape orientations. Check that the buttons do not obscure the player avatar.
-Result: Reset and directional buttons begin to overlap at around 310px wide. The only device with a width less than 320 that I can find is the Galaxy Fold in folded configuration, but I have moved the reset button so that it only starts to overlap at screen widths of less than 300px.
+  - Test: Open the website in developer tools and simulate a phone screen in both portrait and landscape orientations. Check that the buttons do not obscure the player avatar.
+  - Result: Reset and directional buttons begin to overlap at around 310px wide. The only device with a width less than 320 that I can find is the Galaxy Fold in folded configuration, but I have moved the reset button so that it only starts to overlap at screen widths of less than 300px.
 
-Check modals display correctly.
+- Check modals display correctly.
 
-Test: Load the website and wait for the start modal to appear.
-Result: It appears in front of the game area, as intended. The win modal is not visible.
+  - Test: Load the website and wait for the start modal to appear.
+  - Result: It appears in front of the game area, as intended. The win modal is not visible.
 
-Test: Click on the 'start' button to dismiss the start modal
-Result: The start modal disappears and the game now accepts player input, as intended. The win modal is not visible.
+  - Test: Click on the 'start' button to dismiss the start modal
+  - Result: The start modal disappears and the game now accepts player input, as intended. The win modal is not visible.
 
-Test: Complete the game and wait for the win modal to appear.
-Result: The win modal is displayed correctly in front of the game area, as intended. No player input is accepted apart from the two reset buttons.
+  - Test: Complete the game and wait for the win modal to appear.
+  - Result: The win modal is displayed correctly in front of the game area, as intended. No player input is accepted apart from the two reset buttons.
 
-Check the restart buttons work correctly
+- Check the restart buttons work correctly
 
-Test: Click on the reset button at the following scenarios: before starting the game (while the start modal is visible), after starting the game, after completing the game(win modal visible)
-Result: The reset button functions correctly and reloads the page in all circumstances. The reset button in the win modal functions correctly.
+  - Test: Click on the reset button at the following scenarios: before starting the game (while the start modal is visible), after starting the game, after completing the game(win modal visible)
+  - Result: The reset button functions correctly and reloads the page in all circumstances. The reset button in the win modal functions correctly.
 
-Check player movement inputs received correctly
+- Check player movement inputs received correctly
 
-Test: Begin the game on a PC/desktop and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
-Result: The hunter moves as expected; when two oposing directions (for example left and right) are pressed simultaneously, the hunter does not move (but does display a moving animation), when two non oposing direction (for example up and left) inputs are pressed they combine to move in a diagonal direction. When 3 direction inputs are pressed, the two oposing directions cancel out and the player moves in the unoposed direction(again with possible incorrect animation displayed), and when all 4 direction inputs are pressed, the hunter does not move(but does show a moving animation).
+  - Test: Begin the game on a PC/desktop and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
+  - Result: The hunter moves as expected; when two oposing directions (for example left and right) are pressed simultaneously, the hunter does not move (but does display a moving animation), when two non oposing direction (for example up and left) inputs are pressed they combine to move in a diagonal direction. When 3 direction inputs are pressed, the two oposing directions cancel out and the player moves in the unoposed direction(again with possible incorrect animation displayed), and when all 4 direction inputs are pressed, the hunter does not move(but does show a moving animation).
 
-Test: Begin the game on a mobile device and press every combination of the direction buttons, or as many as possible.
-Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. When 3 or more buttons are pressed, there will be no movement, regardless of the directions(this maybe a limitation of phone screens?).
+  - Test: Begin the game on a mobile device and press every combination of the direction buttons, or as many as possible.
+  - Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. When 3 or more buttons are pressed, there will be no movement, regardless of the directions(this maybe a limitation of phone screens?).
 When a direction is pressed, and a second direction is pressed so that the hunter changes direction during a period where two buttons are pressed, when the first button is released, an idle animation is displayed even while the hunter moves.
 When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area.
 
-Check dig input received correctly
+- Check dig input received correctly
 
-Test: Begin the game and press the spacebar and press the dig button in an empty cell.
-Result: The cell is marked as previously dug and a hole appears. If it is a treasure location, it is displayed appropriately.
+  - Test: Begin the game and press the spacebar and press the dig button in an empty cell.
+  - Result: The cell is marked as previously dug and a hole appears. If it is a treasure location, it is displayed appropriately.
 
-Check collision detection works correctly
+- Check collision detection works correctly
 
-Test: Begin the game and move the hunter towards a rock. Attempt to run through it.
-Result: The hunter will not move through the cell containing the rock. A running animation is still displayer
+  - Test: Begin the game and move the hunter towards a rock. Attempt to run through it.
+  - Result: The hunter will not move through the cell containing the rock. A running animation is still displayer
 
-Check 'perspective' draw order is correct
+- Check 'perspective' draw order is correct
 
-Test: Begin the game and move the hunter behind a tree and a rock at various points, from each corner of the map
-Result: The hunter is obscured by trees and rocks that are lower down (and therefore should be 'in front' of the hunter), and a faint overlay of the hunter is displayed in the correct position
+  - Test: Begin the game and move the hunter behind a tree and a rock at various points, from each corner of the map
+  - Result: The hunter is obscured by trees and rocks that are lower down (and therefore should be 'in front' of the hunter), and a faint overlay of the hunter is displayed in the correct position
 
 
 
@@ -209,7 +209,7 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
 
 - Images used for trees, rocks, crowns and holes were made by me using Blender and Paint.NET
 
-- The hunter sprite set was taken from [this tutorial](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1) and has been made [free for public use](https://flarerpg.org/) by the artist, [Clint Bellinger](https://clintbellanger.net/)
+- The hunter sprite set was taken from [this tutorial](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1) and has been made [free for public use](https://flarerpg.org/) by the artist, [Clint Bellanger](https://clintbellanger.net/)
 
 - The shovel and hole in the ground image used in the 404 page was taken from [creazilla](https://creazilla.com/nodes/7766525-hole-in-the-ground-clipart) and is "free for editorial, educational, commercial, and/or personal projects. No attribution required."
 
