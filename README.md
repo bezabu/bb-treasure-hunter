@@ -15,7 +15,7 @@ The terrain data is stored in several 2 dimensional arrays. Nested for loops are
 
 ### Isometric projection
 
-To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates or objects and terrain are passed through a function which converts them. This results in the diamond shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away.
+To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates or objects and terrain are passed through a function which converts them. This results in the diamond shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away. To prevent the player losing track of where they are whn obscured by trees, a 20% opacity overlay of the player sprite is shown regardless.
 
 ### the Hunter
 
@@ -81,6 +81,21 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 # Technologies
 
+HTML has been used to structure the web site.
+CSS has been used to style the web site.
+javascript has been used to create the game including interactive elements
+Blender was used to create 3d models of trees, rocks, holes and crowns
+Pain.NET was used to edit images
+GitHub has been used to store code, images and other contents.
+Gitpages was used to deploy the website.
+Git was used for version control, pushing contents to github.
+Codeanywhere was used as IDE.
+favicon.io
+Wave Web Accessibility Evaluation tool was used to test the accessibility of the web site.
+W3C Markup Validation Service was used to check HTML.
+W3C CSS Validation Service was used to check CSS.
+jshint was used to test the javascript code
+HTMLcolourcodes.com was used to get hex colour values.
 
 
 # Testing
@@ -93,3 +108,15 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 # Credits
 
+## images
+
+[Hunter sprite set](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1)
+[404 page image](https://creazilla.com/nodes/7766525-hole-in-the-ground-clipart)
+
+## code
+
+Instructions on how to convert to isometric coordinates were taken from [this tutorial](https://clintbellanger.net/articles/isometric_math/)
+Instructions on how to use canvas to animate sprites were taken from this [youtube tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c)
+Insctructions on how to use canvas were taken from this [tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+
+## other
