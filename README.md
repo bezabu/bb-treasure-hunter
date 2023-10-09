@@ -150,7 +150,11 @@ With pathfinding, it would be possible for another entity to hunt down the playe
     - Firefox
     - Opera
   - Xiaomi POCO X3 Pro
-    - 
+    - Chrome
+  - Redmi Note 11 Pro
+    - Chrome
+  - Samsung Galaxy A71
+    - Chrome
 
 - When using Samsung Internet browser on a smart phone set to dark mode, the background colours of the page, modals, hint messages and buttons will be darker. Images and shapes do not seem to be affected
 - Firefox handles touchscreen inputs differently which can affect moving in diagonal directions. Fingers must be kept completely still for button input to continue. Diagonal buttons mitigates this, eliminating the need to press more than one button.
@@ -206,20 +210,20 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 - Check dig input received correctly
 
-  - Test: Begin the game and press the spacebar and press the dig button in an empty cell. Observe outcome.
+  - Test: Begin the game and press the space bar and press the dig button in an empty cell. Observe the outcome.
     - Result: The cell is marked as previously dug and a hole appears. If it is a treasure location, it is displayed appropriately.
 
 - Check collision detection works correctly
 
   - Test: Begin the game and move the hunter towards a rock. Attempt to run through it and observe. Do the same at the edges of the island.
-    - Result: The hunter will not move through the cell containing the rock or past the edges of the island. A running animation is still displayer
+    - Result: The hunter will not move through the cell containing the rock or past the edges of the island. A running animation is still displayed.
 
-- Check 'perspective' draw order is correct
+- Check the 'perspective' draw order is correct
 
   - Test: Begin the game and move the hunter behind a tree and a rock at various points, from each corner of the map and observe the hunter.
     - Result: The hunter is obscured by trees and rocks that are lower down (and therefore should be 'in front' of the hunter), and a faint overlay of the hunter is displayed in the correct position
 
-- Check hint message is functioning correctly
+- Check if the hint message is functioning correctly
   
   - Test: Begin the game and locate a piece of treasure using the hint message, checking against the console log which displays the locations of the 2 treasures, and observe the outcome.
     - Result: The hint message displays the text "red-hot" at the treasure location and at an acceptable radius around it (2-3 cells). 
@@ -227,7 +231,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Test: Begin the game, find 2 of the 3 treasures and move as far away from the remaining treasure as possible to verify the hint message is correct at long distances.
     - Result: Beyond a certain distance to the treasure, the hint message will display the text "Absolute zero" (about 28 cells).
   
-- Check treasures found indicator is working correctly
+- Check the treasures found indicator is working correctly
   - Test: Begin the game, find and dig up a treasure. Observe the outcome.
     - Result: A crown image appears in the correct position after the first treasure is found. The second crown image appears after the second treasure is found. The third crown image appears after the third treasure is found. Due to the way in which elements are styled, it is only possible to see the third crown on smaller screen sizes, but by this point the win modal is visible to inform the player that they have found the third treasure.
 
@@ -236,7 +240,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
     - Result: The trees, rocks, elevation and treasure distribution are different every time.
 
 - Check that the timer works correctly and the log of holes dug is correct
-  - Test: Use a stopwatch to time how long a game takes and make a not of how many holes are dug over the course of the game. Compare to the win modal message.
+  - Test: Use a stopwatch to time how long a game takes and make a note of how many holes are dug over the course of the game. Compare to the win modal message.
     - Result: The timer and hole counter are accurate.
 
 ## Validator Testing
