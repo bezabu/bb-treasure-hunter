@@ -193,16 +193,16 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 - Check if player movement inputs received correctly
 
   - Test: Begin the game on a PC and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
-    - Result: The hunter moves as expected; when two oposing directions (for example left and right) are pressed simultaneously, the hunter does not move (but does display a moving animation), when two non oposing direction (for example up and left) inputs are pressed they combine to move in a diagonal direction. 
-    - When 3 direction inputs are pressed, the two oposing directions cancel out and the player moves in the unoposed direction(again with possible incorrect animation displayed), and when all 4 direction inputs are pressed, the hunter does not move(but does show a moving animation).
+    - Result: The hunter moves as expected; when two opposing directions (for example, left and right) are pressed simultaneously, the hunter does not move (but does display a moving animation), when two non-opposing direction (for example up and left) inputs are pressed, they combine to move in a diagonal direction. 
+    - When 3 direction inputs are pressed, the two opposing directions cancel out and the player moves in the unopposed direction(again with possible incorrect animation displayed), and when all 4 direction inputs are pressed, the hunter does not move(but does show a moving animation).
     - The hunter moves as intended in the correct direction with only one keyboard direction input.
 
   - Test: Begin the game on a touchscreen device and press every combination of the direction buttons, or as many as possible.
-    - Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. 
-    - In firefox, depending on how still the user can keep their fingers, it may interpret two simultaneous touch inputs as zooming in or out and interrupts button inputs (but strangely not while pressing 3 buttons simultaneously).
+    - Result: For up/down/left/right buttons the hunter always moves correctly. There is no movement when pressing opposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two opposing but not precisely opposite directions are pressed (for example, up/left and down), the resulting movement will be non diagonal. 
+    - In Firefox, depending on how still the user can keep their fingers, it may interpret two simultaneous touch inputs as zooming in or out and interrupts button inputs (but strangely not while pressing 3 buttons simultaneously).
     - When 3 or more buttons are pressed, there will be no movement, regardless of the directions(except on firefox).
     - When a direction is pressed, and a second direction is pressed so that the hunter changes direction during a period where two buttons are pressed, when the first button is released, an idle animation is displayed even while the hunter moves.
-    - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area. This is aleviated somewhat by disabling context menus and text selection on the buttons.
+    - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area. This is alleviated somewhat by disabling context menus and text selection on the buttons, which can also interrupt button inputs.
 
 - Check dig input received correctly
 
