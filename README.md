@@ -176,21 +176,21 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Test: Complete the game and wait for the win modal to appear.
     - Result: The win modal is displayed correctly in front of the game area, as intended. No player input is accepted apart from the two reset buttons.
 
-- Check the restart buttons work correctly
+- Check if the restart buttons work correctly
 
-  - Test: Click on the reset button at the following scenarios: before starting the game (while the start modal is visible), after starting the game, after completing the game(win modal visible)
+  - Test: Click on the reset button for the following scenarios: before starting the game (while the start modal is visible), after starting the game, after completing the game (win modal visible)
     - Result: The reset button functions correctly and reloads the page in all circumstances. The reset button in the win modal functions correctly.
 
-- Check isometric projection works correctly
+- Check if isometric projection works correctly
   - Test: Begin the game and observe the shape of the cells that make up the terrain.
-    - Result: Cells are diamond shape, as intended
+    - Result: Cells are diamond shaped, as intended
     - 
-  - Test: Begin the game and move the hunter in all directions. Check that directions moved match the inputs
-    - Result: The direction skew 45  to degrees has been accounted for, the hunter moves in the correct direction
+  - Test: Begin the game and move the hunter in all directions. Check that the directions moved match the inputs
+    - Result: The direction shift 45 degrees has been accounted for, the hunter moves in the correct direction
   - Test: Begin the game and observe the terrain for variations in height.
     - Result: Subtle variations present and accounted for when drawing features and hunter.
   
-- Check player movement inputs received correctly
+- Check if player movement inputs received correctly
 
   - Test: Begin the game on a PC and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
     - Result: The hunter moves as expected; when two oposing directions (for example left and right) are pressed simultaneously, the hunter does not move (but does display a moving animation), when two non oposing direction (for example up and left) inputs are pressed they combine to move in a diagonal direction. 

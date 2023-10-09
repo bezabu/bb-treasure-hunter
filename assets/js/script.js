@@ -206,7 +206,6 @@ for (let i = 0; i < treasureCount; i++) {
         }
     }
 }
-console.log(treasureList);
 console.log('initialization complete');
 sortImages();
 
