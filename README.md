@@ -10,7 +10,7 @@ Treasure Hunter is a game in which the player must find three pieces of buried t
 
 ### Game Loop
 
-The aim of the game is to find 3 hidden treasures. The player controls the hunter and can move them in 8 directions, and can dig at the hunter's current location to attempt to dig up treasure. Digging will make a hole in the ground so that the player knows not to try again in the same location.
+The aim of the game is to find 3 hidden treasures. The player controls the hunter and can move them in 8 directions, and can dig at the hunter's current location to attempt to dig up treasure. Digging will make a hole in the ground so that the player knows not to try again in the same location. The game handles real-time input from the player by calling the main game loop function 25 times per second.
 
 ![Treasure hunter game](assets/images/game-02.webp)
 
@@ -23,63 +23,63 @@ The terrain data is stored in several 2-dimensional arrays. Nested for loops are
 
 To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates or objects and terrain are passed through a function which converts them. This results in the diamond-shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away. To prevent the player losing track of where they are when obscured by trees, a 20% opacity overlay of the player sprite is shown regardless.
 
-### 3 the Hunter
+### 3 The Hunter
 
 The hunter is the player avatar. The hunter can move in 8 directions and can dig in the currently occupied cell. The player can control the hunter using either the keyboard or by pressing buttons. The hunter has an idle animation and a moving animation for each direction. This has been achieved by using canvas to only draw a section of the image, changing the section depending on the direction the hunter is facing and whether or not they are moving.
 
-### 4 collision detection
+### 4 Collision Detection
 
 Whenever the player attempts to move, the destination is checked against the feature map for potential obstacles. If a rock is in the location the player is trying to move to, movement is prevented.
 
-### 5 reset button
+### 5 Reset Button
 
 The reset button reloads the page so that, in the event of an unfavourable map, for example, the player or treasure hemmed in by impassable rocks, the player can try again. It does this by reloading the page.
 
-### 6 movement buttons
+### 6 Movement Buttons
 
 One of the ways input is obtained from the player on smaller devices is through the movement buttons. They are styled so that they should not obscure the centre of the game area, regardless of portrait or landscape orientation.
 
-### 7 hint message
+### 7 Hint Message
 
 While the player is traversing the game world, a small hint message is displayed to aid the player in locating the treasure. A function determines the distance between the player and the nearest treasure and displays a hot/cold style hint. The hint message is also styled so that the background changes colour to make it more noticeable. It is placed in a central location above the hunter so that the user should not have to look back and forth between two locations.
 
-### 8 treasure indicator
+### 8 Treasure Indicator
 
 The game keeps track of how many pieces have been found by the player and displays them above the hint message.
 
-### 9 start modal
+### 9 Start Modal
 
 ![The start modal](assets/images/start-modal.webp)
 
 Before the player can begin, a short message appears explaining the premise and controls. The user must press the start button to begin the game. This also starts the timer. The player's movement is prevented while the modal is displayed.
 
-### 10 win modal
+### 10 Win Modal
 
 ![The win modal](assets/images/win-modal.webp)
 
 When the player has located and dug up each of the three treasure goals, a message is shown on the screen congratulating the player and displaying the time taken. The player is then prompted to press the reset button to play again. The player's movement is prevented while the modal is displayed.
 
-### 11 responsive design
+### 11 Responsive Design
 
 ![The website as it would appear in landscape and portrait configurations on phones](assets/images/mockup02.webp)
 
-Particular care has been taken to ensure the buttons do not obscure too much of the game area on smaller devices in either portrait or landscape orientations. The game area also shrinks slightly to avoid the player avatar being cut off on smaller devices.
+Care has been taken to ensure the buttons do not obscure too much of the game area on smaller devices in either portrait or landscape orientations. The game area also shrinks slightly to avoid the player avatar being cut off on smaller devices.
 
-### 12 header
+### 12 Header
 
 A simple header with the title of the game is shown at the top of the page. There are no navigational elements.
 
-### 13 footer
+### 13 Footer
 
 A simple footer with a short sentence explaining that the website and game were created by me for educational purposes only. 
 
-### 14 favicon
+### 14 Favicon
 
 ![Favicon icon](assets/images/icon-favicon.webp)
 
 A custom favicon has been created to make the page stand out amongst other tabs.
 
-### 15 custom 404 page
+### 15 Custom 404 Page
 
 ![My custom 404 page with image and link to index](assets/images/page_404.webp)
 
@@ -87,21 +87,17 @@ A custom 404 page has been made for the web site to enable the user to find thei
 
 ## Features to implement
 
-### Pathfinding
+### Customizable Difficulty Settings
 
-I attempted to write a pathfinding algorithm that would plot a path between two points, but was unsuccessful.
+More options could be presented to the player at the start of the game such as the amount of treasure to find, amount of rocks or other obstacles. The nature of the game can be changed in a way so that finding treasure only adds time to a timer which is constantly counting down to game over.
 
-### Customizable difficulty settings
+### More Features in Terrain Generation
 
-Amount of treasure to find, amount of rocks or other obstacles. The nature of the game can be changed in a way so that finding treasure only adds time to a timer which is constantly counting down to game over.
+Given more time, I would like to enhance the terrain generation so that it looks more natural and poses more of a challenge to the player. Trees could be grouped together more, allowing for small clearings. More variation to the coasts, possibly even rivers extending into the island interior. Treasure could be prevented from spawning too close to other treasure. Elevation could be taken into account when moving the hunter with faster movement downhill and vice versa.
 
-### Better terrain generation
+### Computer Controlled Antagonist
 
-Given more time, I would like to enhance the terrain generation so that it looks more natural and poses more of a challenge to the player. Trees could be grouped together more, allowing for small clearings. More variation to the coasts, possibly even rivers extending into the island interior. Treasure could be prevented from spawning too close to other treasure.
-
-### computer controlled antagonist
-
-With pathfinding, it would be possible for another entity to hunt down the player, presenting more of a challenge and a fail state to the game.
+With a pathfinding algorithm, it would be possible for another entity to hunt down the player, presenting more of a challenge and a fail state to the game. On mobile devices, this would also eliminate the need for buttons as the player could simply select a cell to move towards.
 
 # Technologies
 
@@ -141,6 +137,8 @@ With pathfinding, it would be possible for another entity to hunt down the playe
     - Chrome
     - Free Adblock Browser
     - Firefox
+    - Samsung Internet
+    - Opera
   - Samsung Galaxy Tab A (2016)
     - Chrome
     - Samsung Internet
@@ -156,8 +154,9 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Samsung Galaxy A71
     - Chrome
 
-- When using Samsung Internet browser on a smart phone set to dark mode, the background colours of the page, modals, hint messages and buttons will be darker. Images and shapes do not seem to be affected
-- Firefox handles touchscreen inputs differently which can affect moving in diagonal directions. Fingers must be kept completely still for button input to continue. Diagonal buttons mitigates this, eliminating the need to press more than one button.
+- Browser specific notes:
+  - When using Samsung Internet browser on a smart phone set to dark mode, the background colours of the page, modals, hint messages and buttons will be darker. Images and shapes do not seem to be affected
+  - Firefox handles 2 simultaneous touchscreen inputs differently, which can affect moving in diagonal directions. Fingers must be kept completely still for button input to continue. Extra buttons for diagonal movement mitigates this, eliminating the need to press more than one button.
 
 ## General
 
