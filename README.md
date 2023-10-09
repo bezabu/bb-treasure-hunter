@@ -123,6 +123,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 - [Am I Responsive](https://ui.dev/amiresponsive?url=https://bezabu.github.io/bb-treasure-hunter/index.html) was used to create the mockup
 - chrome developer tools was used for testing
 - [Google fonts](https://fonts.google.com/specimen/Permanent+Marker/tester) has been used to import the font Permanent Marker.
+- [Canvas Web API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) was used to draw shapes and images in javascript.
 
 # Testing
 
@@ -144,12 +145,15 @@ With pathfinding, it would be possible for another entity to hunt down the playe
     - Chrome
     - Samsung Internet
     - Free Adblock browser
-  - 
+  - Xiaomi 11T
+    - Chrome
+    - Firefox
+    - Opera
+  - Xiaomi POCO X3 Pro
+    - 
 
 - When using Samsung Internet browser on a smart phone set to dark mode, the background colours of the page, modals, hint messages and buttons will be darker. Images and shapes do not seem to be affected
-- Firefox handles touchscreen inputs differently which can affect moving in diagonal directions. Diagonal buttons mitigates this.
-
-
+- Firefox handles touchscreen inputs differently which can affect moving in diagonal directions. Fingers must be kept completely still for button input to continue. Diagonal buttons mitigates this, eliminating the need to press more than one button.
 
 ## General
 
@@ -195,7 +199,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
   - Test: Begin the game on a touchscreen device and press every combination of the direction buttons, or as many as possible.
     - Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. 
-    - In firefox, it interprets two simultaneous touch inputs as zooming in or out and interrupts button inputs (but strangely not while pressing 3 buttons simultaneously).
+    - In firefox, depending on how still the user can keep their fingers, it may interpret two simultaneous touch inputs as zooming in or out and interrupts button inputs (but strangely not while pressing 3 buttons simultaneously).
     - When 3 or more buttons are pressed, there will be no movement, regardless of the directions(except on firefox).
     - When a direction is pressed, and a second direction is pressed so that the hunter changes direction during a period where two buttons are pressed, when the first button is released, an idle animation is displayed even while the hunter moves.
     - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area. This is aleviated somewhat by disabling context menus and text selection on the buttons.
@@ -244,7 +248,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 ## Unfixed Bugs
 
-- On touchscreen devices moving a finger enough distance while pressing a button will register as leaving the button (except in firefox).
+- On some browsers on some touchscreen devices, moving a finger enough distance while pressing a button may register as leaving the button.
 - Hunter may have incorrect direction animation if certain unintuitive combinations of inputs are received, but still moves in the correct direction.
 
 # Deployment
@@ -268,6 +272,8 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
 
 ## code
 
+- The content has been coded by me, Benjamin Butler. 
+
 - Instructions on how to convert to isometric coordinates were taken from [this tutorial](https://clintbellanger.net/articles/isometric_math/)
   
 - Instructions on how to use canvas to animate sprites were taken from this [youtube tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c)
@@ -275,7 +281,5 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
 - Insctructions on how to use canvas were taken from this [tutorial(part of developer documentation)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
 
 - Instructions on how to use 2 dimensional arrays were taken from [this stackoverflow thread](https://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript)
-
-
 
 ## other
