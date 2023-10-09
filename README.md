@@ -131,15 +131,23 @@ With pathfinding, it would be possible for another entity to hunt down the playe
     - Chrome
     - Firefox
     - Edge
-  - Laptop running Windows 8
+    - Opera
+  - Laptop running Windows 8.1
+    - Chrome
+    - Firefox
+    - Edge
   - Sumsung Galaxy S22
     - Chrome
     - Free Adblock Browser
+    - Firefox
   - Samsung Galaxy Tab A (2016)
     - Chrome
     - Samsung Internet
     - Free Adblock browser
+  - 
 
+- When using Samsung Internet browser on a smart phone set to dark mode, the background colours of the page, modals, hint messages and buttons will be darker. Images and shapes do not seem to be affected
+- Firefox handles touchscreen inputs differently which can affect moving in diagonal directions. Diagonal buttons mitigates this.
 
 
 
@@ -147,7 +155,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 - Check the responsiveness of the website on different screen sizes on different browsers
 
-  - Test: Open the website in each browser and resize the window slowly down to 300px and back up again, checking everything is displaying properly
+  - Test: Open the website in each browser and click inspect and resize the window slowly down to 300px and back up again, checking everything is displaying properly
     - Result: All elements display correctly in each size.
 
   - Test: Open the website in developer tools and simulate a phone screen in both portrait and landscape orientations. Check that the buttons do not obscure the player avatar.
@@ -186,7 +194,9 @@ With pathfinding, it would be possible for another entity to hunt down the playe
     - The hunter moves as intended in the correct direction with only one keyboard direction input.
 
   - Test: Begin the game on a touchscreen device and press every combination of the direction buttons, or as many as possible.
-    - Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. When 3 or more buttons are pressed, there will be no movement, regardless of the directions(this maybe a limitation of phone screens?).
+    - Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. 
+    - In firefox, it interprets two simultaneous touch inputs as zooming in or out and interrupts button inputs (but strangely not while pressing 3 buttons simultaneously).
+    - When 3 or more buttons are pressed, there will be no movement, regardless of the directions(except on firefox).
     - When a direction is pressed, and a second direction is pressed so that the hunter changes direction during a period where two buttons are pressed, when the first button is released, an idle animation is displayed even while the hunter moves.
     - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area. This is aleviated somewhat by disabling context menus and text selection on the buttons.
 
@@ -234,7 +244,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 ## Unfixed Bugs
 
-- moving a finger enough distance while pressing a button will register as leaving the button.
+- On touchscreen devices moving a finger enough distance while pressing a button will register as leaving the button (except in firefox).
 - Hunter may have incorrect direction animation if certain unintuitive combinations of inputs are received, but still moves in the correct direction.
 
 # Deployment
