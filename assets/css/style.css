@@ -135,6 +135,7 @@ h2 {
     background-color: #D65B21;
     text-align: center;
     padding: 5px;
+    visibility: hidden;
 }
 
 .start-button {

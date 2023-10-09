@@ -1,6 +1,6 @@
 # Treasure Hunter
 
-Treasure Hunter is a game in which the player must find three pieces of buried treasure on a small island. the game can be accessed [here](https://bezabu.github.io/bb-treasure-hunter/index.html).
+Treasure Hunter is a game in which the player must find three pieces of buried treasure on a small island. The game can be accessed [here](https://bezabu.github.io/bb-treasure-hunter/index.html).
 
 ![Mockup of the treasure hunter website on several different sized devices](assets/images/mockup01.webp)
 
@@ -16,16 +16,16 @@ The aim of the game is to find 3 hidden treasures. The player controls the hunte
 
 ### 1 Procedurally generated terrain
 
-The game world, or map is randomly generated each time the game loads. Trees, rocks and buried treasure are dispersed around the map for the player to avoid or interact with. There are also subtle variations in the colour and elevation of the ground and there are 4 tree variants and 3 rock variants. During generation, each cell has a chance to spawn a tree or a rock (unless it is the player starting cell) and three cells are randomly selected for the treasure.
-The terrain data is stored in several 2 dimensional arrays. Nested for loops are used to iterate through every element in the array whenever values are being assigned or read.
+The game world, or map, is randomly generated each time the game loads. It is made up of a 40x40 grid of cells. Trees, rocks and buried treasure are dispersed around the map in cells for the player to avoid or interact with. There are also subtle variations in the colour and elevation of each cell and there are 4 tree variants and 3 rock variants. During generation, each cell has a chance to spawn a tree or a rock (unless it is the player's starting cell) and three cells are randomly selected to contain treasure.
+The terrain data is stored in several 2-dimensional arrays. Nested for loops are used to iterate through every element in the array whenever values are being assigned or read.
 
 ### 2 Isometric projection
 
-To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates or objects and terrain are passed through a function which converts them. This results in the diamond shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away. To prevent the player losing track of where they are whn obscured by trees, a 20% opacity overlay of the player sprite is shown regardless.
+To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates or objects and terrain are passed through a function which converts them. This results in the diamond-shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away. To prevent the player losing track of where they are when obscured by trees, a 20% opacity overlay of the player sprite is shown regardless.
 
 ### 3 the Hunter
 
-The hunter is the player avatar. The hunter can move in 8 directions and can dig in the currently occupied cell. The player can control the hunter using either the keyboard or by pressing buttons. The hunter has an idle animation and a moving animation for each direction. This has been achieved by using canvas to only draw a section of the image, changing the section depending on the direction the hunter is facing and wether or not they are moving.
+The hunter is the player avatar. The hunter can move in 8 directions and can dig in the currently occupied cell. The player can control the hunter using either the keyboard or by pressing buttons. The hunter has an idle animation and a moving animation for each direction. This has been achieved by using canvas to only draw a section of the image, changing the section depending on the direction the hunter is facing and whether or not they are moving.
 
 ### 4 collision detection
 
@@ -33,15 +33,15 @@ Whenever the player attempts to move, the destination is checked against the fea
 
 ### 5 reset button
 
-The reset button reloads the page so that in the event of an unfavourable map, for example the player or treasure hemmed in by impassable rocks, the player can try again. It does this by reloading the page.
+The reset button reloads the page so that, in the event of an unfavourable map, for example, the player or treasure hemmed in by impassable rocks, the player can try again. It does this by reloading the page.
 
 ### 6 movement buttons
 
-One of the ways input is obtained from the player on smaller devices is through the movement buttons. They are styled so that they should not obscure the centre of the game area regardless of portrait or landscape orientation.
+One of the ways input is obtained from the player on smaller devices is through the movement buttons. They are styled so that they should not obscure the centre of the game area, regardless of portrait or landscape orientation.
 
 ### 7 hint message
 
-While the player is traversing the game world, a small hint message is displayed to aid the player in locating the treasure. A function determines the distance between the player and the nearest treasure and displays a hot/cold style hint. The hint message is also styled so that the background changes colour to make it more noticable. It is placed in a central location above the hunter so that the user should not have to look back and forth between two locations.
+While the player is traversing the game world, a small hint message is displayed to aid the player in locating the treasure. A function determines the distance between the player and the nearest treasure and displays a hot/cold style hint. The hint message is also styled so that the background changes colour to make it more noticeable. It is placed in a central location above the hunter so that the user should not have to look back and forth between two locations.
 
 ### 8 treasure indicator
 
@@ -51,13 +51,13 @@ The game keeps track of how many pieces have been found by the player and displa
 
 ![The start modal](assets/images/start-modal.webp)
 
-Before the player can begin, a short message appears explaining the presmise and controls. The user must press the start button to begin the game. This also starts the timer. The players movement is prevented while the modal is displayed.
+Before the player can begin, a short message appears explaining the premise and controls. The user must press the start button to begin the game. This also starts the timer. The player's movement is prevented while the modal is displayed.
 
 ### 10 win modal
 
 ![The win modal](assets/images/win-modal.webp)
 
-When the player has located and dug up each of the three treasure goals, a message is shown on the screen congratulating the player and displaying the time taken. The player is then prompted to press the reset button to play again. The players movement is prevented while the modal is displayed.
+When the player has located and dug up each of the three treasure goals, a message is shown on the screen congratulating the player and displaying the time taken. The player is then prompted to press the reset button to play again. The player's movement is prevented while the modal is displayed.
 
 ### 11 responsive design
 
@@ -71,13 +71,13 @@ A simple header with the title of the game is shown at the top of the page. Ther
 
 ### 13 footer
 
-A simple footer with a short sentance explaining the web site and game were created by me for educational purposes only. 
+A simple footer with a short sentence explaining that the website and game were created by me for educational purposes only. 
 
 ### 14 favicon
 
 ![Favicon icon](assets/images/icon-favicon.webp)
 
-A custom favicon has been created to make the page stand out among other tabs.
+A custom favicon has been created to make the page stand out amongst other tabs.
 
 ### 15 custom 404 page
 
@@ -93,11 +93,11 @@ I attempted to write a pathfinding algorithm that would plot a path between two 
 
 ### Customizable difficulty settings
 
-Amount of treasure to find, amount of rocks or other obstacles. The nature of the game could be changed in a way so that finding treasure only adds time onto a timer which is constantly counting down to game over.
+Amount of treasure to find, amount of rocks or other obstacles. The nature of the game can be changed in a way so that finding treasure only adds time to a timer which is constantly counting down to game over.
 
 ### Better terrain generation
 
-Given more time, I would like to enhance the terrain generation so that it looks more natural and poses more of a challenge to the player. Trees could be grouped together more allowing for small clearings. More variation to the coasts, possibly even rivers extending into the island. Treasure prevented from spawning too close to other treasure.
+Given more time, I would like to enhance the terrain generation so that it looks more natural and poses more of a challenge to the player. Trees could be grouped together more, allowing for small clearings. More variation to the coasts, possibly even rivers extending into the island interior. Treasure could be prevented from spawning too close to other treasure.
 
 ### computer controlled antagonist
 
@@ -165,7 +165,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   - Test: Open the website in developer tools and simulate a phone screen in both portrait and landscape orientations. Check that the buttons do not obscure the player avatar.
     - Result: Reset and directional buttons begin to overlap at around 310px wide. The only device with a width less than 320 that I can find is the Galaxy Fold in folded configuration, but I have moved the reset button so that it only starts to overlap at screen widths of less than 300px.
 
-- Check modals display correctly.
+- Check the modals display correctly.
 
   - Test: Load the website and wait for the start modal to appear.
     - Result: It appears in front of the game area, as intended. The win modal is not visible.
