@@ -126,6 +126,23 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 
 # Testing
 
+- Devices and browsers used in testing:
+  - Laptop running Windows 10 Home
+    - Chrome
+    - Firefox
+    - Edge
+  - Laptop running Windows 8
+  - Sumsung Galaxy S22
+    - Chrome
+    - Free Adblock Browser
+  - Samsung Galaxy Tab A (2016)
+    - Chrome
+    - Samsung Internet
+    - Free Adblock browser
+
+
+
+
 ## General
 
 - Check the responsiveness of the website on different screen sizes on different browsers
@@ -163,12 +180,12 @@ With pathfinding, it would be possible for another entity to hunt down the playe
   
 - Check player movement inputs received correctly
 
-  - Test: Begin the game on a PC/desktop and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
+  - Test: Begin the game on a PC and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
     - Result: The hunter moves as expected; when two oposing directions (for example left and right) are pressed simultaneously, the hunter does not move (but does display a moving animation), when two non oposing direction (for example up and left) inputs are pressed they combine to move in a diagonal direction. 
     - When 3 direction inputs are pressed, the two oposing directions cancel out and the player moves in the unoposed direction(again with possible incorrect animation displayed), and when all 4 direction inputs are pressed, the hunter does not move(but does show a moving animation).
     - The hunter moves as intended in the correct direction with only one keyboard direction input.
 
-  - Test: Begin the game on a mobile device and press every combination of the direction buttons, or as many as possible.
+  - Test: Begin the game on a touchscreen device and press every combination of the direction buttons, or as many as possible.
     - Result: For up/down/left/right buttons the hunter moves correctly always. There is no movement when pressing oposing directions, regardless of the direction (diagonal or otherwise), but an animation is displayed. When two oposite but not precisely oposing directions are pressed (for example up/left and down), the resulting movement will be non diagonal. When 3 or more buttons are pressed, there will be no movement, regardless of the directions(this maybe a limitation of phone screens?).
     - When a direction is pressed, and a second direction is pressed so that the hunter changes direction during a period where two buttons are pressed, when the first button is released, an idle animation is displayed even while the hunter moves.
     - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area. This is aleviated somewhat by disabling context menus and text selection on the buttons.
@@ -218,7 +235,7 @@ With pathfinding, it would be possible for another entity to hunt down the playe
 ## Unfixed Bugs
 
 - moving a finger enough distance while pressing a button will register as leaving the button.
-- Hunter may have incorrect direction animation if certain unintuitive combinations of inputs are received.
+- Hunter may have incorrect direction animation if certain unintuitive combinations of inputs are received, but still moves in the correct direction.
 
 # Deployment
 
