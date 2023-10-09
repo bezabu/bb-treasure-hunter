@@ -1,6 +1,6 @@
 # Treasure Hunter
 
-Treasure Hunter is a game in which the player must find three pieces of buried treasure on a small island. The game can be accessed [here](https://bezabu.github.io/bb-treasure-hunter/index.html).
+Treasure Hunter is a game in which the player must find three pieces of buried treasure on a small island. The game is targeted to casual players of any age but may also appeal to fans old isometric games. The game can be accessed [here](https://bezabu.github.io/bb-treasure-hunter/index.html).
 
 ![Mockup of the treasure hunter website on several different sized devices](assets/images/mockup01.webp)
 
@@ -8,7 +8,7 @@ Treasure Hunter is a game in which the player must find three pieces of buried t
 
 ## Existing Features
 
-### Game Loop
+### The Game
 
 The aim of the game is to find 3 hidden treasures. The player controls the hunter and can move them in 8 directions, and can dig at the hunter's current location to attempt to dig up treasure. Digging will make a hole in the ground so that the player knows not to try again in the same location. The game handles real-time input from the player by calling the main game loop function 25 times per second.
 
@@ -21,7 +21,7 @@ The terrain data is stored in several 2-dimensional arrays. Nested for loops are
 
 ### 2 Isometric projection
 
-To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates or objects and terrain are passed through a function which converts them. This results in the diamond-shaped cells common in computer games in the 1990s and 2000s. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away. To prevent the player losing track of where they are when obscured by trees, a 20% opacity overlay of the player sprite is shown regardless.
+To give the illusion of perspective, an isometric projection is used to display the terrain. X and Y coordinates of objects and terrain are passed through a function which converts them. This results in the diamond-shaped cells common in computer games in the 1990s and 2000s, which gives the game a slightly retro feel. All features that are not the terrain (trees, rocks, the player) are sorted by their isometric y coordinate and drawn in order so that features closer to the 'camera' are drawn over features that appear further away. To prevent the player losing track of where they are when obscured by trees, a 20% opacity overlay of the player sprite is shown regardless.
 
 ### 3 The Hunter
 
