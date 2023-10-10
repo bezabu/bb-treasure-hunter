@@ -103,21 +103,21 @@ With a pathfinding algorithm, it would be possible for another entity to hunt do
 
 - HTML has been used to structure the web site.
 - CSS has been used to style the web site.
-- javascript has been used to create the game including interactive elements
-- [Blender](https://www.blender.org/) was used to create 3d models of trees, rocks, holes and crowns
-- [Pain.NET](https://www.getpaint.net/) was used to edit images
+- javascript has been used to create the game including interactive elements.
+- [Blender](https://www.blender.org/) was used to create 3d models of trees, rocks, holes and crowns.
+- [Pain.NET](https://www.getpaint.net/) was used to edit images.
 - [GitHub](https://github.com/) has been used to store code, images and other contents.
 - Gitpages was used to deploy the website.
 - Git was used for version control, pushing contents to github.
 - [Codeanywhere](https://app.codeanywhere.com/) was used as IDE.
-- [favicon.io](https://favicon.io/) was used to make a simple favicon
+- [favicon.io](https://favicon.io/) was used to make a simple favicon.
 - [Wave Web Accessibility Evaluation tool](https://wave.webaim.org/) was used to test the accessibility of the web site.
 - [W3C Markup Validation Service](https://validator.w3.org/) was used to check HTML.
 - [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) was used to check CSS.
-- [JSHint](https://jshint.com/) was used to test the javascript code
+- [JSHint](https://jshint.com/) was used to test the javascript code.
 - [HTMLcolourcodes.com](https://htmlcolorcodes.com/) was used to get hex colour values.
-- [Am I Responsive](https://ui.dev/amiresponsive?url=https://bezabu.github.io/bb-treasure-hunter/index.html) was used to create the mockup
-- chrome developer tools was used for testing
+- [Am I Responsive](https://ui.dev/amiresponsive?url=https://bezabu.github.io/bb-treasure-hunter/index.html) was used to create the mockup.
+- chrome developer tools was used for testing.
 - [Google fonts](https://fonts.google.com/specimen/Permanent+Marker/tester) has been used to import the font Permanent Marker.
 - [Canvas Web API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) was used to draw shapes and images in javascript.
 
@@ -153,14 +153,16 @@ With a pathfinding algorithm, it would be possible for another entity to hunt do
     - Chrome
   - Samsung Galaxy A71
     - Chrome
+  - iPhone 13
+    - Safari
 
 - Browser specific notes:
-  - When using Samsung Internet browser on a smart phone set to dark mode, the background colours of the page, modals, hint messages and buttons will be darker. Images and shapes do not seem to be affected
+  - When using Samsung Internet browser on a smart phone set to dark mode, the background colours of the page, modals, hint messages and buttons will be darker. Images and shapes do not seem to be affected.
   - Firefox handles 2 simultaneous touchscreen inputs differently, which can affect moving in diagonal directions. Fingers must be kept completely still for button input to continue. Extra buttons for diagonal movement mitigates this, eliminating the need to press more than one button.
 
 ## General
 
-- Check the responsiveness of the website on different screen sizes on different browsers
+- Check the responsiveness of the website on different screen sizes on different browsers.
 
   - Test: Open the website in each browser and click inspect and resize the window slowly down to 300px and back up again, checking everything is displaying properly
     - Result: All elements display correctly in each size.
@@ -173,27 +175,27 @@ With a pathfinding algorithm, it would be possible for another entity to hunt do
   - Test: Load the website and wait for the start modal to appear.
     - Result: It appears in front of the game area, as intended. The win modal is not visible.
 
-  - Test: Click on the 'start' button to dismiss the start modal
+  - Test: Click on the 'start' button to dismiss the start modal.
     - Result: The start modal disappears and the game now accepts player input, as intended. The win modal is not visible.
 
   - Test: Complete the game and wait for the win modal to appear.
     - Result: The win modal is displayed correctly in front of the game area, as intended. No player input is accepted apart from the two reset buttons.
 
-- Check if the restart buttons work correctly
+- Check if the restart buttons work correctly.
 
-  - Test: Click on the reset button for the following scenarios: before starting the game (while the start modal is visible), after starting the game, after completing the game (win modal visible)
+  - Test: Click on the reset button for the following scenarios: before starting the game (while the start modal is visible), after starting the game, after completing the game (win modal visible).
     - Result: The reset button functions correctly and reloads the page in all circumstances. The reset button in the win modal functions correctly.
 
-- Check if isometric projection works correctly
+- Check if isometric projection works correctly.
   - Test: Begin the game and observe the shape of the cells that make up the terrain.
-    - Result: Cells are diamond shaped, as intended
-    - 
+    - Result: Cells are diamond shaped, as intended.
+
   - Test: Begin the game and move the hunter in all directions. Check that the directions moved match the inputs
-    - Result: The direction shift 45 degrees has been accounted for, the hunter moves in the correct direction
+    - Result: The direction shift 45 degrees has been accounted for, the hunter moves in the correct direction.
   - Test: Begin the game and observe the terrain for variations in height.
     - Result: Subtle variations present and accounted for when drawing features and hunter.
   
-- Check if player movement inputs received correctly
+- Check if player movement inputs received correctly.
 
   - Test: Begin the game on a PC and press every combination of the keyboard arrow keys, i.e. up, up and left, up and right, up and down, down, down and left and so on, and observe hunter movement.
     - Result: The hunter moves as expected; when two opposing directions (for example, left and right) are pressed simultaneously, the hunter does not move (but does display a moving animation), when two non-opposing direction (for example up and left) inputs are pressed, they combine to move in a diagonal direction. 
@@ -207,22 +209,22 @@ With a pathfinding algorithm, it would be possible for another entity to hunt do
     - When a direction is pressed, and a second direction is pressed so that the hunter changes direction during a period where two buttons are pressed, when the first button is released, an idle animation is displayed even while the hunter moves.
     - When a button is pressed, if the cursor moves too far from the original point at which it was pressed, it will register as the cursor leaving the button area. This happens even though the cursor may not move all the way outside the button area. This is alleviated somewhat by disabling context menus and text selection on the buttons, which can also interrupt button inputs.
 
-- Check dig input received correctly
+- Check dig input received correctly.
 
   - Test: Begin the game and press the space bar and press the dig button in an empty cell. Observe the outcome.
     - Result: The cell is marked as previously dug and a hole appears. If it is a treasure location, it is displayed appropriately.
 
-- Check collision detection works correctly
+- Check collision detection works correctly.
 
   - Test: Begin the game and move the hunter towards a rock. Attempt to run through it and observe. Do the same at the edges of the island.
     - Result: The hunter will not move through the cell containing the rock or past the edges of the island. A running animation is still displayed.
 
-- Check the 'perspective' draw order is correct
+- Check the 'perspective' draw order is correct.
 
   - Test: Begin the game and move the hunter behind a tree and a rock at various points, from each corner of the map and observe the hunter.
-    - Result: The hunter is obscured by trees and rocks that are lower down (and therefore should be 'in front' of the hunter), and a faint overlay of the hunter is displayed in the correct position
+    - Result: The hunter is obscured by trees and rocks that are lower down (and therefore should be 'in front' of the hunter), and a faint overlay of the hunter is displayed in the correct position.
 
-- Check if the hint message is functioning correctly
+- Check if the hint message is functioning correctly.
   
   - Test: Begin the game and locate a piece of treasure using the hint message, checking against the console log which displays the locations of the 2 treasures, and observe the outcome.
     - Result: The hint message displays the text "red-hot" at the treasure location and at an acceptable radius around it (2-3 cells). 
@@ -230,24 +232,24 @@ With a pathfinding algorithm, it would be possible for another entity to hunt do
   - Test: Begin the game, find 2 of the 3 treasures and move as far away from the remaining treasure as possible to verify the hint message is correct at long distances.
     - Result: Beyond a certain distance to the treasure, the hint message will display the text "Absolute zero" (about 28 cells).
   
-- Check the treasures found indicator is working correctly
+- Check the treasures found indicator is working correctly.
   - Test: Begin the game, find and dig up a treasure. Observe the outcome.
     - Result: A crown image appears in the correct position after the first treasure is found. The second crown image appears after the second treasure is found. The third crown image appears after the third treasure is found. Due to the way in which elements are styled, it is only possible to see the third crown on smaller screen sizes, but by this point the win modal is visible to inform the player that they have found the third treasure.
 
-- Check features and treasure locations are randomly generated
+- Check features and treasure locations are randomly generated.
   - Test: Restart the game several times, observing the distribution of the trees, rocks and elevation, and check the treasure locations in the console log.
     - Result: The trees, rocks, elevation and treasure distribution are different every time.
 
-- Check that the timer works correctly and the log of holes dug is correct
+- Check that the timer works correctly and the log of holes dug is correct.
   - Test: Use a stopwatch to time how long a game takes and make a note of how many holes are dug over the course of the game. Compare to the win modal message.
     - Result: The timer and hole counter are accurate.
 
 ## Validator Testing
 
-- No errors were returned when passing through the [W3C HTML Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html)
-- No errors were returned when passing through the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
-- No errors were found when passing through the [JSHint Code Analysis Tool](https://jshint.com/)
-- No errors or alerts were returned when passing through the [WAVE Web Accessibility Evaluation tool](https://wave.webaim.org/report#/https://bezabu.github.io/bb-treasure-hunter/index.html)
+- No errors were returned when passing through the [W3C HTML Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html).
+- No errors were returned when passing through the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en).
+- No errors were found when passing through the [JSHint Code Analysis Tool](https://jshint.com/).
+- No errors or alerts were returned when passing through the [WAVE Web Accessibility Evaluation tool](https://wave.webaim.org/report#/https://bezabu.github.io/bb-treasure-hunter/index.html).
 
 ## Unfixed Bugs
 
@@ -258,10 +260,10 @@ With a pathfinding algorithm, it would be possible for another entity to hunt do
 
 The site was deployed to GitHub pages. The steps to deploy are as follows:
 
-- In the GitHub repository, navigate to the Settings tab
-- From the source section drop-down menu, select the Master Branch
+- In the GitHub repository, navigate to the Settings tab.
+- From the source section drop-down menu, select the Master Branch.
 - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
-- The live link can be found here: [https://bezabu.github.io/bb-treasure-hunter/](https://bezabu.github.io/bb-treasure-hunter/)
+- The live link can be found here: [https://bezabu.github.io/bb-treasure-hunter/](https://bezabu.github.io/bb-treasure-hunter/).
 
 # Credits
 
@@ -269,7 +271,7 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
 
 - Images used for trees, rocks, crowns and holes were made by me using Blender and Paint.NET
 
-- The hunter sprite set was taken from [this tutorial](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1) and has been made [free for public use](https://flarerpg.org/) by the artist, [Clint Bellanger](https://clintbellanger.net/)
+- The hunter sprite set was taken from [this tutorial](https://programmingmind.net/demo/isometric-game-development-in-html-5-canvas-part-1) and has been made [free for public use](https://flarerpg.org/) by the artist, [Clint Bellanger](https://clintbellanger.net/).
 
 - The shovel and hole in the ground image used in the 404 page was taken from [creazilla](https://creazilla.com/nodes/7766525-hole-in-the-ground-clipart) and is "free for editorial, educational, commercial, and/or personal projects. No attribution required."
 
@@ -277,12 +279,11 @@ The site was deployed to GitHub pages. The steps to deploy are as follows:
 
 - The content has been coded by me, Benjamin Butler. 
 
-- Instructions on how to convert to isometric coordinates were taken from [this tutorial](https://clintbellanger.net/articles/isometric_math/)
+- Instructions on how to convert to isometric coordinates were taken from [this tutorial](https://clintbellanger.net/articles/isometric_math/).
   
-- Instructions on how to use canvas to animate sprites were taken from this [youtube tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c)
+- Instructions on how to use canvas to animate sprites were taken from this [youtube tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c).
   
-- Insctructions on how to use canvas were taken from this [tutorial(part of developer documentation)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+- Insctructions on how to use canvas were taken from this [tutorial(part of developer documentation)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
 
-- Instructions on how to use 2 dimensional arrays were taken from [this stackoverflow thread](https://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript)
+- Instructions on how to use 2 dimensional arrays were taken from [this stackoverflow thread](https://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript).
 
-## other
