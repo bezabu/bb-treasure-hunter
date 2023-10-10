@@ -188,7 +188,6 @@ let treasureList = [];
 for (let i = 0; i < treasureCount; i++) {
     let treasureAssigned = 0;
     while (treasureAssigned == 0) {
-        console.log('Assigning treasure...');
         let thisX = Math.floor(myGetRandomInt(rows - 8) + 4);
         let thisY = Math.floor(myGetRandomInt(columns - 8) + 4);
         /* check if location suitable and if so, create the treasure, add it 
@@ -201,12 +200,10 @@ for (let i = 0; i < treasureCount; i++) {
                 y: thisY
             }; //create an object with the treasure's position on the map
             treasureList.push(thisTreasure);
-            console.log(`treasure hidden at ${thisX},${thisY}`);
             treasureAssigned = 1;
         }
     }
 }
-console.log('initialization complete');
 sortImages();
 
 //functions
@@ -306,11 +303,9 @@ function moveDown() {
 }
 //dig for treasure
 function dig(x, y) {
-    console.log(`digging at ${Math.round(x, 0)},${Math.round(y, 0)}...`);
     //determine the contents of the tile
     switch (featureMap[Math.round(x, 0)][Math.round(y, 0)]) {
         case 4: { //treasure tile
-            console.log("Found treasure!");
             featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5;
             //remove treasure from treasurelist
             let rightTreasure = ""; //find the right object in treasureList
@@ -333,19 +328,16 @@ function dig(x, y) {
             break;
         }
         case 0: {//empty tile
-            console.log("No treasure!");
             featureMap[Math.round(x, 0)][Math.round(y, 0)] = 5; //mark as dug
             digLog++;
             break;
         }
         case 5: {//previously dug up tile
-            console.log("Already dug here!");
             break;
         }
         case 1: //trees
         case 2: //rocks
         case 3: { //water
-            console.log("Cannot dig here!");
             break;
         }
     }
