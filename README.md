@@ -248,7 +248,11 @@ With a pathfinding algorithm, it would be possible for another entity to hunt do
 
 - No errors were returned when passing through the [W3C HTML Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html).
 - No errors were returned when passing through the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbezabu.github.io%2Fbb-treasure-hunter%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en).
-- No errors were found when passing through the [JSHint Code Analysis Tool](https://jshint.com/).
+- No errors were found when passing through the [JSHint Code Analysis Tool](https://jshint.com/);
+  - There are 58 functions in this file.
+  - Function with the largest signature take 8 arguments, while the median is 0.
+  - Largest function has 40 statements in it, while the median is 3.
+  - The most complex function has a cyclomatic complexity value of 14 while the median is 1.
 - No errors or alerts were returned when passing through the [WAVE Web Accessibility Evaluation tool](https://wave.webaim.org/report#/https://bezabu.github.io/bb-treasure-hunter/index.html).
 
 ## Unfixed Bugs
